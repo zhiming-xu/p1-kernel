@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Simplifying the dev workflow - p1-kernel</title>
+        <title>dump - p1-kernel</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -66,8 +66,8 @@
                             <li class="navitem">
                                 <a href="../ssh-proxy/" class="nav-link">ssh</a>
                             </li>
-                            <li class="navitem">
-                                <a href="../dump/" class="nav-link">dump</a>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">dump</a>
                             </li>
                         </ul>
 
@@ -77,6 +77,16 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../ssh-proxy/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" class="nav-link disabled">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
                     </ul>
                 </div>
             </div>
@@ -95,21 +105,29 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#simplifying-the-dev-workflow" class="nav-link">Simplifying the dev workflow</a>
+            <li class="nav-item" data-level="1"><a href="#inspect-kernel-binary" class="nav-link">Inspect kernel binary</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#motivation" class="nav-link">Motivation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#is-it-safe-to" class="nav-link">Is it safe to ...?</a>
+            <li class="nav-item" data-level="2"><a href="#list-all-symbols-addresses" class="nav-link">List all symbols &amp; addresses</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#the-manual-workflow" class="nav-link">The manual workflow</a>
+            <li class="nav-item" data-level="2"><a href="#kernel-disassembly" class="nav-link">Kernel disassembly</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#disassemble-the-whole-kernel" class="nav-link">Disassemble the whole kernel</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#the-automated-workflow" class="nav-link">The automated workflow</a>
+            <li class="nav-item" data-level="3"><a href="#disassemble-a-specific-address-range" class="nav-link">Disassemble a specific address range</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#disassemble-a-specific-function" class="nav-link">Disassemble a specific function</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#dump-a-section-as-raw-bytes" class="nav-link">Dump a section as raw bytes</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -120,37 +138,102 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="simplifying-the-dev-workflow">Simplifying the dev workflow</h1>
-<p>This is for developing for the actual Rpi3 hardware. Does not apply if you use QEMU. </p>
-<h2 id="motivation">Motivation</h2>
-<p>You may have found that building &amp; testing the kernel requires tedious manual effort. Here are some steps to simplify the workflow, so that we can focus on kernel hacking. </p>
-<p>You should proceed only after having verified your hardware setup is correct. </p>
-<h2 id="is-it-safe-to">Is it safe to ...?</h2>
-<h4 id="unplug-the-micro-sd-card-usd-when-rpi3-is-powered-on">Unplug the micro SD card (uSD) when Rpi3 is powered on?</h4>
-<p><strong>Safe</strong>. Doing so when Rpi3 runs a full-fledged OS, e.g. Raspbian OS, may corrupt data because the OS caches data in memory. Our tiny kernel does not attempt to write any data to the micro SD. </p>
-<h4 id="plug-in-a-micro-sd-card-when-rpi3-is-powered-on">Plug in a micro SD card when Rpi3 is powered on?</h4>
-<p><strong>Safe</strong>. Then you can power-cycle the Rpi3 so </p>
-<h4 id="disconnect-the-serial-cable-when-rpi3-is-on">Disconnect the serial cable when Rpi3 is on?</h4>
-<p><strong>Safe</strong>. If your Rpi3 is powered over the serial cable -- no state to lose. If you Rpi3 is powered over micro USB: why disconnect the serial cable frequently? </p>
-<h4 id="unplug-micro-sd-from-pc-without-ejectingunmounting-from-the-pc-os">Unplug micro SD from PC without "ejecting/unmounting" from the PC OS?</h4>
-<p><strong>Safe</strong>. See <a href="https://docs.microsoft.com/en-us/windows/client-management/change-default-removal-policy-external-storage-media">here</a>. </p>
-<h2 id="the-manual-workflow">The manual workflow</h2>
-<p>(Once) Connect Rpi3 and PC via the serial cable. </p>
-<p>Repeat: </p>
-<ol>
-<li>Modify our kernel source if needed. Make kernel8.img</li>
-<li>Unplug uSD from Rpi3. Rpi3 does not have to be powered off. </li>
-<li>Plug in uSD to the card reader on PC. </li>
-<li>Copy kernel8.img to the uSD's boot partition. Overwrite the previous kernel8.img.</li>
-<li>Eject/umount uSD from PC. </li>
-<li>Plug in uSD to Rpi3.</li>
-<li>Power-cycle Rpi3. Wait for the kernel to execute. See output. Reason about it. </li>
-</ol>
-<h2 id="the-automated-workflow">The automated workflow</h2>
-<p>Depending on your PC OS: </p>
-<p>Linux: there's a Python script which you can adapt. </p>
-<p>Windows (WSL): (contribute your experience)</p>
-<p>OSX: (contribute your experience)</p></div>
+<h1 id="inspect-kernel-binary">Inspect kernel binary</h1>
+<h2 id="list-all-symbols-addresses">List all symbols &amp; addresses</h2>
+<pre><code>$ nm build/kernel8.elf
+</code></pre>
+<p>Sample output: <a href="https://github.com/fxlin/p1-kernel/blob/master/src/lesson06/kernel8.nm">kernel8.nm</a></p>
+<pre><code class="language-assembly">ffff000000082934 t a2d
+ffff0000000829b4 t a2i
+...
+ffff000000085130 B bss_begin
+ffff000000102944 B bss_end
+...
+ffff000000081000 T user_begin
+ffff0000000810c8 T user_delay
+ffff00000008112e R user_end
+ffff00000008105c T user_process
+</code></pre>
+<p>Format: "link address" - "symbol type" - "symbol name"</p>
+<h2 id="kernel-disassembly">Kernel disassembly</h2>
+<h3 id="disassemble-the-whole-kernel">Disassemble the whole kernel</h3>
+<pre><code>aarch64-linux-gnu-objdump -dS build/kernel8.elf
+</code></pre>
+<p>Explanation: -d disassembly; -S interleave assembly instructions with source</p>
+<p>Sample output: <a href="https://github.com/fxlin/p1-kernel/blob/master/src/lesson06/kernel8.objdump">kernel8.objdump</a></p>
+<pre><code class="language-assembly">build/kernel8.elf:     file format elf64-littleaarch64
+Disassembly of section .text.boot:
+ffff000000080000 &lt;_start&gt;:
+.section &quot;.text.boot&quot;
+.globl _start
+_start:
+        mrs     x0, mpidr_el1
+ffff000000080000:       d53800a0        mrs     x0, mpidr_el1
+        and     x0, x0,#0xFF            // Check processor id
+ffff000000080004:       92401c00        and     x0, x0, #0xff
+...
+void user_process()
+{
+ffff00000008105c:       a9be7bfd        stp     x29, x30, [sp, #-32]!
+ffff000000081060:       910003fd        mov     x29, sp
+        call_sys_write(&quot;User process\n\r&quot;);
+ffff000000081064:       90000000        adrp    x0, ffff000000081000 &lt;loop&gt;
+ffff000000081068:       9103e000        add     x0, x0, #0xf8
+ffff00000008106c:       9400001a        bl      ffff0000000810d4 &lt;call_sys_write&gt;
+        int pid = call_sys_fork();
+ffff000000081070:       9400001f        bl      ffff0000000810ec &lt;call_sys_fork&gt;
+ffff000000081074:       b9001fa0        str     w0, [x29, #28]
+...
+</code></pre>
+<h3 id="disassemble-a-specific-address-range">Disassemble a specific address range</h3>
+<pre><code>aarch64-linux-gnu-objdump -dS build/kernel8.elf \
+--start-address=0xffff000000081000 \
+--stop-address=0xffff00000008112e 
+</code></pre>
+<p>Sample output: </p>
+<pre><code>build/kernel8.elf:     file format elf64-littleaarch64
+Disassembly of section .text.user:
+ffff000000081000 &lt;loop&gt;:
+#include &quot;user_sys.h&quot;
+#include &quot;user.h&quot;
+#include &quot;printf.h&quot;
+
+void loop(char* str)
+{
+ffff000000081000:       a9bd7bfd        stp     x29, x30, [sp, #-48]!
+ffff000000081004:       910003fd        mov     x29, sp
+ffff000000081008:       f9000fa0        str     x0, [x29, #24]
+        char buf[2] = {&quot;&quot;};
+ffff00000008100c:       790053bf        strh    wzr, [x29, #40]
+        while (1){
+</code></pre>
+<h3 id="disassemble-a-specific-function">Disassemble a specific function</h3>
+<pre><code>gdb -batch -ex 'file build/kernel8.elf' -ex 'disassemble /mr loop'
+</code></pre>
+<p>Sample output:</p>
+<pre><code class="language-assembly">Dump of assembler code for function loop:
+6       {
+   0x00081000 &lt;+0&gt;:     fd      std
+   0x00081001 &lt;+1&gt;:     7b bd   jnp    0x80fc0
+   0x00081003 &lt;+3&gt;:     a9 fd 03 00 91  test   $0x910003fd,%eax
+   0x00081008 &lt;+8&gt;:     a0 0f 00 f9 bf  mov    0xbff9000f,%al
+
+7               char buf[2] = {&quot;&quot;};
+</code></pre>
+<h2 id="dump-a-section-as-raw-bytes">Dump a section as raw bytes</h2>
+<pre><code>aarch64-linux-gnu-objdump -s -j .rodata build/kernel8.elf
+</code></pre>
+<p>Explanation: -j specify which elf section (.rodata in this example) to dump. </p>
+<p>Sample output: </p>
+<pre><code>Contents of section .rodata:                                                                                                         [0/1839] ffff0000000849a8 4b65726e 656c2070 726f6365 73732073  Kernel process s
+ ffff0000000849b8 74617274 65642e20 454c2025 640d0a00  tarted. EL %d...
+ ffff0000000849c8 4572726f 72207768 696c6520 6d6f7669  Error while movi
+ ffff0000000849d8 6e672070 726f6365 73732074 6f207573  ng process to us
+ ffff0000000849e8 6572206d 6f64650a 0d000000 00000000  er mode.........
+ ffff0000000849f8 6b65726e 656c2062 6f6f7473 202e2e2e  kernel boots ...
+ ffff000000084a08 0a0d0000 00000000 6572726f 72207768  ........error wh
+ ffff000000084a18 696c6520 73746172 74696e67 206b6572  ile starting ker
+</code></pre></div>
             </div>
         </div>
 
