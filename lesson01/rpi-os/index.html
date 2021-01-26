@@ -455,7 +455,7 @@ _start:
 <pre><code>    mov    sp, #LOW_MEMORY
     bl    kernel_main
 </code></pre>
-<p><img src="figures/mem-0.png" alt="fig-mem" style="zoom:20%;" /></p>
+<p><img alt="" src="../figures/mem-0.png" /></p>
 <p>After cleaning the <code>.bss</code> section, the kernel initializes the stack pointer and passes execution to the <code>kernel_main</code> function. The Rpi3 loads the kernel at address 0 (QEMU loads at 0x80000); that's why the initial stack pointer can be set to any location high enough so that stack will not override the kernel image when it grows sufficiently large. <code>LOW_MEMORY</code> is defined in <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson01/include/mm.h">mm.h</a> and is equal to 4MB. As our kernel's stack won't grow very large and the image itself is tiny, 4MB is more than enough for us. </p>
 <p><strong>Aside: Some ARM64 instructions used</strong> </p>
 <p>For those of you who are not familiar with ARM assembler syntax, let me quickly summarize the instructions that we have used:</p>
