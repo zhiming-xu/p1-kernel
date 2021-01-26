@@ -592,7 +592,7 @@ At run time, when we reach "br kernel_main", PC is 0x80. Executing the instructi
 <h3 id="aside-our-user-symbol-addresses">Aside: our user symbol addresses</h3>
 <p>As user programs will be linked as part the kernel binary, the linker will place all user symbols (functions &amp; variables) in the kernel's address space (0xffff000000000000 onwards). You can verify this by, e.g. <code>nm kernel8.elf|grep " user_"</code>. How could such user programs work?</p>
 <p>We rely on an assumption: our user programs are simple enough; they always address memory with register-relative offsets but not absolute address. You can verify this by disassembly. However, if our programs, e.g. call functions via pointers, the entailed long jmp will target absolute virtual address inside kernel and will trigger exception. </p>
-<p>This assumption can't go a long way. The right solution would be link user programs and kernel separately. </p>
+<p>This assumption can't go a long way. The right solution would be linking user programs and kernel separately. </p>
 <p>Right now there are 2 files that are compiled in the user region.</p>
 <ul>
 <li><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson06/src/user_sys.S">user_sys.S</a> This file contains definitions of the syscall wrapper functions. The RPi OS still supports the same syscalls as in the previous lesson, with the exception that now instead of <code>clone</code> syscall we are going to use <code>fork</code> syscall. The difference is that <code>fork</code> copies process virtual memory, and that is something we want to try doing.</li>
