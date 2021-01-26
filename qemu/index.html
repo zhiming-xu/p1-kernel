@@ -8,7 +8,7 @@
         
         
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>gdb - p1-kernel</title>
+        <title>QEMU cheetsheet - p1-kernel</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -57,8 +57,8 @@
                             <li class="navitem">
                                 <a href="../lesson06/rpi-os/" class="nav-link">exp6</a>
                             </li>
-                            <li class="navitem active">
-                                <a href="./" class="nav-link">gdb</a>
+                            <li class="navitem">
+                                <a href="../gdb/" class="nav-link">gdb</a>
                             </li>
                             <li class="navitem">
                                 <a href="../cheatsheet/" class="nav-link">cheatsheet</a>
@@ -74,16 +74,6 @@
                                 <i class="fa fa-search"></i> Search
                             </a>
                         </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../lesson06/rpi-os/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../cheatsheet/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
                     </ul>
                 </div>
             </div>
@@ -102,17 +92,29 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#on-using-gdb" class="nav-link">On using GDB</a>
+            <li class="nav-item" data-level="1"><a href="#qemu-cheetsheet" class="nav-link">QEMU cheetsheet</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#installation" class="nav-link">Installation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#launch" class="nav-link">Launch</a>
+            <li class="nav-item" data-level="2"><a href="#add-qemu-to-path" class="nav-link">Add QEMU to PATH</a>
               <ul class="nav flex-column">
               </ul>
             </li>
-            <li class="nav-item" data-level="2"><a href="#troubleshooting" class="nav-link">Troubleshooting</a>
+            <li class="nav-item" data-level="2"><a href="#launch-the-kernel" class="nav-link">Launch the kernel</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#launch-the-kernel-in-debug-mode" class="nav-link">Launch the kernel in debug mode</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#launch-the-kernel-with-monitor" class="nav-link">Launch the kernel with monitor</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#run-the-kernel-with-tracing" class="nav-link">Run the kernel with tracing</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#putting-everything-in-one-file-env-qemush" class="nav-link">Putting everything in one file (env-qemu.sh)</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -127,38 +129,58 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="on-using-gdb">On using GDB</h1>
-<h2 id="installation">Installation</h2>
-<p>Linux or WSL: </p>
-<pre><code>sudo apt install gdb-multiarch gcc-aarch64-linux-gnu build-essential 
+<h1 id="qemu-cheetsheet">QEMU cheetsheet</h1>
+<h2 id="add-qemu-to-path">Add QEMU to PATH</h2>
+<pre><code># assuming the qemu source tree has been built, and it is under ./qemu
+export PATH=&quot;$(pwd)/qemu/aarch64-softmmu:${PATH}&quot;
 </code></pre>
-<p>Note: the gdb for aarch64 is not called aarch64-XXXX-gdb.</p>
-<h2 id="launch">Launch</h2>
-<p>From one terminal </p>
-<pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -s -S 
+<h2 id="launch-the-kernel">Launch the kernel</h2>
+<pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio
 </code></pre>
-<p>From another terminal </p>
-<pre><code>gdb-multiarch build/kernel8.elf 
-(gdb) target remote :1234 
-(gdb)layout asm 
+<p>Explanation: 
+* -M machine type
+* Two "-serial" options correspond to the two UARTs of Rpi3 as emulated by QEMU. Our kernel writes message to the 2nd one. So we tell QEMU to redirect the 2nd UART to stdio. </p>
+<h2 id="launch-the-kernel-in-debug-mode">Launch the kernel in debug mode</h2>
+<pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -s -S
 </code></pre>
-<p>Single step </p>
-<pre><code>(gdb) si 
+<h2 id="launch-the-kernel-with-monitor">Launch the kernel with monitor</h2>
+<pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -monitor stdio
 </code></pre>
-<p><img alt="gdb-si" src="../images/gdb-si.png" /></p>
-<p>Dump register contents</p>
-<pre><code>(gdb) info reg 
+<h2 id="run-the-kernel-with-tracing">Run the kernel with tracing</h2>
+<pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -d int -D test.log 
 </code></pre>
-<p><img alt="gdb-reg" src="../images/gdb-reg.png" /></p>
-<h2 id="troubleshooting">Troubleshooting</h2>
-<p>"gdbserver: Target description specified unknown architecture “aarch64” 
-https://stackoverflow.com/questions/53524546/gdbserver-target-description-specified-unknown-architecture-aarch64 
-It seems GDB server does not play well with WSL… be aware! </p>
+<p>Explanation: -d int ---&gt; enable interrupt dedug       -D test.log  ----&gt; put debug msg to a file test.log</p>
+<h2 id="putting-everything-in-one-file-env-qemush">Putting everything in one file (env-qemu.sh)</h2>
+<pre><code># change the line as needed
+export PATH=&quot;$(pwd)/qemu/aarch64-softmmu:${PATH}&quot;
+
+run-uart0() {
+   qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial stdio
+}
+
+run() {
+    qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio
+}
+
+run-mon() {
+    qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -monitor stdio
+}
+
+run-debug() {
+    qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -s -S
+}
+</code></pre>
+<p>To use: </p>
+<pre><code>$ source env-qemu.sh
+# change to dir where kernel8.img resides
+
+$ run
+VNC server running on 127.0.0.1:5900
+kernel boots...
+interval is set to: 67108864
+</code></pre>
 <h2 id="reference">Reference</h2>
-<p>Launch qemu with gdb </p>
-<p>https://en.wikibooks.org/wiki/QEMU/Debugging_with_QEMU#Launching_QEMU_from_GDB </p>
-<p>more info about gdb for kernel debuggging </p>
-<p>https://wiki.osdev.org/Kernel_Debugging </p></div>
+<p>https://wiki.osdev.org/QEMU</p></div>
             </div>
         </div>
 

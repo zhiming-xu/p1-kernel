@@ -164,6 +164,7 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="3-interrupts">3: Interrupts</h1>
+<p><img alt="" src="../images/qemu-timer.gif" /></p>
 <h2 id="objectives">Objectives</h2>
 <p>We will build a baremetal program that prints out messages, as driven by periodic interrupts from a hardware timer. </p>
 <p>You will learn and experience with: </p>
@@ -528,7 +529,33 @@ void timer_init ( void )
 <pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -d int -D test.log 
 </code></pre>
 <p>Explanation: -d int ---&gt; enable interrupt dedug       -D test.log  ----&gt; put debug msg to a file test.log</p>
-<p><img src="qemu-irq.png" style="zoom:50%;" /></p>
+<p>Sample log from executing this project:</p>
+<pre><code>Exception return from AArch64 EL2 to AArch64 EL1 PC 0x80038
+Taking exception 5 [IRQ]
+...from EL1 to EL1
+...with ESR 0x0/0x0
+...with ELR 0x8095c
+...to EL1 PC 0x81a80 PSTATE 0x3c5
+Exception return from AArch64 EL1 to AArch64 EL1 PC 0x8095c
+Taking exception 5 [IRQ]
+...from EL1 to EL1
+...with ESR 0x0/0x0
+...with ELR 0x8095c
+...to EL1 PC 0x81a80 PSTATE 0x3c5
+Exception return from AArch64 EL1 to AArch64 EL1 PC 0x8095c
+Taking exception 5 [IRQ]
+...from EL1 to EL1
+...with ESR 0x0/0x0
+...with ELR 0x8095c
+...to EL1 PC 0x81a80 PSTATE 0x3c5
+Exception return from AArch64 EL1 to AArch64 EL1 PC 0x8095c
+Taking exception 5 [IRQ]
+...from EL1 to EL1
+...with ESR 0x0/0x0
+...with ELR 0x8095c
+...to EL1 PC 0x81a80 PSTATE 0x3c5
+Exception return from AArch64 EL1 to AArch64 EL1 PC 0x8095c
+</code></pre>
 <h2 id="conclusion">Conclusion</h2>
 <p>The last thing that you might want to take a look at is the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson03/src/kernel.c#L7">kernel_main</a> function where all previously discussed functionality is orchestrated. After you compile and run the sample it should print "Timer interrupt received" message after an interrupt is taken. Please, try to do it by yourself and don't forget to carefully examine the code and experiment with it.</p></div>
             </div>
