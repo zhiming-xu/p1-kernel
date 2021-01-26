@@ -530,10 +530,10 @@ void kernel_main(void)
 <p>The above information is enough. More about Raspberry Pi UARTs: see the <a href="https://www.raspberrypi.org/documentation/configuration/uart.md">official web page</a>. </p>
 <h3 id="gpio">GPIO</h3>
 <p>Another IO device is GPIO <a href="https://en.wikipedia.org/wiki/General-purpose_input/output">General-purpose input/output</a>. GPIO provides a bunch of registers. Each bit in such a register corresponds to a pin on the Rpi3 board. By writing 1 or 0 to register bits, software can control the output voltage on the pins, e.g. for turning on/off LEDs connected to such pins. Reading is done in a similar fashion. The picture below shows GPIO pin headers populated on Rpi3. (Note: the picture shows Rpi2, which has the same pinout as Rpi3)</p>
-<p><img src="../../images/gpio-pins.jpg" alt="Raspberry Pi GPIO pins" style="zoom: 33%;" /></p>
+<p><img alt="" src="../../images/gpio-pins.jpg" /></p>
 <p>An SoC often has limited number of pins. Software can control the use of these pins, e.g. for GPIO or for UART. Software does so by writing to specific memory-mapped registers. </p>
 <p>The GPIO can be used to configure the behavior of different GPIO pins. For example, to be able to use the Mini UART, we need to activate pins 14 and 15 and set them up to use this device. The image below illustrates how numbers are assigned to the GPIO pins:</p>
-<p><img src="../../images/gpio-numbers.png" alt="Raspberry Pi GPIO pin numbers" style="zoom: 50%;" /></p>
+<p><img alt="" src="../../images/gpio-numbers.png" /></p>
 <h2 id="walkthrough-the-uart-code">Walkthrough: the UART code</h2>
 <p>The following init code configures pin 14 &amp; 15 as UART in/out, sets up UART clock and its modes, etc. </p>
 <blockquote>
@@ -571,9 +571,9 @@ void kernel_main(void)
 <h3 id="init-gpio-alternative-function-selection">Init: GPIO alternative function selection</h3>
 <p>First, we need to activate the GPIO pins. Most of the pins can be used with different IO devices. So before using a particular pin, we need to select the pin's alternative function,  a number from 0 to 5 that can be set for each pin and configures which IO device is virtually "connected" to the pin. </p>
 <p>See the list of all available GPIO alternative functions in the image below (taken from page 102 of the SoC manual)</p>
-<p><img alt="Raspberry Pi GPIO alternative functions" src="../../images/alt.png?raw=true" /></p>
+<p><img alt="Raspberry Pi GPIO alternative functions" src="../../images/alt.png" /></p>
 <p>Here you can see that pins 14 and 15 have the TXD1 and RXD1 alternative functions available. This means that if we select alternative function number 5 for pins 14 and 15, they will be used as a Mini UART Transmit Data pin and Mini UART Receive Data pin, respectively. The <code>GPFSEL1</code> register is used to control alternative functions for pins 10-19. The meaning of all the bits in those registers is shown in the following table (page 92 of the SoC manual):</p>
-<p><img alt="Raspberry Pi GPIO function selector" src="../../images/gpfsel1.png?raw=true" /></p>
+<p><img alt="Raspberry Pi GPIO function selector" src="../../images/gpfsel1.png" /></p>
 <p>So now you know everything you need to understand the following lines of code that are used to configure GPIO pins 14 and 15 to work with the Mini UART device:</p>
 <pre><code>    unsigned int selector;
 
