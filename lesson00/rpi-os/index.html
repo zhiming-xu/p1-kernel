@@ -186,14 +186,20 @@ aarch64-linux-gnu-gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
 <p>This is where you run the kernel code. </p>
 <h3 id="approach-1-the-real-hardware">Approach 1: the real hardware</h3>
 <h4 id="check-list">Check list</h4>
-<ul>
-<li><strong>Required:</strong> An Rpi3 board (Model B or B+) <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">link</a></li>
-</ul>
-<p><img src="figures\rpi3.jpg" alt="img" style="zoom: 50%;" /></p>
-<ul>
-<li><strong>Required:</strong> A USB to TTL serial cable <a href="https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&amp;field-keywords=usb+to+ttl+serial+cable&amp;rh=i%3Aaps%2Ck%3Ausb+to+ttl+serial+cable">Amazon</a>. Connection <strong>inside</strong> the dongle: black-GND; green-TXD; white-RXD; red-VCC.</li>
-</ul>
-<p><img src="figures\uartcable.jpg" alt="uart-cable" style="zoom:33%;" /></p>
+<table>
+<thead>
+<tr>
+<th><img alt="" src="../figures/rpi3.jpg" /></th>
+<th><img alt="" src="../figures/uartcable.jpg" /></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Required:</strong> An Rpi3 board (Model B or B+) <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">link</a></td>
+<td><strong>Required:</strong> A USB to TTL serial cable <a href="https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&amp;field-keywords=usb+to+ttl+serial+cable&amp;rh=i%3Aaps%2Ck%3Ausb+to+ttl+serial+cable">Amazon</a>. Connection <strong>inside</strong> the dongle: black-GND; green-TXD; white-RXD; red-VCC.</td>
+</tr>
+</tbody>
+</table>
 <ul>
 <li>
 <p><strong>Required:</strong> A micro SD card. The capacity can be humble (e.g. 4GB). The speed does not matter much. The one I used was $6.  <a href="[https://www.raspberrypi.org/documentation/installation/sd-cards.md">Rpi's official page about uSD</a>)</p>
@@ -221,7 +227,7 @@ Rpi3 &lt;-- micro USB ---&gt; Wall charger
 <p>Power cycling Rpi3, you should see Linux kernel console output on PC terminal. </p>
 <h4 id="an-example-setup">An example setup</h4>
 <p>This is my desktop when I hack with the Rpi3 kernel. </p>
-<p><img src="figures/setup.png" style="zoom:67%;" /></p>
+<p><img alt="" src="../setup.png" /></p>
 <h4 id="test-your-dev-workflow">Test your dev workflow</h4>
 <h5 id="background-whats-on-sd-card">Background: what's on SD card?</h5>
 <p>On powering up, Rpi3 looks for the following files on <code>boot</code> partition of the SD card. </p>
