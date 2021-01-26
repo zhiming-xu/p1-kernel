@@ -7,15 +7,15 @@
         
         
         
-        <link rel="shortcut icon" href="../../img/favicon.ico">
-        <title>Exercises - p1-kernel</title>
-        <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>On using GDB - p1-kernel</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
 
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
         <script>hljs.initHighlightingOnLoad();</script> 
     </head>
@@ -23,7 +23,7 @@
     <body>
         <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
-                <a class="navbar-brand" href="../..">p1-kernel</a>
+                <a class="navbar-brand" href="..">p1-kernel</a>
                 <!-- Expander button -->
                 <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
                     <span class="navbar-toggler-icon"></span>
@@ -34,33 +34,33 @@
                         <!-- Main navigation -->
                         <ul class="nav navbar-nav">
                             <li class="navitem">
-                                <a href="../.." class="nav-link">A tiny, modern kernel for Raspberry Pi 3</a>
+                                <a href=".." class="nav-link">A tiny, modern kernel for Raspberry Pi 3</a>
                             </li>
                             <li class="navitem">
-                                <a href="../../cheatsheet/" class="nav-link">ARMv8 cheat sheet</a>
+                                <a href="../cheatsheet/" class="nav-link">ARMv8 cheat sheet</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">On using GDB</a>
                             </li>
                             <li class="navitem">
-                                <a href="../../gdb/" class="nav-link">On using GDB</a>
+                                <a href="../rationales/" class="nav-link">Rationales</a>
                             </li>
                             <li class="navitem">
-                                <a href="../../rationales/" class="nav-link">Rationales</a>
+                                <a href="../ssh-proxy/" class="nav-link">Access the CS servers</a>
                             </li>
                             <li class="navitem">
-                                <a href="../../ssh-proxy/" class="nav-link">Access the CS servers</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../workflow/" class="nav-link">Simplifying the dev workflow</a>
+                                <a href="../workflow/" class="nav-link">Simplifying the dev workflow</a>
                             </li>
                             <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson00 <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../lesson00/exercises/" class="dropdown-item">Exercises</a>
+    <a href="../lesson00/exercises/" class="dropdown-item">Exercises</a>
 </li>
                                     
 <li>
-    <a href="../../lesson00/rpi-os/" class="dropdown-item">0: Sharpen your tools</a>
+    <a href="../lesson00/rpi-os/" class="dropdown-item">0: Sharpen your tools</a>
 </li>
                                 </ul>
                             </li>
@@ -69,11 +69,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../lesson01/exercises/" class="dropdown-item">Exercises</a>
+    <a href="../lesson01/exercises/" class="dropdown-item">Exercises</a>
 </li>
                                     
 <li>
-    <a href="../../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
+    <a href="../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -81,15 +81,15 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
+    <a href="../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
 </li>
             
 <li>
-    <a href="../../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
+    <a href="../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
 </li>
             
 <li>
-    <a href="../../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
+    <a href="../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
 </li>
     </ul>
   </li>
@@ -100,15 +100,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../lesson02/exercises/" class="dropdown-item">Exercises</a>
+    <a href="../lesson02/exercises/" class="dropdown-item">Exercises</a>
 </li>
                                     
 <li>
-    <a href="../../lesson02/linux/" class="dropdown-item">Linux</a>
+    <a href="../lesson02/linux/" class="dropdown-item">Linux</a>
 </li>
                                     
 <li>
-    <a href="../../lesson02/rpi-os/" class="dropdown-item">2: Processor initialization</a>
+    <a href="../lesson02/rpi-os/" class="dropdown-item">2: Processor initialization</a>
 </li>
                                 </ul>
                             </li>
@@ -117,11 +117,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../lesson03/exercises/" class="dropdown-item">Exercises</a>
+    <a href="../lesson03/exercises/" class="dropdown-item">Exercises</a>
 </li>
                                     
 <li>
-    <a href="../../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
+    <a href="../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -129,30 +129,30 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
+    <a href="../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
 </li>
             
 <li>
-    <a href="../../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
+    <a href="../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
 </li>
             
 <li>
-    <a href="../../lesson03/linux/timer/" class="dropdown-item">Timer</a>
+    <a href="../lesson03/linux/timer/" class="dropdown-item">Timer</a>
 </li>
     </ul>
   </li>
                                 </ul>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04a <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active">Exercises</a>
+    <a href="../lesson04a/exercises/" class="dropdown-item">Exercises</a>
 </li>
                                     
 <li>
-    <a href="../rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
+    <a href="../lesson04a/rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -160,15 +160,15 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../linux/basic_structures/" class="dropdown-item">Basic structures</a>
+    <a href="../lesson04a/linux/basic_structures/" class="dropdown-item">Basic structures</a>
 </li>
             
 <li>
-    <a href="../linux/fork/" class="dropdown-item">Fork</a>
+    <a href="../lesson04a/linux/fork/" class="dropdown-item">Fork</a>
 </li>
             
 <li>
-    <a href="../linux/scheduler/" class="dropdown-item">Scheduler</a>
+    <a href="../lesson04a/linux/scheduler/" class="dropdown-item">Scheduler</a>
 </li>
     </ul>
   </li>
@@ -179,11 +179,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../lesson04b/exercises/" class="dropdown-item">Exercises</a>
+    <a href="../lesson04b/exercises/" class="dropdown-item">Exercises</a>
 </li>
                                     
 <li>
-    <a href="../../lesson04b/rpi-os/" class="dropdown-item">4b: Preemptive Multitasking</a>
+    <a href="../lesson04b/rpi-os/" class="dropdown-item">4b: Preemptive Multitasking</a>
 </li>
                                     
   <li class="dropdown-submenu">
@@ -191,15 +191,15 @@
     <ul class="dropdown-menu">
             
 <li>
-    <a href="../../lesson04b/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+    <a href="../lesson04b/linux/basic_structures/" class="dropdown-item">Basic structures</a>
 </li>
             
 <li>
-    <a href="../../lesson04b/linux/fork/" class="dropdown-item">Fork</a>
+    <a href="../lesson04b/linux/fork/" class="dropdown-item">Fork</a>
 </li>
             
 <li>
-    <a href="../../lesson04b/linux/scheduler/" class="dropdown-item">Scheduler</a>
+    <a href="../lesson04b/linux/scheduler/" class="dropdown-item">Scheduler</a>
 </li>
     </ul>
   </li>
@@ -210,15 +210,15 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../lesson05/exercises/" class="dropdown-item">Exercises</a>
+    <a href="../lesson05/exercises/" class="dropdown-item">Exercises</a>
 </li>
                                     
 <li>
-    <a href="../../lesson05/linux/" class="dropdown-item">Linux</a>
+    <a href="../lesson05/linux/" class="dropdown-item">Linux</a>
 </li>
                                     
 <li>
-    <a href="../../lesson05/rpi-os/" class="dropdown-item">5: User processes and system calls</a>
+    <a href="../lesson05/rpi-os/" class="dropdown-item">5: User processes and system calls</a>
 </li>
                                 </ul>
                             </li>
@@ -227,11 +227,11 @@
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="../../lesson06/exercises/" class="dropdown-item">Exercises</a>
+    <a href="../lesson06/exercises/" class="dropdown-item">Exercises</a>
 </li>
                                     
 <li>
-    <a href="../../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
+    <a href="../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
 </li>
                                 </ul>
                             </li>
@@ -244,12 +244,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href="../../lesson03/linux/timer/" class="nav-link">
+                                <a rel="prev" href="../cheatsheet/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../rpi-os/" class="nav-link">
+                                <a rel="next" href="../rationales/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -271,8 +271,24 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="2"><a href="#exercises" class="nav-link">Exercises</a>
+            <li class="nav-item" data-level="1"><a href="#on-using-gdb" class="nav-link">On using GDB</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#installation" class="nav-link">Installation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#launch" class="nav-link">Launch</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#troubleshooting" class="nav-link">Troubleshooting</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#reference" class="nav-link">Reference</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
         </ul>
@@ -280,16 +296,38 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h2 id="exercises">Exercises</h2>
-<ol>
-<li>Modify the kernel to add an idle task. What should be executed in the body of the idle task? </li>
-<li>Add WAIT state to tasks. How are we going to bookkeep tasks in WAIT state? How do you demonstrate that your implementation is correct? </li>
-<li>(optional) Modify the kernel: allow it to have an unlimited number of tasks (right now the limit is 64). </li>
-</ol>
-<h3 id="deliverable">Deliverable</h3>
-<p>A code tarball implementing (1) above. </p>
-<p>A code tarball implementing (2) above. </p>
-<p>A code tarball implementing (3) above. </p></div>
+<h1 id="on-using-gdb">On using GDB</h1>
+<h2 id="installation">Installation</h2>
+<p>Linux or WSL: </p>
+<pre><code>sudo apt install gdb-multiarch gcc-aarch64-linux-gnu build-essential 
+</code></pre>
+<p>Note: the gdb for aarch64 is not called aarch64-XXXX-gdb.</p>
+<h2 id="launch">Launch</h2>
+<p>From one terminal </p>
+<pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -s -S 
+</code></pre>
+<p>From another terminal </p>
+<pre><code>gdb-multiarch build/kernel8.elf 
+(gdb) target remote :1234 
+(gdb)layout asm 
+</code></pre>
+<p>Single step </p>
+<pre><code>(gdb) si 
+</code></pre>
+<p><img alt="gdb-si" src="gdb-si.png" /></p>
+<p>Dump register contents</p>
+<pre><code>(gdb) info reg 
+</code></pre>
+<p><img alt="gdb-reg" src="gdb-reg.png" /></p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>"gdbserver: Target description specified unknown architecture “aarch64” 
+https://stackoverflow.com/questions/53524546/gdbserver-target-description-specified-unknown-architecture-aarch64 
+It seems GDB server does not play well with WSL… be aware! </p>
+<h2 id="reference">Reference</h2>
+<p>Launch qemu with gdb </p>
+<p>https://en.wikibooks.org/wiki/QEMU/Debugging_with_QEMU#Launching_QEMU_from_GDB </p>
+<p>more info about gdb for kernel debuggging </p>
+<p>https://wiki.osdev.org/Kernel_Debugging </p></div>
             </div>
         </div>
 
@@ -298,10 +336,10 @@
             <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
         </footer>
         <script>
-            var base_url = "../..",
+            var base_url = "..",
                 shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
         </script>
-        <script src="../../js/base.js" defer></script>
+        <script src="../js/base.js" defer></script>
 
         <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
