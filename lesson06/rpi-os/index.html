@@ -61,7 +61,7 @@
                                 <a href="../../gdb/" class="nav-link">gdb</a>
                             </li>
                             <li class="navitem">
-                                <a href="../../cheatsheet/" class="nav-link">aarch64 cheatsheet</a>
+                                <a href="../../cheatsheet/" class="nav-link">cheatsheet</a>
                             </li>
                             <li class="navitem">
                                 <a href="../../ssh-proxy/" class="nav-link">ssh</a>
@@ -114,30 +114,94 @@
             </li>
             <li class="nav-item" data-level="2"><a href="#background-arm64-translation-process" class="nav-link">Background: ARM64 translation process</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#page-table-format" class="nav-link">Page table format</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#section-2mb-mapping" class="nav-link">Section (2MB) mapping</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#page-descriptor-format" class="nav-link">Page descriptor format</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#configuring-page-attributes" class="nav-link">Configuring page attributes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#kernel-vs-user-virtual-memory" class="nav-link">Kernel vs user virtual memory</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#adjusting-kernel-addresses" class="nav-link">Adjusting kernel addresses</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#kernel-boot-initializing-kernel-page-tables" class="nav-link">Kernel boot: initializing kernel page tables</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#allocating-installing-a-new-pgtable" class="nav-link">Allocating &amp; installing a new pgtable</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#populating-a-pmd-table" class="nav-link">Populating a PMD table</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#putting-it-together-__create_page_tables" class="nav-link">Putting it together: __create_page_tables()</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#configuring-page-translation" class="nav-link">Configuring page translation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#compiling-loading-user-programs" class="nav-link">Compiling &amp; loading user programs</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#aside-our-user-symbol-addresses" class="nav-link">Aside: our user symbol addresses</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#creating-first-user-process" class="nav-link">Creating first user process</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#aside-tlb" class="nav-link">Aside: TLB</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#mapping-a-virtual-page-to-user" class="nav-link">Mapping a virtual page to user</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#forking-a-user-process" class="nav-link">Forking a user process</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#the-familiar-fork-semantics" class="nav-link">The familiar fork() semantics</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#implementation" class="nav-link">Implementation</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#demand-paging" class="nav-link">Demand paging</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="3"><a href="#setting-up-page-faults" class="nav-link">Setting up page faults</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="3"><a href="#handling-page-faults" class="nav-link">Handling page faults</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
