@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Scheduler - p1-kernel</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">p1-kernel</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../../Introduction/" class="nav-link">Introduction</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson00 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson00/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson00/rpi-os/" class="dropdown-item">0: Sharpen your tools</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson01 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson01/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
+</li>
+            
+<li>
+    <a href="../../../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
+</li>
+            
+<li>
+    <a href="../../../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson02 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson02/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson02/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson02/rpi-os/" class="dropdown-item">2: Processor initialization</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson03 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson03/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
+</li>
+            
+<li>
+    <a href="../../../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
+</li>
+            
+<li>
+    <a href="../../../lesson03/linux/timer/" class="dropdown-item">Timer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04a <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04b <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson04b/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson04b/rpi-os/" class="dropdown-item">4b: Preemptive Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../lesson04b/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../../lesson04b/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../../lesson04b/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson05 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson05/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson05/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson05/rpi-os/" class="dropdown-item">5: User processes and system calls</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson06 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson06/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../fork/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../../lesson04b/exercises/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#44-scheduler" class="nav-link">4.4: Scheduler</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="44-scheduler">4.4: Scheduler</h2>
+<p>We have already learned a lot of details about the Linux scheduler inner workings, so there is not so much left for us. To make the whole picture complete in this chapter we will take a look at 2 important scheduler entry points:</p>
+<ol>
+<li><a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L3003">scheduler_tick()</a> function, which  is called at each timer interrupt.</li>
+<li><a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L3418">schedule()</a> function, which is called each time when the current task needs to be rescheduled.</li>
+</ol>
+<p>The third major thing that we are going to investigate in this chapter is the concept of context switch. A context switch is the process that suspends the current task and runs another task instead - this process is highly architecture specific and closely correlates with what we have been doing when working with RPi OS.</p>
+<h3 id="scheduler_tick">scheduler_tick</h3>
+<p>This function is important for 2 reasons:</p>
+<ol>
+<li>It provides a way for the scheduler to update time statistics and runtime information for the current task.</li>
+<li>Runtime information then is used to determine whether the current task needs to be preempted, and if so <code>schedule()</code> function is called.</li>
+</ol>
+<p>As well as most of the previously explored functions, <code>scheduler_tick</code> is too complex to be fully explained - instead, as usual, I will just highlight the most important parts.</p>
+<ol>
+<li>
+<p>The main work is done inside CFS method <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L9044">task_tick_fair</a>. This method calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L3990">entity_tick</a> for the <code>sched_entity</code> corresponding to the current task. When looking at the source code, you may be wondering why instead of just calling <code>entry_tick</code> for the current <code>sched_entry</code>, <code>for_each_sched_entity</code> macro is used instead?  <code>for_each_sched_entity</code> doesn't iterate over all <code>sched_entry</code> in the system. Instead, it only traverses the <code>sched_entry</code>  inheritance tree up to the root. This is useful when tasks are grouped - after updating runtime information for a particular task, <code>sched_entry</code> corresponding to the whole group is also updated.</p>
+</li>
+<li>
+<p><a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L3990">entity_tick</a> does 2 main things:</p>
+</li>
+<li>Calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L827">update_curr</a>, which is responsible for updating task's <code>vruntime</code> as well as runqueue's <code>min_vruntime</code>. An important thing to remember here is that <code>vruntime</code> is always based on 2 things: how long task has actually been executed and tasks priority.</li>
+<li>
+<p>Calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L3834">check_preempt_tick</a>, which checks whether the current task needs to be preempted. Preemption happens in 2 cases:</p>
+<ol>
+<li>If the current task has been running for too long (the comparison is made using normal time, not <code>vruntime</code>). <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L3842">link</a></li>
+<li>If there is a task with smaller <code>vruntime</code> and the difference between <code>vruntime</code> values is greater than some threshold. <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L3866">link</a></li>
+</ol>
+<p>In both cases the current task is marked for preemption by calling <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L479">resched_curr</a> function.</p>
+</li>
+</ol>
+<p>We have already seen in the previous chapter how calling <code>resched_curr</code> leads to <code>TIF_NEED_RESCHED</code> flag being set for the current task and eventually <code>schedule</code> being called.</p>
+<p>That's it about <code>schedule_tick</code> now we are finally ready to take a look at the <code>schedule</code> function.</p>
+<h3 id="schedule">schedule</h3>
+<p>We have already seen so many examples were <code>schedule</code> is used, so now you are probably anxious to see how this function actually works. You will be surprised to know that the internals of this function are rather simple.</p>
+<ol>
+<li>The main work is done inside <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L3278">__schedule</a>  function.</li>
+<li><code>__schedule</code> calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L3199">pick_next_task</a> which redirect most of the work to the <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L6251">pick_next_task_fair</a> method of the CFS scheduler.</li>
+<li>As you might expect <code>pick_next_task_fair</code> in a normal case just selects the leftmost element from the red-black tree and returns it. It happens <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L3915">here</a>.</li>
+<li><code>__schedule</code> calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L2750">context_switch</a>, which does some preparation work and calls architecture specific <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/process.c#L348">__switch_to</a> function, where low-level arch specific task parameters are prepared to the switch.</li>
+<li><code>__switch_to</code> first switches some additional task components, like, for example, TLS (Thread-local Store) and saved floating point and NEON registers.</li>
+<li>Actual switch takes place in the assembler <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/entry.S#L914">cpu_switch_to</a> function. This function should be already familiar to you because I copied it almost without any changes to the RPi OS. As you might remember, this function switches callee-saved registers and task stack. After it returns, the new task will be running using its own kernel stack.</li>
+</ol>
+<h3 id="conclusion">Conclusion</h3>
+<p>Now we are done with the Linux scheduler. The good thing is that it appears to be not so difficult if you focus only on the very basic workflow. After you understand the basic workflow you probably might want to to make another path through the schedule code and pay more attention to the details, because there are so many of them. But for now, we are happy with our current understanding and ready to move to the following lesson, which describes user processes and system calls.</p>
+<h5 id="previous-page">Previous Page</h5>
+<p>4.3 <a href="../../../docs/lesson04/linux/fork.md">Process scheduler: Forking a task</a></p>
+<h5 id="next-page">Next Page</h5>
+<p>4.5 <a href="../../../docs/lesson04/exercises.md">Process scheduler: Exercises</a></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

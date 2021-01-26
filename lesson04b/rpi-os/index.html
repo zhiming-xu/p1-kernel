@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>4b: Preemptive Multitasking - p1-kernel</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">p1-kernel</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../Introduction/" class="nav-link">Introduction</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson00 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson00/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson00/rpi-os/" class="dropdown-item">0: Sharpen your tools</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson01 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson01/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson02 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson02/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson02/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson02/rpi-os/" class="dropdown-item">2: Processor initialization</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson03 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson03/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/timer/" class="dropdown-item">Timer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04a <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04a/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04a/rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04a/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04b <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">4b: Preemptive Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson05 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson05/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson05/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson05/rpi-os/" class="dropdown-item">5: User processes and system calls</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson06 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson06/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../exercises/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../linux/basic_structures/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#4b-preemptive-multitasking" class="nav-link">4b: Preemptive Multitasking</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#objectives" class="nav-link">Objectives</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#roadmap" class="nav-link">Roadmap</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#turn-on-timer-interrupts" class="nav-link">Turn on timer interrupts!</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#how-scheduling-works-with-interrupt-entryexit" class="nav-link">How scheduling works with interrupt entry/exit?</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#disable-preemption" class="nav-link">Disable preemption</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="4b-preemptive-multitasking">4b: Preemptive Multitasking</h1>
+<h2 id="objectives">Objectives</h2>
+<p>A minimum kernel that can schedule multiple tasks in a preemptive fashion. With this experiment, our tiny kernel is more like a "real-time kernel" commonly seen in embedded systems, e.g. FreeRTOS.</p>
+<ol>
+<li>Preempt tasks with time interrupts</li>
+<li>Understand context switch driven by interrupts, in particular switch to/from interrupt handlers</li>
+<li>Atomic kernel regions where preemption is disallowed </li>
+</ol>
+<h2 id="roadmap">Roadmap</h2>
+<p>We will turn on timer interrupts. In the interrupt handler, our kernel invokes its scheduler to switch among runnable tasks. </p>
+<p>In addition to <code>switch_to</code>, the kernel should save &amp; restore CPU state upon entering/existing interrupt handling. </p>
+<!--- to complete--->
+
+<h2 id="turn-on-timer-interrupts">Turn on timer interrupts!</h2>
+<p>We turn on timer interrupts in <code>kernel_main</code>. </p>
+<pre><code>void kernel_main(void) {
+    uart_init();
+    init_printf(0, putc);
+    irq_vector_init();
+    timer_init(); /* new addition */
+    enable_interrupt_controller(); /* new addition */
+    enable_irq(); /* new addition */
+    ... 
+}
+</code></pre>
+<p>Tasks no longer need to call schedule() voluntarily. </p>
+<pre><code>void process(char *array)
+{
+    while (1){
+        for (int i = 0; i &lt; 5; i++){
+            uart_send(array[i]);
+            delay(100000);
+        }
+        // schedule(); 
+    }
+}
+</code></pre>
+<h3 id="calling-schedule-in-timer-tick">Calling <code>schedule()</code> in timer tick</h3>
+<p>With preemptive scheduling, schedule() are called in 2 scenarios.</p>
+<ol>
+<li>A task can call <code>schedule</code> voluntarily. </li>
+<li><code>schedule</code> is also called on a regular basis from the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/timer.c#L21">timer interrupt handler</a>.</li>
+</ol>
+<p>Now let's take a look at <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L70">timer_tick</a> function, which is called from the timer interrupt.</p>
+<pre><code>void timer_tick()
+{
+    --current-&gt;counter;
+    if (current-&gt;counter&gt;0 || current-&gt;preempt_count &gt;0) {
+        return;
+    }
+    current-&gt;counter=0;
+    enable_irq();
+    _schedule();
+    disable_irq();
+    ... 
+</code></pre>
+<p>First of all, it decreases current task's counter. If the counter is greater then 0 or preemption is currently disabled the function returns, but otherwise<code>schedule</code> is called with interrupts enabled. (Note: we just came from an interrupt handler and CPU just automatically disabled all interrupts) </p>
+<p>We will see why interrupts must be enabled during scheduler execution in the next section.</p>
+<h2 id="how-scheduling-works-with-interrupt-entryexit">How scheduling works with interrupt entry/exit?</h2>
+<p>With preemptive scheduling, the kernel must save &amp; restore CPU contexts for each task being interrupted. This is because, e.g. a task A may be interrupted at any point and get descheduled. Later, when the kernel reschedules A, A should resume from where it is interrupted. </p>
+<p>In previous baremetal experiments with only one task, we have seen how <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L17">kernel_entry</a> and <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L4">kernel_exit</a> macros save and restore general-purpose CPU regs upon switch to/from an interrupt/exception handler. (btw, where was the CPU state saved?) There, we rely on that the hardware automatically saves exception return address and CPU status in registers, <code>elr_el1</code> register and <code>spsr_el</code> register. When <code>eret</code> is executed, CPU restores execution from these registers.</p>
+<p>With multitasking, the kernel now has to create per-task copies of CPU context in memory: general-purpose registers plus <code>elr_el1</code> and <code>spsr_el</code>. </p>
+<p><strong>Where to store the CPU context?</strong> </p>
+<p>Our implementation choice is on the current task's kernel stack (not in <code>task_struct.cpu_context</code>). There are alternative designs to be examined later. </p>
+<h4 id="example-workflow">Example workflow</h4>
+<p><strong>Kernel boots</strong></p>
+<p><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/kernel.c#L19">kernel_main</a> function is executed. The initial stack is configured to start at <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/include/mm.h#L13">LOW_MEMORY</a>, which is at 0x0040:0000 (4 MB).</p>
+<p><img src="figures/sched-0.png" width="400" /></p>
+<hr />
+<p><strong>Task 1 creation</strong></p>
+<p><code>kernel_main</code> calls <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/fork.c#L5">copy_process</a> for the first time. A new 4 KB page is allocated, and <code>task_struct</code> is placed at the bottom of this page. </p>
+<p><img src="figures/sched-1.png" width="400" /></p>
+<hr />
+<p><strong>Task 2 creation</strong></p>
+<p><code>kernel_main</code> calls <code>copy_process</code> for the second time and the same process repeats. Task 2 is created and added to the task list.</p>
+<p><img src="figures/sched-2.png" width="600" /></p>
+<hr />
+<p><strong>Switching to task 1; task 1 runs</strong></p>
+<p><code>kernel_main</code> voluntarily calls <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L21">schedule</a> function and it decides to switch to task 1.</p>
+<ul>
+<li><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.S#L4">cpu_switch_to</a> saves callee-saved registers in the init task <code>cpu_context</code>, which is located inside the kernel image.</li>
+<li><code>cpu_switch_to</code> restores callee-saved registers from task 1's <code>task_struct</code>.  At this point, <code>cpu_context.sp</code> points to <code>0x00401000</code>, lr points to <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L146">ret_from_fork</a> function, <code>x19</code> contains a pointer to the start of <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/kernel.c#L9">process()</a> and <code>x20</code> a pointer to string "12345", which is located somewhere in the kernel image.</li>
+<li><code>cpu_switch_to</code> executes  <code>ret</code>, which jumps to the <code>ret_from_fork</code> function.</li>
+<li><code>ret_from_fork</code> reads <code>x19</code> and <code>x20</code> registers and  calls <code>process</code> function with the argument "12345". </li>
+<li>After <code>process</code> function starts, the stack of task 1 begins to grow.</li>
+</ul>
+<p><img src="figures/sched-3.png" width="600" /></p>
+<hr />
+<p><strong>A timer interrupt occurred</strong></p>
+<ul>
+<li><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L17">kernel_entry</a> macro saves all general purpose registers + <code>elr_el1</code> and <code>spsr_el1</code> to the bottom of task 1 stack ("saved regs" in the figure below).</li>
+<li>The kernel now executes in the irq context. It continues to grow the <em>current</em> stack which belongs to task 1. The growth is below the "saved regs" region and is marked as "irq frame" on the figure (i.e. the stack frame created by the execution in the irq context). </li>
+<li>The kernel proceeds to <code>schedule</code> and picks task 2. </li>
+</ul>
+<p><img src="figures/sched-4.png" width="600" /></p>
+<hr />
+<p><strong>Switching to task 2; task 2 runs</strong></p>
+<p><code>cpu_switch_to</code> executes exactly the same sequence of steps that it does for task 1. Task 2 started to execute and it stack grows. </p>
+<p><img src="figures/sched-5.png" width="600" /></p>
+<p><strong>Note:</strong> until now, the kernel has NOT executed <code>eret</code> for the previous irq. This is fine, as an implementation choice made for this particular experiment. </p>
+<p>How can we execute task 2 in the context of the previous irq? It works because ARM64 CPU does not differentiate execution in an irq context vs. in an exception (i.e. syscall) context. All the CPU knows is the current EL (we always stay at EL1 before/after the irq) and the irq enable status. And irqs have been enabled previously in <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L70">timer_tick</a> before <code>schedule</code> was called. </p>
+<blockquote>
+<p>Nevertheless, there's a more common design in which the kernel returns from the irq context before switching to a new task. See "alternative design" below. </p>
+</blockquote>
+<!---- that we didn't return from an interrupt at this point, but this is ok because interrupts now are enabled (interrupts have been enabled previously in [timer_tick](https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L70) before `schedule` was called) --->
+
+<hr />
+<p><strong>Another timer interrupt occurred while task 2 is running</strong></p>
+<p><code>kernel_entry</code> saves all general purpose registers + <code>elr_el1</code> and <code>spsr_el1</code> at the bottom of task 2's stack. Task 2's irq frame begins to grow.</p>
+<p><img src="figures/sched-6.png" width="600" /></p>
+<hr />
+<p><strong>Scheduling out task 2</strong></p>
+<p>The kernel calls <code>schedule()</code>. It observes that all tasks have their counters set to 0 and set counters to their tasks priorities.</p>
+<p><code>schedule</code> selects init task to run. (This is because all tasks now have their counters set to 1 and init task is the first in the list). But actually, it would be fully legal for <code>schedule</code> to select task 1 or task 2 at this point, because their counters has equal values. We are more interested in the case when task 1 is selected so let's now assume that this is what had happened.</p>
+<hr />
+<p><strong>Switching to task 1, exiting from the 1st irq</strong></p>
+<ol>
+<li><code>cpu_switch_to</code> is called and it restores previously saved callee-saved registers from task 1 <code>cpu_context</code>. Link register now points <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L63">here</a> because this is the place from which <code>cpu_switch_to</code> was called last time when task 1 was executed. <code>sp</code> points to the bottom of task 1 interrupt stack.</li>
+<li><code>timer_tick</code> function resumes execution, starting from <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L79">this</a> line. (Can you pinpoint the instruction?) It disables interrupts and finally <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L79">kernel_exit</a> is executed. By the time <code>kernel_exit</code> is called, task 1 irq frame is unwound. <code>kernel_exit</code> further unwinds the saved regs. </li>
+</ol>
+<p><img src="figures/sched-7.png" width="600" /></p>
+<hr />
+<p><strong>Task 1 resumes normal execution</strong></p>
+<p><code>kernel_exit</code> restores all general purpose registers as well as <code>elr_el1</code> and <code>spsr_el1</code>. <code>elr_el1</code> now points somewhere in the middle of the <code>process</code> function. <code>sp</code> points to the bottom of task 1 stack. (Note: the remaining task size depends on the size  of local variables in <code>process</code> )</p>
+<p><img src="figures/sched-9.png" width="600" /></p>
+<p>Finally, <code>kernel_exit</code> executes <code>eret</code> instruction which uses <code>elr_el1</code> register to jump back to <code>process</code> function. Task 1 resumes it normal execution!</p>
+<hr />
+<h4 id="an-alternative-design">An alternative design</h4>
+<ul>
+<li>
+<p>When an interrupt happens, the CPU saves irq stack frame automatically on the stack of the current task, e.g. A. This is the same as the design above. </p>
+</li>
+<li>
+<p>The kernel copies the auto saved register contents from the irq frame to the current task's <code>task_struct</code>, representing the CPU context when this task was interrupted by irq. </p>
+</li>
+<li>The kernel calls its scheduler and returns from the irq (possibly to a different task). The irq stack on the A's stack is then unwound. Now irq is on. Later, when A is scheduled in, the kernel restores its CPU context from A's <code>task_struct</code>. </li>
+</ul>
+<p>Can you implement the alternative design? </p>
+<h2 id="disable-preemption">Disable preemption</h2>
+<p>The kernel needs mechanism to (temporarily) disable preemption. </p>
+<p>Example: in creating a new <code>task_struct</code>, we do not want rescheduling to happen. Otherwise the scheduler may see an incomplete <code>task_struct</code>. In other words, the creation of <code>task_struct</code> should be <em>atomic</em>. </p>
+<p>To disable preemption, one method is to disable interrupts. Beyond that, the kernel also needs fine-grained control. </p>
+<h3 id="per-task-preempt_count">Per-task <code>preempt_count</code></h3>
+<p>To <code>task_struct</code>, we add: </p>
+<pre><code>struct task_struct {
+    struct cpu_context cpu_context;
+    long state;
+    long counter;
+    long priority;
+    long preempt_count; // new addition
+};
+</code></pre>
+<p><code>preempt_count</code> &gt;0  indicates that right now the current task is non-preemptable. The following two functions operate on it: </p>
+<pre><code>void preempt_disable(void) { current-&gt;preempt_count++;}
+void preempt_enable(void) { current-&gt;preempt_count--;}
+</code></pre>
+<p>Seeing this flag, the kernel will not invoke scheduler() at all, let alone descheduling this task (i.e. switching to a different task). This is done via the following code. </p>
+<pre><code>void timer_tick() {
+    if (current-&gt;counter&gt;0 || current-&gt;preempt_count &gt;0) 
+        return; 
+...
+</code></pre>
+<p>Why a count instead of a binary flag? This again mimics the Linux implementation. Individual kernel functions could increment &amp; decrement <code>preempt_count</code>. If all kernel functions have finished decrementing <code>preempt_count</code>, the count drops to zero and the scheduler is free to deschedule the task. This mechanism is called reference count, which is common in system software. </p>
+<blockquote>
+<p><code>preempt_count</code> does not prevent a task from shooting in its own foot, though. For instance, a misbehaving task calling schedule() when <code>preempt_count</code> &gt; 0 will likely corrupt kernel data structures. Try it out! </p>
+</blockquote>
+<h3 id="creating-a-task_struct-atomically">Creating a <code>task_struct</code> atomically</h3>
+<p>Going back to making <code>copy_process</code> atomic: </p>
+<pre><code>int copy_process(unsigned long fn, unsigned long arg)
+{
+    preempt_disable(); /* new addition */
+    struct task_struct *p;
+
+    p = (struct task_struct *) get_free_page();
+    if (!p)
+        return 1;
+    p-&gt;priority = current-&gt;priority;
+    p-&gt;state = TASK_RUNNING;
+    p-&gt;counter = p-&gt;priority;
+    p-&gt;preempt_count = 1; // new addition 
+
+    p-&gt;cpu_context.x19 = fn;
+    p-&gt;cpu_context.x20 = arg;
+    p-&gt;cpu_context.pc = (unsigned long)ret_from_fork;
+    p-&gt;cpu_context.sp = (unsigned long)p + THREAD_SIZE;
+    int pid = nr_tasks++;
+    task[pid] = p;
+    preempt_enable(); /* new addition */
+    return 0;
+}
+</code></pre>
+<p><code>preempt_count</code> is set to 1, preventing the new task, once it starts to execute, from being preempted until it completes some initialization work. After that, the new task executes <code>ret_from_fork</code>, which calls <code>schedule_tail()</code> which will call <code>preempt_enable()</code> </p>
+<pre><code>// entry.S
+.globl ret_from_fork
+ret_from_fork:
+    bl  schedule_tail
+    ...
+</code></pre>
+<!--- not sure if this is useful as of now. schedule_tail() is the first thing called by ret_from_fork which means the new task will turn on preempt as soon as it runs for the 1st time -->
+
+<h3 id="making-the-scheduling-algorithm-atomic">Making the scheduling algorithm atomic</h3>
+<p>The scheduler is <a href="https://en.wikipedia.org/wiki/Reentrancy_(computing)">non-reentrant</a>. Making it atomic looks easy: we just call <code>preempt_disable/enable()</code> upon entering/leaving the scheduler. </p>
+<pre><code>void _schedule(void)
+{
+    preempt_disable(); /* new addition */
+    int next,c;
+    struct task_struct * p;
+    while (1) {
+        c = -1;
+        next = 0;
+        for (int i = 0; i &lt; NR_TASKS; i++){
+            p = task[i];
+            if (p &amp;&amp; p-&gt;state == TASK_RUNNING &amp;&amp; p-&gt;counter &gt; c) {
+                c = p-&gt;counter;
+                next = i;
+            }
+        }
+        if (c) {
+            break;
+        }
+        for (int i = 0; i &lt; NR_TASKS; i++) {
+            p = task[i];
+            if (p) {
+                p-&gt;counter = (p-&gt;counter &gt;&gt; 1) + p-&gt;priority;
+            }
+        }
+    }
+    switch_to(task[next]);
+    preempt_enable(); /* new addition */
+}
+</code></pre>
+<p><strong>Why does the kernel disable preemption</strong>, instead of disabling all interrupts?</p>
+<p>By design, if no <code>TASK_RUNNING</code> tasks are there, the scheduler will run its while loop over and over again until some of the tasks will move to <code>TASK_RUNNING</code> state. But if we are running on a single CPU, how then a task state can change while this loop is running? The answer is that if some task is waiting for an interrupt, this interrupt can happen while <code>schedule</code> function is executed and interrupt handler can change the state of the task. </p>
+<p>This actually explains why interrupts must be enabled during <code>schedule</code> execution. This also demonstrates an important distinction between disabling interrupts and disabling preemption. <code>schedule</code> disables preemption for the duration of the whole function. This ensures that nested <code>schedule</code> will not be called while we are in the middle of the original function execution. However, interrupts can legally happen during <code>schedule</code> function execution.</p>
+<p>Note: our kernel does not (yet) have the mechanism for tasks to wait for interrupts. It's a important mechanism to be added. </p>
+<blockquote>
+<p>I am not very satisfied with leaving interrupt on during schedule(). There shall be an idle task which does <code>WFI</code> when no other tasks are runnable. In that way, the scheduler can avoid spinning and can run with interrupt off. To implement the idle task, the kernel shall implement task wait state.<br />
+</p>
+</blockquote>
+<h2 id="conclusion">Conclusion</h2>
+<p>We are done with scheduling, but right now our kernel can manage only kernel threads: they are executed at EL1 and can directly access any kernel functions or data. In the next 2 lessons we are going fix this and introduce system calls and virtual memory.</p>
+<p><strong>Previous Page</strong></p>
+<p>3.5 <a href="../../docs/lesson03/exercises.md">Interrupt handling: Exercises</a></p>
+<p><strong>Next Page</strong></p>
+<p>4.2 <a href="../../docs/lesson04/linux/basic_structures.md">Process scheduler: Scheduler basic structures</a></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

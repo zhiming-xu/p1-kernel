@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>0: Sharpen your tools - p1-kernel</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">p1-kernel</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../Introduction/" class="nav-link">Introduction</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson00 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">0: Sharpen your tools</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson01 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson01/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson02 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson02/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson02/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson02/rpi-os/" class="dropdown-item">2: Processor initialization</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson03 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson03/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/timer/" class="dropdown-item">Timer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04a <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04a/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04a/rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04a/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04b <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04b/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04b/rpi-os/" class="dropdown-item">4b: Preemptive Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04b/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04b/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04b/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson05 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson05/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson05/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson05/rpi-os/" class="dropdown-item">5: User processes and system calls</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson06 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson06/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../exercises/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../lesson01/exercises/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#0-sharpen-your-tools" class="nav-link">0: Sharpen your tools</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#about-the-docs" class="nav-link">About the docs</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#dev-environment" class="nav-link">Dev environment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#test-platform" class="nav-link">Test Platform</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="0-sharpen-your-tools">0: Sharpen your tools</h1>
+<ul>
+<li><a href="#about-the-docs">About the docs</a>                                                            </li>
+<li><a href="#terms">Terms</a>                                                                            </li>
+<li><a href="#dev-environment">Dev environment</a>                                                          </li>
+<li><a href="#host-os">Host OS</a>                                                                        </li>
+<li><a href="#toolchain">Toolchain</a>                                                                    </li>
+<li><a href="#platform-setup">Platform Setup</a>                                                            </li>
+<li><a href="#approach-1-the-real-hardware">Approach 1: the real hardware</a>                             <ul>
+<li><a href="#check-list">Check list</a>                                                                </li>
+<li><a href="#prep-raspberry-pi-3-model-b">Prep Raspberry Pi 3 Model B</a>                              </li>
+<li><a href="#load-raspbian-os-to-the-sd-card">Load Raspbian OS to the SD card</a>                      </li>
+<li><a href="#plug-in-the-serial-cable">Plug in the serial cable</a>                                    </li>
+<li><a href="#powering-up-rpi3">Powering up RPi3</a>                                                    </li>
+<li><a href="#an-example-setup">An example setup</a>                                                    </li>
+<li><a href="#test-your-dev-workflow">Test your dev workflow</a>                                        </li>
+<li><a href="#background-whats-on-sd-card">Background: what's on SD card?</a>                         </li>
+<li><a href="#update-configtxt">Update config.txt</a>                                                  </li>
+<li><a href="#build--load-sample-baremetal-program">Build &amp; load sample baremetal program</a>       </li>
+</ul>
+</li>
+<li><a href="#approach-2-qemu">Approach 2: QEMU</a>                                                       </li>
+</ul>
+<h2 id="about-the-docs">About the docs</h2>
+<p>Be aware: it may contain URLs referring to the upstream git repo, which may slightly differ from what we use. </p>
+<h3 id="terms">Terms</h3>
+<p>baremetal; kernel; kernel binary; kernel image</p>
+<h2 id="dev-environment">Dev environment</h2>
+<p>This is where you develop kernel code. </p>
+<p>We have configured departmental server(s) for you to use. See <a href="../../ssh-proxy.md">here</a>. You can develop on your local machine and test on the servers. </p>
+<p>Alternatively, you may do everything on your local machine, here are suggestions: </p>
+<ul>
+<li>Linux. Recommended: Ubuntu 20.04 LTS. </li>
+<li>Windows: WSL or WSL2. See <a href="https://docs.microsoft.com/en-us/windows/wsl/install-win10#:~:text=To%20check%20your%20version%20and,command%20in%20Windows%20Command%20Prompt">instructions</a>.</li>
+<li>OS X: (likely HomeBrew is needed. Not tested)</li>
+</ul>
+<h3 id="toolchain">Toolchain</h3>
+<p>These are compiler, linker, etc. for us to generate the kernel code. Use the one provided by Ubuntu </p>
+<pre><code>$ sudo apt install gcc-aarch64-linux-gnu 
+
+$ aarch64-linux-gnu-gcc --version
+aarch64-linux-gnu-gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
+</code></pre>
+<h2 id="test-platform">Test Platform</h2>
+<p>This is where you run the kernel code. </p>
+<h3 id="approach-1-the-real-hardware">Approach 1: the real hardware</h3>
+<h4 id="check-list">Check list</h4>
+<ul>
+<li><strong>Required:</strong> An Rpi3 board (Model B or B+) <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b/">link</a></li>
+</ul>
+<p><img src="figures\rpi3.jpg" alt="img" style="zoom: 50%;" /></p>
+<ul>
+<li><strong>Required:</strong> A USB to TTL serial cable <a href="https://www.amazon.com/s/ref=nb_sb_noss_2?url=search-alias%3Daps&amp;field-keywords=usb+to+ttl+serial+cable&amp;rh=i%3Aaps%2Ck%3Ausb+to+ttl+serial+cable">Amazon</a>. Connection <strong>inside</strong> the dongle: black-GND; green-TXD; white-RXD; red-VCC.</li>
+</ul>
+<p><img src="figures\uartcable.jpg" alt="uart-cable" style="zoom:33%;" /></p>
+<ul>
+<li>
+<p><strong>Required:</strong> A micro SD card. The capacity can be humble (e.g. 4GB). The speed does not matter much. The one I used was $6.  <a href="[https://www.raspberrypi.org/documentation/installation/sd-cards.md">Rpi's official page about uSD</a>)</p>
+</li>
+<li>
+<p><strong>Required:</strong> SD card reader. To be plugged in your PC for loading kernel to the micro SD card. A cheap one can be $7 on <a href="https://www.amazon.com/IOGEAR-MicroSD-Reader-Writer-GFR204SD/dp/B0046TJG1U">Amazon</a></p>
+</li>
+<li>
+<p><strong>Recommended:</strong> A micro USB cable for powering Rpi3. </p>
+</li>
+</ul>
+<h4 id="prep-raspberry-pi-3-model-b">Prep Raspberry Pi 3 Model B</h4>
+<p>Older versions of Raspberry Pi are not going to work with this tutorial because all lessons are designed to use a 64-bit processor that supports ARMv8 architecture, and such processor is only available in the Raspberry Pi 3. Newer versions, including <a href="https://www.raspberrypi.org/products/raspberry-pi-3-model-b-plus/">Raspberry Pi 3 Model B+</a> should work fine. </p>
+<h4 id="load-raspbian-os-to-the-sd-card">Load Raspbian OS to the SD card</h4>
+<p>Raspbian is a Debian-based Linux distro. It's the official OS for Rpi3. Why we need Raspbian? 1. to test USB to TTL cable connectivity initially. 2. after installing Raspbian, the SD card is formatted in the right way. All the proprietary binary blobs needed to boot Rpi3 are also in place. </p>
+<p>Load the SD card with Raspbian OS. Follow the official <a href="https://www.raspberrypi.org/downloads/raspbian/">instructions</a>. </p>
+<h4 id="plug-in-the-serial-cable">Plug in the serial cable</h4>
+<p>After you get a serial cable, you need to test your connection. If you never did this before I recommend you to follow <a href="https://cdn-learn.adafruit.com/downloads/pdf/adafruits-raspberry-pi-lesson-5-using-a-console-cable.pdf">this guide</a> It describes the process of connecting your Raspberry PI via a serial cable in great details. Basically, you run Raspberry's official OS to ensure the hardware setup is fine. </p>
+<p><img alt="" src="https://cdn-learn.adafruit.com/assets/assets/000/035/695/small360/learn_raspberry_pi_piconsole_bb.png?1473736644" /></p>
+<h4 id="powering-up-rpi3">Powering up RPi3</h4>
+<p>We recommend you power Rpi3 through its micro USB port. Perhaps use a flip switch on the other side of the USB power for power cycling Rpi3. The guide above also describes how to power your Raspberry Pi using a serial cable. RPi OS works fine with such kind of setup, however, in this case, you need to run your terminal emulator right after you plug in the cable. Check <a href="https://github.com/s-matyukevich/raspberry-pi-os/issues/2">this</a> issue for details.</p>
+<pre><code>Rpi3 &lt;-- micro USB ---&gt; PC
+Rpi3 &lt;-- micro USB ---&gt; Wall charger
+</code></pre>
+<p>Power cycling Rpi3, you should see Linux kernel console output on PC terminal. </p>
+<h4 id="an-example-setup">An example setup</h4>
+<p>This is my desktop when I hack with the Rpi3 kernel. </p>
+<p><img src="figures/setup.png" style="zoom:67%;" /></p>
+<h4 id="test-your-dev-workflow">Test your dev workflow</h4>
+<h5 id="background-whats-on-sd-card">Background: what's on SD card?</h5>
+<p>On powering up, Rpi3 looks for the following files on <code>boot</code> partition of the SD card. </p>
+<ul>
+<li>bootcode.bin: the proprietary bootloader for enabling SDRAM. This comes with Raspbian. </li>
+<li>start.elf: the proprietary firmware loaded by the bootloader. Using the updated Raspbian OS. This comes with Raspbian. </li>
+<li>fixup.dat: needed to use 1GB of memory. This comes with Raspbian. </li>
+<li>config.txt: to be parsed by start.elf and decide boot behavior. It offers a great deal of options which is pretty cool. A default one comes with Raspbian. <strong>This file is to be customized by us</strong> </li>
+<li>kernel8.img: our kernel. </li>
+</ul>
+<p>Summary: we need to change config.txt (once) and kernel8.img (every time we re-compile kernel) on the SD card. </p>
+<h4 id="update-configtxt">Update config.txt</h4>
+<p>Plug the SD card to PC via the card reader. Open config.txt which is on the boot partition. The following two lines are crucial. Add them to config.txt. </p>
+<pre><code>arm_64bit=1
+enable_uart=1
+</code></pre>
+<p>Note: multiple online tutorials advise options like <code>kernel_old=1</code> or <code>arm_control</code>. You do NOT need those. With our options in config.txt above, Rpi3 will load the kernel named <strong>kernel8.img</strong> to <strong>0x80000</strong>. Check the official doc for config.txt above. Look for <code>kernel_address</code>. </p>
+<p>Ref: the official <a href="https://www.raspberrypi.org/documentation/configuration/config-txt/boot.md">doc</a> for config.txt. </p>
+<h4 id="build-load-sample-baremetal-program">Build &amp; load sample baremetal program</h4>
+<p>... to ensure our toolchain works fine. </p>
+<pre><code>git clone git@github.com:fxlin/raspi3-tutorial.git
+cd raspi3-tutorial
+git checkout b026449
+cd 05_uart0
+make 
+qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+</code></pre>
+<p><strong>Note</strong>: the repo above (raspi3-tutorial.git) is NOT our project repo. It's someone's code for testing rpi3 hardware. We are just using for testing ONLY. </p>
+<p>Copy kernel8.img to the SD card. Eject the SD card from PC. Plug the SD to Rpi3. Make sure the serial connection is good and terminal emulator on your PC is ready. Power cycle Rpi3. You should see something like: </p>
+<p><img alt="serial" src="../figures/serial.png" /></p>
+<p>(Your serial number may be different)</p>
+<p>Viola! You just built your first baremetal program for Rpi3! </p>
+<!--### 4. Docker
+Strictly speaking, Docker is not a required dependency. It is just convenient to use Docker to build source code of the lessons, especially for Mac and Windows users. Each lesson has `build.sh` script (or `build.bat` for windows users) This script uses Docker to build source code of the lesson. Instructions how to install docker for your platform can be found on the [official docker website]
+(https://docs.docker.com/engine/installation/)  If for some reasons you want to avoid using Docker, you can install the [make utility](http://www.math.tau.ac.il/~danha/courses/software1/make-intro.html) as well as  `aarch64-linux-gnu` toolchain. If you are using Ubuntu you just need to install `gcc-aarch64-linux-gnu` and `build-essential` packages.
+-->
+
+<h3 id="approach-2-qemu">Approach 2: QEMU</h3>
+<p>You are required to compile QEMU from source. </p>
+<p>Need QEMU &gt;v2.12. Newer version is likely fine. The following shows the default QEMU coming with Ubuntu 18.04 is too old.  For instance: </p>
+<pre><code>$ qemu-system-aarch64  --version
+QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.26)
+Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
+</code></pre>
+<p>Now, build QEMU from source. Clean any pre-installed qemu and install necessary tools: </p>
+<pre><code>sudo apt remove qemu-system-arm
+sudo apt install gdb-multiarch build-essential pkg-config
+sudo apt install libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
+</code></pre>
+<p>Grab the source.  We specify QEMU v4.2. </p>
+<pre><code>git clone git://git.qemu.org/qemu.git
+cd qemu
+git checkout v4.2.0
+./configure --target-list=aarch64-softmmu
+make -j`nproc`
+export PATH=&quot;$(pwd)/aarch64-softmmu:${PATH}&quot;
+</code></pre>
+<p>If successful, this will result in QEMU executables in ./aarch64-softmmu/. The last line above adds the path to our search path. </p>
+<p>If you encounter compilation errors (e.g. unmet dependencies), make sure you run all <code>apt get</code> commands above. </p>
+<p>Now try QEMU &amp; check its version. The supported machines should include Rpi3</p>
+<pre><code>$ qemu-system-aarch64  --version
+QEMU emulator version 4.2.0 (v4.2.0-11797-g2890edc853-dirty)
+Copyright (c) 2003-2019 Fabrice Bellard and the QEMU Project developers
+
+$ qemu-system-aarch64 -M help|grep rasp
+raspi2               Raspberry Pi 2
+raspi3               Raspberry Pi 3
+</code></pre>
+<p>Test QEMU with Rpi3 baremetal code (NOTE: this repo is for validating your toolchain &amp; QEMU build; it is NOT our course project)</p>
+<pre><code>git clone https://github.com/fxlin/raspi3-tutorial.git
+cd raspi3-tutorial
+git checkout b026449
+cd 05_uart0
+make 
+qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
+</code></pre>
+<p>If everything works fine, you should see QMEU print out: </p>
+<pre><code>My serial number is: 0000000000000000
+</code></pre>
+<blockquote>
+<p>Note: the test program runs an infinite loop which will cause high CPU usage on your host machine. Kill the test program timely. </p>
+</blockquote>
+<p>On Linux (terminal) 
+<img alt="" src="../test-qemu.gif" /></p>
+<p>On Windows (WSL) </p>
+<p><img alt="" src="../test-qemu-wsl.gif" /></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Linux - p1-kernel</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">p1-kernel</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../Introduction/" class="nav-link">Introduction</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson00 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson00/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson00/rpi-os/" class="dropdown-item">0: Sharpen your tools</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson01 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson01/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson02 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../rpi-os/" class="dropdown-item">2: Processor initialization</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson03 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson03/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/timer/" class="dropdown-item">Timer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04a <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04a/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04a/rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04a/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04b <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04b/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04b/rpi-os/" class="dropdown-item">4b: Preemptive Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04b/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04b/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04b/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson05 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson05/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson05/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson05/rpi-os/" class="dropdown-item">5: User processes and system calls</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson06 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson06/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../exercises/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../rpi-os/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#22-processor-initialization-linux" class="nav-link">2.2: Processor initialization (Linux)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="22-processor-initialization-linux">2.2: Processor initialization (Linux)</h2>
+<p>We stopped our exploration of the Linux kernel at <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/head.S#L116">stext</a> function, which is the entry point of <code>arm64</code> architecture. This time we are going to go a little bit deeper and find some similarities with the code that we have already implemented in this and previous lessons. </p>
+<p>You may find this chapter a little bit boring because it mostly discusses different ARM system registers and how they are used in the Linux kernel. But I still consider it very important for the following reasons:</p>
+<ol>
+<li>It is necessary to understand the interface that the hardware provides to the software. Just by knowing this interface you will be able, in many cases, to deconstruct how a particular kernel feature is implemented and how software and hardware collaborate to implement this feature.</li>
+<li>Different options in the system register are usually related to enabling/disabling various hardware features. If you learn what different system registers an ARM processor have you will already have an idea what kind of functionality it supports.</li>
+</ol>
+<p>Ok, now let's resume our investigation of the <code>stext</code> function.</p>
+<pre><code>ENTRY(stext)
+    bl    preserve_boot_args
+    bl    el2_setup            // Drop to EL1, w0=cpu_boot_mode
+    adrp    x23, __PHYS_OFFSET
+    and    x23, x23, MIN_KIMG_ALIGN - 1    // KASLR offset, defaults to 0
+    bl    set_cpu_boot_mode_flag
+    bl    __create_page_tables
+    /*
+     * The following calls CPU setup code, see arch/arm64/mm/proc.S for
+     * details.
+     * On return, the CPU will be ready for the MMU to be turned on and
+     * the TCR will have been set.
+     */
+    bl    __cpu_setup            // initialise processor
+    b    __primary_switch
+ENDPROC(stext)
+</code></pre>
+<h3 id="preserve_boot_args">preserve_boot_args</h3>
+<p><a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/head.S#L136">preserve_boot_args</a> function is responsible for saving parameters, passed to the kernel by the bootloader. </p>
+<pre><code>preserve_boot_args:
+    mov    x21, x0                // x21=FDT
+
+    adr_l    x0, boot_args            // record the contents of
+    stp    x21, x1, [x0]            // x0 .. x3 at kernel entry
+    stp    x2, x3, [x0, #16]
+
+    dmb    sy                // needed before dc ivac with
+                        // MMU off
+
+    mov    x1, #0x20            // 4 x 8 bytes
+    b    __inval_dcache_area        // tail call
+ENDPROC(preserve_boot_args)
+</code></pre>
+<p>Accordingly to the <a href="https://github.com/torvalds/linux/blob/v4.14/Documentation/arm64/booting.txt#L150">kernel boot protocol</a>, parameters are passed to the kernel in registers <code>x0 - x3</code>. <code>x0</code> contains the physical address of device tree blob (<code>.dtb</code>) in system RAM. <code>x1 - x3</code> are reserved for future usage. What this function is doing is copying the content of <code>x0 - x3</code> registers to the <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/setup.c#L93">boot_args</a> array and then <a href="https://developer.arm.com/docs/den0024/latest/caches/cache-maintenance">invalidate</a> the corresponding cache line from the data cache. Cache maintenance in a multiprocessor system is a large topic on its own, and we are going to skip it for now. For those who are interested in this subject, I can recommend reading <a href="https://developer.arm.com/docs/den0024/latest/caches">Caches</a> and <a href="https://developer.arm.com/docs/den0024/latest/multi-core-processors">Multi-core processors</a> chapters of the <code>ARM Programmer’s Guide</code>.</p>
+<h3 id="el2_setup">el2_setup</h3>
+<p>Accordingly to the <a href="https://github.com/torvalds/linux/blob/v4.14/Documentation/arm64/booting.txt#L159">arm64boot protocol</a>, the kernel can be booted in either EL1 or EL2. In the second case, the kernel has access to the virtualization extensions and is able to act as a host operating system. If we are lucky enough to be booted in EL2, <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/head.S#L386">el2_setup</a> function is called. It is responsible for configuring different parameters, accessible only at EL2, and dropping to EL1. Now I am going to split this function into small parts and explain each piece one by one.</p>
+<pre><code>    msr    SPsel, #1            // We want to use SP_EL{1,2}
+</code></pre>
+<p>Dedicated stack pointer will be used for both EL1 and EL2. Another option is to reuse stack pointer from EL0.</p>
+<pre><code>    mrs    x0, CurrentEL
+    cmp    x0, #CurrentEL_EL2
+    b.eq    1f
+</code></pre>
+<p>Only if current EL is EL2 branch to label <code>1</code>, otherwise we can't do EL2 setup and not much is left to be done in this function.</p>
+<pre><code>    mrs    x0, sctlr_el1
+CPU_BE(    orr    x0, x0, #(3 &lt;&lt; 24)    )    // Set the EE and E0E bits for EL1
+CPU_LE(    bic    x0, x0, #(3 &lt;&lt; 24)    )    // Clear the EE and E0E bits for EL1
+    msr    sctlr_el1, x0
+    mov    w0, #BOOT_CPU_MODE_EL1        // This cpu booted in EL1
+    isb
+    ret
+</code></pre>
+<p>If it happens that we execute at EL1, <code>sctlr_el1</code> register is updated so that CPU works in either <code>big-endian</code> of <code>little-endian</code> mode depending on the value of <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/Kconfig#L612">CPU_BIG_ENDIAN</a> config setting. Then we just exit from the <code>el2_setup</code> function and return <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/include/asm/virt.h#L55">BOOT_CPU_MODE_EL1</a> constant. Accordingly to <a href="http://infocenter.arm.com/help/topic/com.arm.doc.ihi0055b/IHI0055B_aapcs64.pdf">ARM64 Function Calling Conventions</a> return value should be placed in <code>x0</code> register (or <code>w0</code> in our case. You can think about <code>w0</code> register as the first 32 bit of <code>x0</code>.).</p>
+<pre><code>1:    mrs    x0, sctlr_el2
+CPU_BE(    orr    x0, x0, #(1 &lt;&lt; 25)    )    // Set the EE bit for EL2
+CPU_LE(    bic    x0, x0, #(1 &lt;&lt; 25)    )    // Clear the EE bit for EL2
+    msr    sctlr_el2, x0
+</code></pre>
+<p>If it appears that we are booted in EL2 we are doing the same kind of setup for EL2 (note that this time <code>sctlr_el2</code> register is used instead of <code>sctlr_el1</code>.).</p>
+<pre><code>#ifdef CONFIG_ARM64_VHE
+    /*
+     * Check for VHE being present. For the rest of the EL2 setup,
+     * x2 being non-zero indicates that we do have VHE, and that the
+     * kernel is intended to run at EL2.
+     */
+    mrs    x2, id_aa64mmfr1_el1
+    ubfx    x2, x2, #8, #4
+#else
+    mov    x2, xzr
+#endif
+</code></pre>
+<p>If <a href="https://developer.arm.com/products/architecture/a-profile/docs/100942/latest/aarch64-virtualization">Virtualization Host Extensions (VHE)</a> is enabled via <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/Kconfig#L926">ARM64_VHE</a> config variable and the host machine supports them, <code>x2</code> then is updated with non zero value. <code>x2</code> will be used to check whether <code>VHE</code> is enabled later in the same function.</p>
+<pre><code>    mov    x0, #HCR_RW            // 64-bit EL1
+    cbz    x2, set_hcr
+    orr    x0, x0, #HCR_TGE        // Enable Host Extensions
+    orr    x0, x0, #HCR_E2H
+set_hcr:
+    msr    hcr_el2, x0
+    isb
+</code></pre>
+<p>Here we set <code>hcr_el2</code> register. We used the same register to set 64-bit execution mode for EL1 in the RPi OS. This is exactly what is done in the first line of the provided code sample. Also if <code>x2 != 0</code>, which means that VHE is available and the kernel is configured to use it, <code>hcr_el2</code> is also used to enable VHE.</p>
+<pre><code>    /*
+     * Allow Non-secure EL1 and EL0 to access physical timer and counter.
+     * This is not necessary for VHE, since the host kernel runs in EL2,
+     * and EL0 accesses are configured in the later stage of boot process.
+     * Note that when HCR_EL2.E2H == 1, CNTHCTL_EL2 has the same bit layout
+     * as CNTKCTL_EL1, and CNTKCTL_EL1 accessing instructions are redefined
+     * to access CNTHCTL_EL2. This allows the kernel designed to run at EL1
+     * to transparently mess with the EL0 bits via CNTKCTL_EL1 access in
+     * EL2.
+     */
+    cbnz    x2, 1f
+    mrs    x0, cnthctl_el2
+    orr    x0, x0, #3            // Enable EL1 physical timers
+    msr    cnthctl_el2, x0
+1:
+    msr    cntvoff_el2, xzr        // Clear virtual offset
+
+</code></pre>
+<p>Next piece of code is well explained in the comment above it. I have nothing to add.</p>
+<pre><code>#ifdef CONFIG_ARM_GIC_V3
+    /* GICv3 system register access */
+    mrs    x0, id_aa64pfr0_el1
+    ubfx    x0, x0, #24, #4
+    cmp    x0, #1
+    b.ne    3f
+
+    mrs_s    x0, SYS_ICC_SRE_EL2
+    orr    x0, x0, #ICC_SRE_EL2_SRE    // Set ICC_SRE_EL2.SRE==1
+    orr    x0, x0, #ICC_SRE_EL2_ENABLE    // Set ICC_SRE_EL2.Enable==1
+    msr_s    SYS_ICC_SRE_EL2, x0
+    isb                    // Make sure SRE is now set
+    mrs_s    x0, SYS_ICC_SRE_EL2        // Read SRE back,
+    tbz    x0, #0, 3f            // and check that it sticks
+    msr_s    SYS_ICH_HCR_EL2, xzr        // Reset ICC_HCR_EL2 to defaults
+
+3:
+#endif
+</code></pre>
+<p>Next code snippet is executed only if GICv3 is available and enabled. GIC stands for Generic Interrupt Controller. v3 version of the GIC specification adds a few features, that are particularly useful in virtualization context. For example, with GICv3 it becomes possible to have LPIs (Locality-specific Peripheral Interrupt). Such interrupts are routed via message bus and their configuration is held in special tables in memory.  </p>
+<p>The provided code is responsible for enabling SRE (System Register Interface) This step must be done before we will be able to use <code>ICC_*_ELn</code> registers and take advantages of GICv3 features. </p>
+<pre><code>    /* Populate ID registers. */
+    mrs    x0, midr_el1
+    mrs    x1, mpidr_el1
+    msr    vpidr_el2, x0
+    msr    vmpidr_el2, x1
+</code></pre>
+<p><code>midr_el1</code> and <code>mpidr_el1</code> are read-only registers from the Identification registers group. They provide various information about processor manufacturer, processor architecture name, number of cores and some other info. It is possible to change this information for all readers that try to access it from EL1. Here we populate <code>vpidr_el2</code> and <code>vmpidr_el2</code> with the values taken from <code>midr_el1</code> and <code>mpidr_el1</code>, so this information is the same whether you try to access it from EL1 or  higer exception levels.</p>
+<pre><code>#ifdef CONFIG_COMPAT
+    msr    hstr_el2, xzr            // Disable CP15 traps to EL2
+#endif
+</code></pre>
+<p>When the processor is executing in 32-bit execution mode, there is a concept of "coprocessor". The coprocessor can be used to access information, that in 64-bit execution mode is typically accessed via system registers. You can read about what exactly is accessible via coprocessor <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.ddi0311d/I1014521.html">in the official documentation</a>. <code>msr    hstr_el2, xzr</code> instruction allows using coprocessor from lower exception levels. This makes sense to do only when compatibility mode is enabled (in this mode kernel can run 32-bit user applications on top of 64-bit kernel.).</p>
+<pre><code>    /* EL2 debug */
+    mrs    x1, id_aa64dfr0_el1        // Check ID_AA64DFR0_EL1 PMUVer
+    sbfx    x0, x1, #8, #4
+    cmp    x0, #1
+    b.lt    4f                // Skip if no PMU present
+    mrs    x0, pmcr_el0            // Disable debug access traps
+    ubfx    x0, x0, #11, #5            // to EL2 and allow access to
+4:
+    csel    x3, xzr, x0, lt            // all PMU counters from EL1
+
+    /* Statistical profiling */
+    ubfx    x0, x1, #32, #4            // Check ID_AA64DFR0_EL1 PMSVer
+    cbz    x0, 6f                // Skip if SPE not present
+    cbnz    x2, 5f                // VHE?
+    mov    x1, #(MDCR_EL2_E2PB_MASK &lt;&lt; MDCR_EL2_E2PB_SHIFT)
+    orr    x3, x3, x1            // If we don't have VHE, then
+    b    6f                // use EL1&amp;0 translation.
+5:                        // For VHE, use EL2 translation
+    orr    x3, x3, #MDCR_EL2_TPMS        // and disable access from EL1
+6:
+    msr    mdcr_el2, x3            // Configure debug traps
+</code></pre>
+<p>This piece of code is responsible for configuring <code>mdcr_el2</code> (Monitor Debug Configuration Register (EL2)). This register is responsible for setting different debug traps, related to the virtualization extension.  I am going to leave the details of this code block unexplained because debug and tracing are a little bit out of scope for our discussion. If you are interested in details, I can recommend you to read the description of <code>mdcr_el2</code> register on page <code>2810</code> of the <a href="https://developer.arm.com/docs/ddi0487/ca/arm-architecture-reference-manual-armv8-for-armv8-a-architecture-profile">AArch64-Reference-Manual</a>.</p>
+<pre><code>    /* Stage-2 translation */
+    msr    vttbr_el2, xzr
+</code></pre>
+<p>When your OS is used as a hypervisor it should provide complete memory isolation for its guest OSes. Stage 2 virtual memory translation is used precisely for this purpose: each guest OS thinks that it owns all system memory, though in reality each memory access is mapped to the physical memory by stage 2 translation. <code>vttbr_el2</code>  holds the base address of the translation table for the stage 2 translation.  At this point, stage 2 translation is disabled, and <code>vttbr_el2</code> should be set to 0.</p>
+<pre><code>    cbz    x2, install_el2_stub
+
+    mov    w0, #BOOT_CPU_MODE_EL2        // This CPU booted in EL2
+    isb
+    ret
+</code></pre>
+<p>First <code>x2</code> is compared to <code>0</code> to check whether VHE is enabled. If yes - jump to <code>install_el2_stub</code> label, otherwise record that CPU is booted in EL2 mode and exit from <code>el2_setup</code> function.  In the latter case, the processor continues to operate in EL2 mode and EL1 will not be used at all.</p>
+<pre><code>install_el2_stub:
+    /* sctlr_el1 */
+    mov    x0, #0x0800            // Set/clear RES{1,0} bits
+CPU_BE(    movk    x0, #0x33d0, lsl #16    )    // Set EE and E0E on BE systems
+CPU_LE(    movk    x0, #0x30d0, lsl #16    )    // Clear EE and E0E on LE systems
+    msr    sctlr_el1, x0
+
+</code></pre>
+<p>If we reach this point it means that we don't need VHE and are going to switch to EL1 soon, so early EL1 initialization needs to be done here.  The copied code snippet is responsible for <code>sctlr_el1</code> (System Control Register) initialization. We already did the same job <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/boot.S#L18">here</a> for the RPi OS.</p>
+<pre><code>    /* Coprocessor traps. */
+    mov    x0, #0x33ff
+    msr    cptr_el2, x0            // Disable copro. traps to EL2
+</code></pre>
+<p>This code allows EL1 to access <code>cpacr_el1</code> register and, as a result, to control access to Trace, Floating-point, and Advanced SIMD functionality.</p>
+<pre><code>    /* Hypervisor stub */
+    adr_l    x0, __hyp_stub_vectors
+    msr    vbar_el2, x0
+</code></pre>
+<p>We don't plan to use EL2 now, though some functionality requires it. We need it, for example, to implement <a href="https://linux.die.net/man/8/kexec">kexec</a> system call that enables you to load and boot into another kernel from the currently running kernel. </p>
+<p><a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/hyp-stub.S#L33">_hyp_stub_vectors</a>  holds the addresses of all exception handlers for EL2. We are going to implement exception handling functionality for EL1 in the next lesson, after we talk about interrupts and exception handling in details.</p>
+<pre><code>    /* spsr */
+    mov    x0, #(PSR_F_BIT | PSR_I_BIT | PSR_A_BIT | PSR_D_BIT |\
+              PSR_MODE_EL1h)
+    msr    spsr_el2, x0
+    msr    elr_el2, lr
+    mov    w0, #BOOT_CPU_MODE_EL2        // This CPU booted in EL2
+    eret
+</code></pre>
+<p>Finally, we need to initialize processor state at EL1 and switch exception levels. We already did it for the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/boot.S#L27-L33">RPi OS</a> so I am not going to explain the details of this code. </p>
+<p>The only new thing here is the way how <code>elr_el2</code> is initialized. <code>lr</code> or Link Register is an alias for <code>x30</code>. Whenever you execute <code>bl</code> (Branch Link) instruction <code>x30</code> is automatically populated with the address of the current instruction. This fact is usually used by <code>ret</code> instruction, so it knows where exactly to return. In our case, <code>lr</code> points <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/head.S#L119">here</a> and, because of the way how we initialized  <code>elr_el2</code>, this is also the place from which the execution is going to be resumed after switching to EL1.</p>
+<h3 id="processor-initialization-at-el1">Processor initialization at EL1</h3>
+<p>Now we are back to the <code>stext</code> function. Next few lines are not very important for us, but I want to explain them for the sake of completeness.</p>
+<pre><code>    adrp    x23, __PHYS_OFFSET
+    and    x23, x23, MIN_KIMG_ALIGN - 1    // KASLR offset, defaults to 0
+</code></pre>
+<p><a href="https://lwn.net/Articles/569635/">KASLR</a>, or Kernel address space layout randomization, is a technique that allows to place the kernel at a random address in the memory. This is required only for security reasons. For more information, you can read the link above.</p>
+<pre><code>    bl    set_cpu_boot_mode_flag
+</code></pre>
+<p>Here CPU boot mode is saved into <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/include/asm/virt.h#L74">__boot_cpu_mode</a> variable. The code that does this is very similar to <code>preserve_boot_args</code> function that we explored previously.  </p>
+<pre><code>    bl    __create_page_tables
+    bl    __cpu_setup            // initialise processor
+    b    __primary_switch
+</code></pre>
+<p>The last 3 functions are very important, but they all are related to virtual memory management, so we are going to postpone their detailed exploration until the lesson 6. For now, I just want to brefely describe there meanings.
+* <code>__create_page_tables</code> As its name stands this one is responsible for creating Page Tables.
+* <code>__cpu_setup</code> Initialize various processor settings, mostly specific for virtual memory management.
+* <code>__primary_switch</code> Enable MMU and jump to <a href="https://github.com/torvalds/linux/blob/v4.14/init/main.c#L509">start_kernel</a> function, which is architecture independent starting point.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>In this chapter, we briefly discussed how a processor is initialized when the Linux kernel is booted. In the next lesson, we will continue to closely work with the ARM processor and investigate a vital topic for any OS: interrupt handling.</p>
+<h5 id="previous-page">Previous Page</h5>
+<p>2.1 <a href="../../docs/lesson02/rpi-os.md">Processor initialization: RPi OS</a></p>
+<h5 id="next-page">Next Page</h5>
+<p>2.3 <a href="../../docs/lesson02/exercises.md">Processor initialization: Exercises</a></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

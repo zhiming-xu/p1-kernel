@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../../img/favicon.ico">
+        <title>Fork - p1-kernel</title>
+        <link href="../../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../../..">p1-kernel</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../../Introduction/" class="nav-link">Introduction</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson00 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson00/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson00/rpi-os/" class="dropdown-item">0: Sharpen your tools</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson01 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson01/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
+</li>
+            
+<li>
+    <a href="../../../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
+</li>
+            
+<li>
+    <a href="../../../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson02 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson02/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson02/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson02/rpi-os/" class="dropdown-item">2: Processor initialization</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson03 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson03/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
+</li>
+            
+<li>
+    <a href="../../../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
+</li>
+            
+<li>
+    <a href="../../../lesson03/linux/timer/" class="dropdown-item">Timer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04a <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson04a/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson04a/rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../../lesson04a/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../../lesson04a/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../../lesson04a/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04b <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../rpi-os/" class="dropdown-item">4b: Preemptive Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="./" class="dropdown-item active">Fork</a>
+</li>
+            
+<li>
+    <a href="../scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson05 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson05/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson05/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson05/rpi-os/" class="dropdown-item">5: User processes and system calls</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson06 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../../lesson06/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../basic_structures/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../scheduler/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#43-forking-a-task" class="nav-link">4.3: Forking a task</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="43-forking-a-task">4.3: Forking a task</h2>
+<p>Scheduling is all about selecting a proper task to run from the list of available tasks. But before the scheduler will be able to do its job we need to somehow fill this list. The way in which new tasks can be created is the main topic of this chapter. </p>
+<p>For now, we want to focus only on kernel threads and postpone the discussion of user-mode functionality till the next lesson. However, not everywhere it will be possible, so be prepared to learn a little bit about executing tasks in user mode as well.</p>
+<h3 id="init-task">Init task</h3>
+<p>When the kernel is started there is a single task running: init task. The corresponding <code>task_struct</code> is defined <a href="https://github.com/torvalds/linux/blob/v4.14/init/init_task.c#L20">here</a> and is initialized by <a href="https://github.com/torvalds/linux/blob/v4.14/include/linux/init_task.h#L226">INIT_TASK</a> macro. This task is critical for the system because all other tasks in the system are derived from it.</p>
+<h3 id="creating-new-tasks">Creating new tasks</h3>
+<p>In Linux it is not possible to create a new task from scratch - instead, all tasks are forked from a currently running task. Now, as we've seen from were the initial task came from, we can try to explore how new tasks can be created from it. </p>
+<p>There are 4 ways in which a new task can be created.</p>
+<ol>
+<li><a href="http://man7.org/linux/man-pages/man2/fork.2.html">fork</a> system call creates a full copy of the current process, including its virtual memory and it is used to create new processes (not threads). This syscall is defined <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L2116">here</a>.</li>
+<li><a href="http://man7.org/linux/man-pages/man2/vfork.2.html">vfork</a> system call is similar to <code>fork</code> but it differs in that the child reuses parent virtual memory as well as stack, and the parent is blocked until the child finished execution. The definition of this syscall can be found <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L2128">here</a>.</li>
+<li><a href="http://man7.org/linux/man-pages/man2/clone.2.html">clone</a> system call is the most flexible one - it also copies the current task but it allows to customize the process using <code>flags</code> parameter and allows to configure the entry point for the child task. In the next lesson, we will see how <code>glibc</code> clone wrapper function is implemented - this wrapper allows to use <code>clone</code> syscall to create new threads. </li>
+<li>Finally, <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L2109">kernel_thread</a> function can be used to create new kernel threads. </li>
+</ol>
+<p>All of the above functions calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L2020">_do_fork</a>, which accept the following arguments.</p>
+<ul>
+<li><code>clone_flags</code> Flags are used to configure fork behavior. The complete list of the flags can be found <a href="https://github.com/torvalds/linux/blob/v4.14/include/uapi/linux/sched.h#L8">here</a>.</li>
+<li><code>stack_start</code> In case of <code>clone</code> syscall this parameter indicates the location of the user stack for the new task. If 'kernel_thread' calls <code>_do_fork</code> this parameter points to the function that needs to be executed in a kernel thread.</li>
+<li><code>stack_size</code> In <code>arm64</code> architecture this parameter is only used in the case when <code>_do_fork</code> is called by `kernel_thread. It is a pointer to the argument that needs to be passed to the kernel thread function. (And yes, I also find the naming of the last two parameters misleading)</li>
+<li><code>parent_tidptr</code> <code>child_tidptr</code> Those 2 parameters are used only in <code>clone</code> syscall. Fork will store the child thread ID at the location <code>parent_tidptr</code> in the parent's memory, or it can store parent's ID at <code>child_tidptr</code>location.</li>
+<li><code>tls</code>  <a href="https://en.wikipedia.org/wiki/Thread-local_storage">Thread Local Storage</a></li>
+</ul>
+<h3 id="fork-procedure">Fork procedure</h3>
+<p>Next, I want to highlight the most important events that take place during <code>_do_fork</code> execution, preserving their order.</p>
+<ol>
+<li><a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L2020">_do_fork</a> calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L1539">copy_process</a>  <code>copy_process</code> is responsible for configuring new <code>task_struct</code>.</li>
+<li><code>copy_process</code> calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L512">dup_task_struct</a>, which allocates new <code>task_struct</code> and copies all fields from the original one. Actual copying takes place in the architecture-specific <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/process.c#L244">arch_dup_task_struct</a> </li>
+<li>New kernel stack is allocated. If <code>CONFIG_VMAP_STACK</code> is enabled the kernel uses <a href="https://lwn.net/Articles/692208/">virtually mapped stacks</a> to protect against kernel stack overflow. <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L525">link</a></li>
+<li>Task's credentials are copied. <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L1628">link</a></li>
+<li>The scheduler is notified that a new task is forked. <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L1727">link</a> </li>
+<li><a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L9063">task_fork_fair</a> method of the CFS scheduler class is called. This method updates <code>vruntime</code> value for the currently running task (this is done inside <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L827">update_curr</a> function) and updates <code>min_vruntime</code> value for the current runqueue (inside <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L514">update_min_vruntime</a>). Then <code>min_vruntime</code> value is assigned to the forked task - this ensures that this task will be picked up next. Note, that at this point of time new task still hasn't been added to the <code>task_timeline</code>.</li>
+<li>A lot of different properties, such as information about filesystems, open files, virtual memory, signals, namespaces, are either reused or copied from the current task. The decision whether to copy something or reuse current property is usually made based on the <code>clone_flags</code> parameter. <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L1731-L1765">link</a></li>
+<li><a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L1766">copy_thread_tls</a> is called which in turn calls architecture specific <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/process.c#L254">copy_thread</a> function. This function deserves a special attention because it works as a prototype for the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/fork.c#L5">copy_process</a> function in the RPi OS, and I want to investigate it deeper.</li>
+</ol>
+<h3 id="copy_thread">copy_thread</h3>
+<p>The whole function is listed below.</p>
+<pre><code>int copy_thread(unsigned long clone_flags, unsigned long stack_start,
+        unsigned long stk_sz, struct task_struct *p)
+{
+    struct pt_regs *childregs = task_pt_regs(p);
+
+    memset(&amp;p-&gt;thread.cpu_context, 0, sizeof(struct cpu_context));
+
+    if (likely(!(p-&gt;flags &amp; PF_KTHREAD))) {
+        *childregs = *current_pt_regs();
+        childregs-&gt;regs[0] = 0;
+
+        /*
+         * Read the current TLS pointer from tpidr_el0 as it may be
+         * out-of-sync with the saved value.
+         */
+        *task_user_tls(p) = read_sysreg(tpidr_el0);
+
+        if (stack_start) {
+            if (is_compat_thread(task_thread_info(p)))
+                childregs-&gt;compat_sp = stack_start;
+            else
+                childregs-&gt;sp = stack_start;
+        }
+
+        /*
+         * If a TLS pointer was passed to clone (4th argument), use it
+         * for the new thread.
+         */
+        if (clone_flags &amp; CLONE_SETTLS)
+            p-&gt;thread.tp_value = childregs-&gt;regs[3];
+    } else {
+        memset(childregs, 0, sizeof(struct pt_regs));
+        childregs-&gt;pstate = PSR_MODE_EL1h;
+        if (IS_ENABLED(CONFIG_ARM64_UAO) &amp;&amp;
+            cpus_have_const_cap(ARM64_HAS_UAO))
+            childregs-&gt;pstate |= PSR_UAO_BIT;
+        p-&gt;thread.cpu_context.x19 = stack_start;
+        p-&gt;thread.cpu_context.x20 = stk_sz;
+    }
+    p-&gt;thread.cpu_context.pc = (unsigned long)ret_from_fork;
+    p-&gt;thread.cpu_context.sp = (unsigned long)childregs;
+
+    ptrace_hw_copy_thread(p);
+
+    return 0;
+}
+</code></pre>
+<p>Some of this code can be already a little bit familiar to you. Let's dig dipper into it.</p>
+<pre><code>struct pt_regs *childregs = task_pt_regs(p);
+</code></pre>
+<p>The function starts with allocating new <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/include/asm/ptrace.h#L119">pt_regs</a> struct. This struct is used to provide access to the registers, saved during <code>kernel_entry</code>. <code>childregs</code> variable then can be used to prepare whatever state we need for the newly created task. If the task then decides to move to user mode the state will be restored by the <code>kernel_exit</code> macro. An important thing to understand here is that <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/include/asm/processor.h#L161">task_pt_regs</a> macro doesn't allocate anything - it just calculate the position on the kernel stack, were <code>kernel_entry</code> stores registers, and for the newly created task, this position will always be at the top of the kernel stack.</p>
+<pre><code>memset(&amp;p-&gt;thread.cpu_context, 0, sizeof(struct cpu_context));
+</code></pre>
+<p>Next, forked task <code>cpu_context</code> is cleared.</p>
+<pre><code>if (likely(!(p-&gt;flags &amp; PF_KTHREAD))) {
+</code></pre>
+<p>Then a check is made to determine whether we are creating a kernel or a user thread. For now, we are interested only in kernel thread case and we will discuss the second option in the next lesson.</p>
+<p><code>memset(childregs, 0, sizeof(struct pt_regs));
+  childregs-&gt;pstate = PSR_MODE_EL1h;
+  if (IS_ENABLED(CONFIG_ARM64_UAO) &amp;&amp;
+      cpus_have_const_cap(ARM64_HAS_UAO))
+          childregs-&gt;pstate |= PSR_UAO_BIT;
+  p-&gt;thread.cpu_context.x19 = stack_start;
+  p-&gt;thread.cpu_context.x20 = stk_sz;</code></p>
+<p>If we are creating a kernel thread <code>x19</code> and <code>x20</code> registers of the <code>cpu_context</code> are set to point to the function that needs to be executed (<code>stack_start</code>) and its argument (<code>stk_sz</code>). After CPU will be switched to the forked task, <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/entry.S#L942">ret_from_fork</a> will use those registers to jump to the needed function. (I don't quite understand why do we also need to set <code>childregs-&gt;pstate</code> here. <code>ret_from_fork</code> will not call <code>kernel_exit</code> before jumping to the function stored in <code>x19</code>, and even if the kernel thread decides to move to the user mode <code>childregs</code> will be overwritten anyway. Any ideas?)</p>
+<pre><code>p-&gt;thread.cpu_context.pc = (unsigned long)ret_from_fork;
+p-&gt;thread.cpu_context.sp = (unsigned long)childregs;
+</code></pre>
+<p>Next <code>cpu_context.pc</code> is set to <code>ret_from_fork</code> pointer - this ensures that we return to the <code>ret_from_fork</code> after the first context switch. <code>cpu_context.sp</code> is set to the location just below the <code>childregs</code>. We still need <code>childregs</code> at the top of the stack because after the kernel thread finishes its execution the task will be moved to user mode and <code>childregs</code> structure will be used. In the next lesson, we will discuss in details how this happens.</p>
+<p>That's it about <code>copy_thread</code> function. Now let's return to the place in the fork procedure from where we left.</p>
+<h3 id="fork-procedure-continued">Fork procedure (continued)</h3>
+<ol>
+<li>
+<p>After <code>copy_process</code> succsesfully prepares <code>task_struct</code> for the forked task <code>_do_fork</code> can now run it by calling <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L2438">wake_up_new_task</a>. This is done <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L2074">here</a>. Then task state is changed to <code>TASK_RUNNING</code> and  <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L4879">enqueue_task_fair</a> CFS method is called, wich triggers execution of the <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L549">__enqueue_entity</a> that actually adds task to the <code>task_timeline</code> red-black tree.</p>
+</li>
+<li>
+<p>At <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L2463">this</a> line, <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L871">check_preempt_curr</a> is called, which in turn calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/fair.c#L6167">check_preempt_wakeup</a> CFS method. This method is responsible for checking whether the current task should be preempted by some other task. That is exactly what is going to happen because we have just put a new task on the timeline that has minimal possible <code>vruntime</code>. So <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L479">resched_curr</a> function is triggered, which sets <code>TIF_NEED_RESCHED</code> flag for the current task.</p>
+</li>
+<li>
+<p><code>TIF_NEED_RESCHED</code> is checked just before the current task exit from an exception handler (<code>fork</code>, <code>vfork</code> and <code>clone</code> are all system call, and each system call is a special type of exception.). The check is made <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/entry.S#L801">here</a>. Note that <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/include/asm/thread_info.h#L109">_TIF_WORK_MASK</a> includes <code>_TIF_NEED_RESCHED</code>. It is also important to understand that in case of a kernel thread creation, the new thread will not be started until the next timer tick or until the parent task volatirely calls <code>schedule()</code>.</p>
+</li>
+<li>
+<p>If the current task needs to be rescheduled, <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/signal.c#L744">do_notify_resume</a> is triggered, which in turn calls <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/sched/core.c#L3418">schedule</a>. Finally we reached the point where task scheduling is triggered, and we are going to stop at this point.</p>
+</li>
+</ol>
+<h3 id="conclusion">Conclusion</h3>
+<p>Now that you understand how new tasks are created and added to the scheduler, it is time to take a look on how the scheduler itself works and how context switch is implemented. That is something we are going to explore in the next chapter.</p>
+<h5 id="previous-page">Previous Page</h5>
+<p>4.2 <a href="../../../docs/lesson04/linux/basic_structures.md">Process scheduler: Scheduler basic structures</a></p>
+<h5 id="next-page">Next Page</h5>
+<p>4.4 <a href="../../../docs/lesson04/linux/scheduler.md">Process scheduler: Scheduler</a></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../../js/base.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

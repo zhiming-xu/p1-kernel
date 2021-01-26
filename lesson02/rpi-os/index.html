@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>2: Processor initialization - p1-kernel</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">p1-kernel</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../Introduction/" class="nav-link">Introduction</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson00 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson00/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson00/rpi-os/" class="dropdown-item">0: Sharpen your tools</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson01 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson01/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson02 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">2: Processor initialization</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson03 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson03/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/timer/" class="dropdown-item">Timer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04a <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04a/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04a/rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04a/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04b <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04b/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04b/rpi-os/" class="dropdown-item">4b: Preemptive Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04b/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04b/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04b/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson05 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson05/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson05/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson05/rpi-os/" class="dropdown-item">5: User processes and system calls</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson06 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson06/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../linux/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../../lesson03/exercises/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#2-processor-initialization" class="nav-link">2: Processor initialization</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#objectives" class="nav-link">Objectives</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#background-exception-levels-el" class="nav-link">Background: Exception levels (EL)</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#enhanced-debugging" class="nav-link">Enhanced debugging</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#code-walkthrough" class="nav-link">Code Walkthrough</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="2-processor-initialization">2: Processor initialization</h1>
+<ul>
+<li><a href="#objectives">Objectives</a></li>
+<li><a href="#background-exception-levels-el">Background: Exception levels (EL)</a><ul>
+<li><a href="#switching-els">Switching ELs</a></li>
+</ul>
+</li>
+<li><a href="#enhanced-debugging">Enhanced debugging</a><ul>
+<li><a href="#bring-up-printf">Bring up printf()</a></li>
+<li><a href="#qemu--gdb-debugging">QEMU + GDB debugging</a></li>
+</ul>
+</li>
+<li><a href="#code-walkthrough">Code Walkthrough</a><ul>
+<li><a href="#finding-out-the-current-el">Finding out the current EL</a></li>
+<li><a href="#switching-to-el1">Switching to EL1</a></li>
+<li><a href="#sctlr_el1-system-control-register-el1">SCTLR_EL1, System Control Register (EL1)</a></li>
+<li><a href="#hcr_el2-hypervisor-configuration-el2">HCR_EL2, Hypervisor Configuration (EL2)</a></li>
+<li><a href="#scr_el3-secure-configuration-el3">SCR_EL3, Secure Configuration (EL3)</a></li>
+<li><a href="#spsr_el3-saved-program-status-el3">SPSR_EL3, Saved Program Status (EL3)</a></li>
+<li><a href="#elr_el3-exception-link-el3">ELR_EL3, Exception Link (EL3)</a></li>
+</ul>
+</li>
+<li><a href="#conclusion">Conclusion</a></li>
+</ul>
+<h2 id="objectives">Objectives</h2>
+<p>We are going to build: </p>
+<p>A baremetal program that can switch among CPU exception levels and print out the current level. </p>
+<p>Students will: </p>
+<ol>
+<li>Experiment with exception levels (ELs)</li>
+<li>Observe switches among ELs -- crucial for subsequent experiments!</li>
+<li>Tinker with the kernel, e.g. debugging</li>
+</ol>
+<h2 id="background-exception-levels-el">Background: Exception levels (EL)</h2>
+<p>ARMv8 defines 4 exception levels. You can think about an exception level as a processor execution mode in which only a subset of all operations and registers is available. The least privileged exception level, i.e. lowest level, is level 0. When processor operates at this level, it mostly uses only general purpose registers (X0 - X30) and stack pointer register (SP). EL0 also allows using <code>STR</code> and <code>LDR</code> commands to load and store data to and from memory and a few other instructions commonly used by a user program.</p>
+<p><img src="figures\els.png" alt="image-20200724105904952" style="zoom: 67%;" /></p>
+<p>An OS kernel deals with exception levels because it needs to implement <em>isolation</em>. A user process should not be able to access other process's data. To achieve such behavior, a kernel always runs each user process at EL0. Operating at this exception level a process can only use it's own virtual memory and can't access any instructions that change ELs, MMUs, etc. </p>
+<p>The kernel itself usually works at EL1. While running at this exception level CPU gets access to the registers that allows configuring MMU as well as some system registers. </p>
+<p><strong>About EL2/3</strong>: this lab is NOT going to use EL 2 or EL 3, but I just want to briefly describe them so you can get an idea why they are needed. </p>
+<p>EL2 is used in a scenario when we are using a hypervisor. In this case hypervisor runs at EL2 and guest OSes run at EL1. This allows the hypervisor to isolate guest OSes in a similar way how OS isolates user processes.</p>
+<p>EL3 pertains to Arm TrustZone. It is used for transitions from ARM "Secure World" to "Insecure world". This abstraction exist to provide full hardware isolation between the software running in two different "worlds". Application from an "Insecure world" can in no way access or modify information (both instruction and data) that belongs to "secure world", and this restriction is enforced at the hardware level. </p>
+<blockquote>
+<p>We will do TrustZone experiments soon!</p>
+</blockquote>
+<h3 id="switching-els">Switching ELs</h3>
+<p>In Arm architecture, there is no way a program can raise its own exception level without involving software that already runs on a higher level. This makes a perfect sense: otherwise, any program would be able to escape its assigned EL and makes unauthorized access to memory or registers. </p>
+<p>Current EL can be changed only if an exception is generated. Common causes of exceptions include (not limited to): </p>
+<ul>
+<li>software executes some illegal instruction (for example, tries to access memory location at a nonexisting address; </li>
+<li>software tries to divide an integer by 0; </li>
+<li>software executes special instructions (e.g. <code>svc</code>) to request exceptions. </li>
+</ul>
+<p>In Arm's lingo, IO-generated interrupts are also handled as a special type of exceptions. </p>
+<p>Whenever an exception is generated the following sequence of steps takes place (In the description I am assuming that the exception is handled at EL <code>n</code>, were <code>n</code> could be 1, 2 or 3).</p>
+<ol>
+<li>Address of the current instruction is saved in the <code>ELR_ELn</code>  register. (It is called <code>Exception link register</code>)</li>
+<li>Current processor state is stored in <code>SPSR_ELn</code> register (<code>Saved Program Status Register</code>)</li>
+<li>NB: As some of you may know, other CPU hardware may automatically push registers on stack prior to exception handling. Armv8 does NOT do that. </li>
+<li>An exception handler is executed and does whatever job it needs to do.</li>
+<li>Exception handler calls <code>eret</code> instruction. This instruction restores processor state from <code>SPSR_ELn</code> and resumes execution starting from the address, stored in the <code>ELR_ELn</code>  register.</li>
+</ol>
+<p>There are more details, e.g. the exception handler software also needs to store the state of all general purpose registers and restore it back afterwards, as we will discuss this process in details in the upcoming experiment. For now, we need just to understand the process in general and remember the meaning of the <code>ELR_ELm</code> and <code>SPSR_ELn</code> registers.</p>
+<p>An important thing to know is that exception handler is not obliged to return to the same instruction where the exception originates. Both <code>ELR_ELm</code> and <code>SPSR_ELn</code> are writable and the exception handler can modify them in order to specify the instructions to execute right after the EL switch. We are going to use this technique to our advantage when we try to switch from EL3 to EL1 in our code.</p>
+<h2 id="enhanced-debugging">Enhanced debugging</h2>
+<h3 id="bring-up-printf">Bring up printf()</h3>
+<p>Right now, the kernel can only print some constant string on a screen, but what I need is some analog of <a href="https://en.wikipedia.org/wiki/Printf_format_string">printf</a> function. With <code>printf</code> I can easily display values of different registers and variables. Such functionality is essential for the kernel development because you don't have any other debugger support and <code>printf</code> becomes the only mean for figuring out what is going on inside Rpi3.</p>
+<p>Let's not reinvent the wheel and use one of  <a href="http://www.sparetimelabs.com/tinyprintf/tinyprintf.php">existing printf implementations</a> This function consists mostly from string manipulations and is not very interesting from a kernel developer point of view. The implementation that I used is very small and don't have external dependencies, that allows it to be easily integrated into the kernel. The only thing that I have to do is to define <code>putc</code>  function that can send a single character to the screen. This function is defined <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/mini_uart.c#L59">here</a> and it just uses already existing <code>uart_send</code> function. Also, we need to initialize the <code>printf</code> library and specify the location of the <code>putc</code> function. This is done in a single <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/kernel.c#L8">line of code</a>.</p>
+<h3 id="qemu-gdb-debugging">QEMU + GDB debugging</h3>
+<!--- Todo: add GDB debugging --->
+
+<p>GDB allows you to do single step, etc. It may help understand/debug specific instructions. You can find extensive information online. A quick note is <a href="../../gdb.md">here</a>.</p>
+<h2 id="code-walkthrough">Code Walkthrough</h2>
+<h3 id="finding-out-the-current-el">Finding out the current EL</h3>
+<p>As we are equipped with the <code>printf</code> function, we can proceed to figure out at which exception level the kernel is booted. A small function that can answer this question looks like this.</p>
+<pre><code>.globl get_el
+get_el:
+    mrs x0, CurrentEL
+    lsr x0, x0, #2
+    ret
+</code></pre>
+<p>Here we use <code>mrs</code> instruction to read the value from <code>CurrentEL</code> system register into <code>x0</code> register. Then we shift this value 2 bits to the right (because the lowest 2 bits in the <code>CurrentEL</code> register are reserved and always have value 0). Finally the register <code>x0</code> contains an integer number indicating current exception level. Now the only thing that is left is to display this value, like <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/kernel.c#L10">this</a>.</p>
+<pre><code>    int el = get_el();
+    printf(&quot;Exception level: %d \r\n&quot;, el);
+</code></pre>
+<p><strong>Rpi3:</strong> If you reproduce this experiment, you should see <code>Exception level: 3</code> on the screen. This means the CPU executes as the security monitor when it boots up. </p>
+<p><strong>QEMU:</strong> You will see <code>Exception level: 2</code> because this is how QEMU emulates the CPU: setting the initial EL as 2. Why?</p>
+<h3 id="switching-to-el1">Switching to EL1</h3>
+<p>EL1 is intended for OS kernels. Strictly speaking, our kernel is not obliged to switch to EL1 when it boots up, but EL1 is a natural choice for us because this level has just the right set of privileges to implement all common OS tasks. It also will be an interesting exercise to see how switching exceptions levels works in action. Let's take a look at the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/boot.S#L17">source code that does this</a>.</p>
+<pre><code>master:
+    ldr    x0, =SCTLR_VALUE_MMU_DISABLED
+    msr    sctlr_el1, x0        
+
+    ldr    x0, =HCR_VALUE
+    msr    hcr_el2, x0
+
+    ldr    x0, =SCR_VALUE
+    msr    scr_el3, x0
+
+    ldr    x0, =SPSR_VALUE
+    msr    spsr_el3, x0
+
+    adr    x0, el1_entry        
+    msr    elr_el3, x0
+
+    eret                
+</code></pre>
+<p>The code configures a few system registers. Now we are going to examine those registers one by one. The register details are documented in <a href="https://developer.arm.com/docs/ddi0487/ca/arm-architecture-reference-manual-armv8-for-armv8-a-architecture-profile">the Armv8 architecture manual</a> which we will refer to as needed. </p>
+<h4 id="sctlr_el1-system-control-register-el1">SCTLR_EL1, System Control Register (EL1)</h4>
+<!----Page 2654 of AArch64-Reference-Manual--->
+
+<pre><code>    ldr    x0, =SCTLR_VALUE_MMU_DISABLED
+    msr    sctlr_el1, x0        
+</code></pre>
+<p>Here we set the value of the <code>sctlr_el1</code> system register. <code>sctlr_el1</code> is responsible for configuring different parameters of CPU when CPU operates at EL1. For example, it controls whether the cache is enabled and, what is most important for us, whether the MMU (Memory Management Unit) is turned on. <code>sctlr_el1</code> is accessible from all exception levels higher or equal than EL1 (you can infer this from <code>_el1</code> postfix) </p>
+<p><code>SCTLR_VALUE_MMU_DISABLED</code> constant is defined <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/include/arm/sysregs.h#L16">here</a> Individual bits of this value are defined like this:</p>
+<ul>
+<li><code>#define SCTLR_RESERVED                  (3 &lt;&lt; 28) | (3 &lt;&lt; 22) | (1 &lt;&lt; 20) | (1 &lt;&lt; 11)</code> Some bits in the description of <code>sctlr_el1</code> register are marked as <code>RES1</code>. Those bits are reserved for future usage and should be initialized with <code>1</code>.</li>
+<li><code>#define SCTLR_EE_LITTLE_ENDIAN          (0 &lt;&lt; 25)</code> Exception <a href="https://en.wikipedia.org/wiki/Endianness">Endianness</a>. This field controls endianess of explicit data access at EL1. We are going to configure the processor to work only with <code>little-endian</code> format.</li>
+<li><code>#define SCTLR_EOE_LITTLE_ENDIAN         (0 &lt;&lt; 24)</code> Similar to previous field but this one controls endianess of explicit data access at EL0, instead of EL1. </li>
+<li><code>#define SCTLR_I_CACHE_DISABLED          (0 &lt;&lt; 12)</code> Disable instruction cache. We are going to disable all caches for simplicity. You can find more information about data and instruction caches <a href="https://stackoverflow.com/questions/22394750/what-is-meant-by-data-cache-and-instruction-cache">here</a>.</li>
+<li><code>#define SCTLR_D_CACHE_DISABLED          (0 &lt;&lt; 2)</code> Disable data cache.</li>
+<li><code>#define SCTLR_MMU_DISABLED              (0 &lt;&lt; 0)</code> Disable MMU. MMU must be disabled until the lesson 6, where we are going to prepare page tables and start working with virtual memory.</li>
+</ul>
+<p>FYI - <a href="https://developer.arm.com/docs/ddi0595/b/aarch64-system-registers/sctlr_el1">official doc</a></p>
+<h4 id="hcr_el2-hypervisor-configuration-el2">HCR_EL2, Hypervisor Configuration (EL2)</h4>
+<!--- Page 2487 of AArch64-Reference-Manual.  -->
+
+<pre><code>    ldr    x0, =HCR_VALUE
+    msr    hcr_el2, x0
+</code></pre>
+<p>We are NOT going to implement our own <a href="https://en.wikipedia.org/wiki/Hypervisor">hypervisor</a>. Still we need to use this register. Among other settings, bit 31 (RW) controls the execution state at EL1, being AArch64 (1) or AArch32 (0). This register also controls at which EL we will handle IRQ. </p>
+<p>In <code>sysregs.h</code> we set HCR_VALUE to be (1&lt;&lt;31). </p>
+<p><a href="https://developer.arm.com/documentation/100403/0200/register-descriptions/aarch64-system-registers/hcr-el2--hypervisor-configuration-register--el2">Official doc</a></p>
+<h4 id="scr_el3-secure-configuration-el3">SCR_EL3, Secure Configuration (EL3)</h4>
+<!----Page 2648 of AArch64-Reference-Manual --->
+
+<pre><code>    ldr    x0, =SCR_VALUE
+    msr    scr_el3, x0
+</code></pre>
+<p>This register is responsible for configuring security settings. For example, it controls whether all lower levels are executed in "secure" or "nonsecure" world. It also controls execution state at EL2. <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/include/arm/sysregs.h#L26">Here</a> we set that EL2 will execute at <code>AArch64</code> state, and all lower exception levels will be "non secure". </p>
+<p>This register has no counterpart at EL2. Therefore, we don't have to set it on qemu emulation. </p>
+<p><a href="https://developer.arm.com/docs/ddi0595/b/aarch64-system-registers/scr_el3">Official doc</a></p>
+<h4 id="spsr_el3-saved-program-status-el3">SPSR_EL3, Saved Program Status (EL3)</h4>
+<!-----------Page 389 of AArch64-Reference-Manual --------->
+
+<pre><code>    ldr    x0, =SPSR_VALUE
+    msr    spsr_el3, x0
+</code></pre>
+<!---This register should be already familiar to you - we mentioned it when discussed the process of changing exception levels.-->
+
+<p><code>spsr_el3</code> contains CPU state, that will be restored after we execute <code>eret</code> instruction.
+What is CPU state? It consists of the following information:</p>
+<ul>
+<li>
+<p><strong>Condition Flags</strong> Those flags contains information about previously executed executions: whether the result was negative (N flag), zero (A flag), has unsigned overflow (C flag) or has signed overflow (V flag). Values of those flags can be used in conditional branch instructions. For example, <code>b.eq</code> instruction will jump to the provided label only if the result of the last comparison operation is equal to 0. The processor checks this by testing whether Z flag is set to 1.</p>
+</li>
+<li>
+<p><strong>Interrupt disable bits</strong> Those bits allows to enable/disable different types of interrupts.</p>
+</li>
+<li>
+<p><strong>EL &amp; other information</strong>, required to fully restore the processor execution state after an exception is handled. </p>
+</li>
+</ul>
+<p>Usually <code>spsr_el3</code> is saved automatically by CPU hardware, when an exception is taken to EL3. Furthermore, this register is writable by our code, so we take advantage of this fact and manually prepare CPU state. <code>SPSR_VALUE</code> is prepared <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/include/arm/sysregs.h#L35">here</a> and we initialize the following fields:</p>
+<ul>
+<li><code>#define SPSR_MASK_ALL        (7 &lt;&lt; 6)</code> After we change EL to EL1 all types of interrupts will be masked (or disabled, which is the same).</li>
+<li><code>#define SPSR_EL1h        (5 &lt;&lt; 0)</code> This indicates to which EL the <code>eret</code> instruction will take the CPU to. It's EL1. About EL1h: At EL1 we can either use our own dedicated stack pointer or use EL0 stack pointer. <code>EL1h</code> mode means that we are using EL1 dedicated stack pointer. </li>
+</ul>
+<p><a href="https://developer.arm.com/docs/ddi0595/b/aarch64-system-registers/spsr_el3">Official doc</a></p>
+<h4 id="elr_el3-exception-link-el3">ELR_EL3, Exception Link (EL3)</h4>
+<!----- Page 351 of AArch64-Reference-Manual.---->
+
+<pre><code>    adr    x0, el1_entry        
+    msr    elr_el3, x0
+    eret                
+</code></pre>
+<p><code>elr_el3</code> holds the address, to which we are going to return after <code>eret</code> instruction will be executed. Here we set this address to the location of <code>el1_entry</code> label.</p>
+<p><a href="https://developer.arm.com/docs/ddi0595/b/aarch64-system-registers/elr_el3">Official doc</a></p>
+<h2 id="conclusion">Conclusion</h2>
+<p>That is pretty much it: when we enter <code>el1_entry</code> function the execution should be already at EL1 mode. </p>
+<p>Our subsequent experiments will switch between EL1 (kernel) and EL0 (user) frequently. </p>
+<p>Go ahead and try it out! </p>
+<!--- add submission instructions ---></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Linux - p1-kernel</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+
+        <script src="../../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">p1-kernel</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../../Introduction/" class="nav-link">Introduction</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson00 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson00/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson00/rpi-os/" class="dropdown-item">0: Sharpen your tools</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson01 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson01/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson01/rpi-os/" class="dropdown-item">1: Baremetal HelloWorld</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson01/linux/build-system/" class="dropdown-item">Build system</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/kernel-startup/" class="dropdown-item">Kernel startup</a>
+</li>
+            
+<li>
+    <a href="../../lesson01/linux/project-structure/" class="dropdown-item">Project structure</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson02 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson02/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson02/linux/" class="dropdown-item">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson02/rpi-os/" class="dropdown-item">2: Processor initialization</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson03 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson03/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson03/rpi-os/" class="dropdown-item">3: Interrupts</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson03/linux/interrupt_controllers/" class="dropdown-item">Interrupt controllers</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/low_level-exception_handling/" class="dropdown-item">Low level exception handling</a>
+</li>
+            
+<li>
+    <a href="../../lesson03/linux/timer/" class="dropdown-item">Timer</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04a <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04a/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04a/rpi-os/" class="dropdown-item">4a: Cooperative Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04a/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04a/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson04b <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson04b/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson04b/rpi-os/" class="dropdown-item">4b: Preemptive Multitasking</a>
+</li>
+                                    
+  <li class="dropdown-submenu">
+    <a href="#" class="dropdown-item">Linux</a>
+    <ul class="dropdown-menu">
+            
+<li>
+    <a href="../../lesson04b/linux/basic_structures/" class="dropdown-item">Basic structures</a>
+</li>
+            
+<li>
+    <a href="../../lesson04b/linux/fork/" class="dropdown-item">Fork</a>
+</li>
+            
+<li>
+    <a href="../../lesson04b/linux/scheduler/" class="dropdown-item">Scheduler</a>
+</li>
+    </ul>
+  </li>
+                                </ul>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson05 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Linux</a>
+</li>
+                                    
+<li>
+    <a href="../rpi-os/" class="dropdown-item">5: User processes and system calls</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Lesson06 <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../../lesson06/exercises/" class="dropdown-item">Exercises</a>
+</li>
+                                    
+<li>
+    <a href="../../lesson06/rpi-os/" class="dropdown-item">6: Virtual memory (VM)</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../exercises/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../rpi-os/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#52-user-processes-and-system-calls" class="nav-link">5.2: User processes and system calls</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="52-user-processes-and-system-calls">5.2: User processes and system calls</h2>
+<p>This chapter is going to be a short one. The reason is that I copied syscall implementation from Linux to RPi OS almost precisely, therefore it doesn't require a lot of explanations. But still I want to guide you through the Linux source code so that you can see where and how a particular syscall functionality is implemented.</p>
+<h3 id="creating-first-user-process">Creating first user process</h3>
+<p>The first question we are going to tackle is how the first user process is created.  A good place to start looking for the answer is <a href="https://github.com/torvalds/linux/blob/v4.14/init/main.c#L509">start_kernel</a> function - as we've seen previously, this is the first architecture independent function that is called early in the kernel boot process. This is where the kernel initialization begins, and it would make sense to run the first user process during kernel initialization.</p>
+<p>An indeed, if you follow the logic of <code>start_kernel</code> you will soon discover <a href="https://github.com/torvalds/linux/blob/v4.14/init/main.c#L989">kernel_init</a> function that has the following code.</p>
+<pre><code>    if (!try_to_run_init_process(&quot;/sbin/init&quot;) ||
+        !try_to_run_init_process(&quot;/etc/init&quot;) ||
+        !try_to_run_init_process(&quot;/bin/init&quot;) ||
+        !try_to_run_init_process(&quot;/bin/sh&quot;))
+        return 0;
+</code></pre>
+<p>It looks like this is precisely what we are looking for. From this code we can also infer where exactly and in which order Linux kernel looks for the <code>init</code> user program. <code>try_to_run_init_process</code> then executes <a href="https://github.com/torvalds/linux/blob/v4.14/fs/exec.c#L1837">do_execve</a> function, which is also responsible for handling <a href="http://man7.org/linux/man-pages/man2/execve.2.html">execve</a> system call. This system call reads a binary executable file and runs it inside the current process.</p>
+<p>The logic behind the <code>execve</code> system call will be explored in details in the lesson 9, for now, it will be enough to mention that the most important work that this syscall does is parsing executable file and loading its content into memory, and it is done inside <a href="https://github.com/torvalds/linux/blob/v4.14/fs/binfmt_elf.c#L679">load_elf_binary</a> function. (Here we assume that the executable file is in <a href="https://en.wikipedia.org/wiki/Executable_and_Linkable_Format">ELF</a> format - it is the most popular, but not the only choice) At the end of <code>load_elf_binary</code> method (actually <a href="https://github.com/torvalds/linux/blob/v4.14/fs/binfmt_elf.c#L1149">here</a>) there is a call to architecture specific <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/include/asm/processor.h#L119">start_thread</a> function. I used it as a prototype for the RPi OS <code>move_to_user_mode</code> routine, and this is the code that we mostly care about. Here it is.</p>
+<pre><code>static inline void start_thread_common(struct pt_regs *regs, unsigned long pc)
+{
+    memset(regs, 0, sizeof(*regs));
+    forget_syscall(regs);
+    regs-&gt;pc = pc;
+}
+
+static inline void start_thread(struct pt_regs *regs, unsigned long pc,
+                unsigned long sp)
+{
+    start_thread_common(regs, pc);
+    regs-&gt;pstate = PSR_MODE_EL0t;
+    regs-&gt;sp = sp;
+}
+</code></pre>
+<p>By the time <code>start_thread</code> is executed, the current process operates in the kernel mode. <code>start_thread</code> is given access to the current <code>pt_regs</code> struct, which is used to set saved <code>pstate</code>, <code>sp</code> and <code>pc</code> fields. The logic here is exactly the same as in the RPi OS <code>move_to_user_mode</code> function, so I don't want to repeat it one more time. An important thing to remember is that <code>start_thread</code> prepares saved processor state in such a way that <code>kernel_exit</code> macro will eventually move the process to user mode.</p>
+<h3 id="linux-syscalls">Linux syscalls</h3>
+<p>It would be no surprise to you that the primary syscall mechanism is exactly the same in Linux and RPi OS. Now we are going to use already familiar <a href="http://man7.org/linux/man-pages/man2/clone.2.html">clone</a> syscall to understand the details of this mechanism. It would make sense to start our exploration with the <a href="https://sourceware.org/git/?p=glibc.git;a=blob;f=sysdeps/unix/sysv/linux/aarch64/clone.S;h=e0653048259dd9a3d3eb3103ec2ae86acb43ef48;hb=HEAD#l35">glibc clone wrapper function</a>. It works exactly the same as <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson05/src/sys.S#L22">call_sys_clone</a> function in the RPi OS, with the exception that the former function performers arguments sanity check and handles exceptions properly. An important thing to remember and understand is that in both cases we are using <code>svc</code> instruction to generate a synchronous exception, syscall number is passed using <code>x8</code> register and all arguments are passed in registers <code>x0</code> - <code>x7</code>.</p>
+<p>Next, let's take a look at how <code>clone</code> syscall is defined. The definition can be found <a href="https://github.com/torvalds/linux/blob/v4.14/kernel/fork.c#L2153">here</a> and looks like this.</p>
+<pre><code>SYSCALL_DEFINE5(clone, unsigned long, clone_flags, unsigned long, newsp,
+         int __user *, parent_tidptr,
+         int __user *, child_tidptr,
+         unsigned long, tls)
+{
+    return _do_fork(clone_flags, newsp, 0, parent_tidptr, child_tidptr, tls);
+}
+</code></pre>
+<p><a href="https://github.com/torvalds/linux/blob/v4.14/include/trace/syscall.h#L25">SYSCALL_DEFINE5</a> macro has number 5 in its name indicating that we are defining a syscall with 5 parameters.  The macro allocates and populates new <a href="https://github.com/torvalds/linux/blob/v4.14/include/trace/syscall.h#L25">syscall_metadata</a> struct and creates <code>sys_&lt;syscall name&gt;</code> function. For example, in case of the <code>clone</code>  syscall <code>sys_clone</code> function will be defined - this is the actuall syscall handler that will be called from the low-level architecture code.</p>
+<p>When a syscall is executed, the kernel needs a way to find syscall handler by the syscall number. The easiest way to achieve this is to create an array of pointers to syscall handlers and use syscall number as an index in this array. This is the approach we used in the RPi OS and exactly the same approach is used in the Linux kernel. The array of pointers to syscall handlers is called <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/sys.c#L62">sys_call_table</a> and is defined like this.</p>
+<pre><code>void * const sys_call_table[__NR_syscalls] __aligned(4096) = {
+    [0 ... __NR_syscalls - 1] = sys_ni_syscall,
+#include &lt;asm/unistd.h&gt;
+};
+</code></pre>
+<p>All syscalls are initially allocated to point to <code>sys_ni_syscall</code> function ("ni" here means "non-existent"). Syscall with number <code>0</code> and all syscalls that aren't defined for the current architecture will keep this handler. All other syscall handlers in the <code>sys_call_table</code> array are rewritten in the <a href="https://github.com/torvalds/linux/blob/v4.14/include/uapi/asm-generic/unistd.h">asm/unistd.h</a> header file. As you might see, this file simply provides a mapping between syscall number and syscall handler function.</p>
+<h3 id="low-level-syscall-handling-code">Low-level syscall handling code</h3>
+<p>Ok, we've seen how <code>sys_call_table</code> is created and populated, now it is time to investigate how it is used by the low-level syscall handling code. And once again the basic mechanism here will be almost exactly the same as in the RPi OS. </p>
+<p>We know that any syscall is a synchronous exception and all exception handlers are defined in the exception vector table (it is our favorite <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/entry.S#L367">vectors</a> array). The handler that we are interested in should be the one that handles synchronous exceptions generated at EL0. All of this makes it trivial to find the right handler, it is called <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/entry.S#L598">el0_sync</a> and looks like the following.</p>
+<pre><code>el0_sync:
+    kernel_entry 0
+    mrs    x25, esr_el1            // read the syndrome register
+    lsr    x24, x25, #ESR_ELx_EC_SHIFT    // exception class
+    cmp    x24, #ESR_ELx_EC_SVC64        // SVC in 64-bit state
+    b.eq    el0_svc
+    cmp    x24, #ESR_ELx_EC_DABT_LOW    // data abort in EL0
+    b.eq    el0_da
+    cmp    x24, #ESR_ELx_EC_IABT_LOW    // instruction abort in EL0
+    b.eq    el0_ia
+    cmp    x24, #ESR_ELx_EC_FP_ASIMD    // FP/ASIMD access
+    b.eq    el0_fpsimd_acc
+    cmp    x24, #ESR_ELx_EC_FP_EXC64    // FP/ASIMD exception
+    b.eq    el0_fpsimd_exc
+    cmp    x24, #ESR_ELx_EC_SYS64        // configurable trap
+    b.eq    el0_sys
+    cmp    x24, #ESR_ELx_EC_SP_ALIGN    // stack alignment exception
+    b.eq    el0_sp_pc
+    cmp    x24, #ESR_ELx_EC_PC_ALIGN    // pc alignment exception
+    b.eq    el0_sp_pc
+    cmp    x24, #ESR_ELx_EC_UNKNOWN    // unknown exception in EL0
+    b.eq    el0_undef
+    cmp    x24, #ESR_ELx_EC_BREAKPT_LOW    // debug exception in EL0
+    b.ge    el0_dbg
+    b    el0_inv
+</code></pre>
+<p>Here <code>esr_el1</code> (exception syndrome register) is used to figure out whether the current exception is a system call. If this is the case <a href="https://github.com/torvalds/linux/blob/v4.14/arch/arm64/kernel/entry.S#L837">el0_svc</a> function is called. This function is listed below.</p>
+<pre><code>el0_svc:
+    adrp    stbl, sys_call_table        // load syscall table pointer
+    mov    wscno, w8            // syscall number in w8
+    mov    wsc_nr, #__NR_syscalls
+el0_svc_naked:                    // compat entry point
+    stp    x0, xscno, [sp, #S_ORIG_X0]    // save the original x0 and syscall number
+    enable_dbg_and_irq
+    ct_user_exit 1
+
+    ldr    x16, [tsk, #TSK_TI_FLAGS]    // check for syscall hooks
+    tst    x16, #_TIF_SYSCALL_WORK
+    b.ne    __sys_trace
+    cmp     wscno, wsc_nr            // check upper syscall limit
+    b.hs    ni_sys
+    ldr    x16, [stbl, xscno, lsl #3]    // address in the syscall table
+    blr    x16                // call sys_* routine
+    b    ret_fast_syscall
+ni_sys:
+    mov    x0, sp
+    bl    do_ni_syscall
+    b    ret_fast_syscall
+ENDPROC(el0_svc)
+</code></pre>
+<p>Now, let's examine it line by line.</p>
+<pre><code>el0_svc:
+    adrp    stbl, sys_call_table        // load syscall table pointer
+    mov    wscno, w8            // syscall number in w8
+    mov    wsc_nr, #__NR_syscalls
+</code></pre>
+<p>The first 3 lines initialize <code>stbl</code>, <code>wscno</code> and <code>wsc_nr</code> variables that are just aliases for some registers. <code>stbl</code> holds the address of the syscall table, <code>wsc_nr</code> contains the total number of system calls and <code>wscno</code> is the current syscall number from <code>w8</code> register. </p>
+<pre><code>    stp    x0, xscno, [sp, #S_ORIG_X0]    // save the original x0 and syscall number
+</code></pre>
+<p>As you might remember from our RPi OS syscall discussion, <code>x0</code> is overwritten in the <code>pt_regs</code> area after a syscall finishes. In case when original value of the <code>x0</code> register might be needed, it is saved in the separate field of the <code>pt_regs</code> struct. Similarly syscall number is also saved in the <code>pt_regs</code>.</p>
+<pre><code>    enable_dbg_and_irq
+</code></pre>
+<p>Interrupts and debug exceptions are enabled.</p>
+<pre><code>    ct_user_exit 1
+</code></pre>
+<p>The event of switching from the user mode to the kernel mode is recorded.</p>
+<pre><code>    ldr    x16, [tsk, #TSK_TI_FLAGS]    // check for syscall hooks
+    tst    x16, #_TIF_SYSCALL_WORK
+    b.ne    __sys_trace
+
+</code></pre>
+<p>In case the current task is executed under a syscall tracer <code>_TIF_SYSCALL_WORK</code> flag should be set. In this case, <code>__sys_trace</code> function will be called. As our discussion is only focused on the general case, we are going to skip this function.</p>
+<pre><code>    cmp     wscno, wsc_nr            // check upper syscall limit
+    b.hs    ni_sys
+</code></pre>
+<p>If current syscall number is greater then total syscall count an error is returned to the user.</p>
+<pre><code>    ldr    x16, [stbl, xscno, lsl #3]    // address in the syscall table
+    blr    x16                // call sys_* routine
+    b    ret_fast_syscall
+</code></pre>
+<p>Syscall number is used as an index in the syscall table array to find the handler. Then handler address is loaded into <code>x16</code> register and it is executed. Finally <code>ret_fast_syscall</code> function is called. </p>
+<pre><code>ret_fast_syscall:
+    disable_irq                // disable interrupts
+    str    x0, [sp, #S_X0]            // returned x0
+    ldr    x1, [tsk, #TSK_TI_FLAGS]    // re-check for syscall tracing
+    and    x2, x1, #_TIF_SYSCALL_WORK
+    cbnz    x2, ret_fast_syscall_trace
+    and    x2, x1, #_TIF_WORK_MASK
+    cbnz    x2, work_pending
+    enable_step_tsk x1, x2
+    kernel_exit 0
+</code></pre>
+<p>The important things here are the first line, were interrupts are disabled, and the last line, were <code>kernel_exit</code> is called - everything else is related to special case processing. So as you might guess this is the place where a system call actually finishes and execution is transfered to user process.</p>
+<h3 id="conclusion">Conclusion</h3>
+<p>We've now gone through the process of generating and processing a system call. This process is relatively simple, but it is vital for the OS, because it allows the kernel to set up an API and make sure that this API is the only mean of communication between a user program and the kernel.</p>
+<h5 id="previous-page">Previous Page</h5>
+<p>5.1 <a href="../../docs/lesson05/rpi-os.md">User processes and system calls: RPi OS</a></p>
+<h5 id="next-page">Next Page</h5>
+<p>5.3 <a href="../../docs/lesson05/exercises.md">User processes and system calls: Exercises</a></p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
