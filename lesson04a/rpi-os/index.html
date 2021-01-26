@@ -104,10 +104,6 @@
             
             <li class="nav-item" data-level="1"><a href="#4a-cooperative-multitasking" class="nav-link">4a: Cooperative Multitasking</a>
               <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#objectives" class="nav-link">Objectives</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
             <li class="nav-item" data-level="2"><a href="#roadmap" class="nav-link">Roadmap</a>
               <ul class="nav flex-column">
               </ul>
@@ -156,8 +152,8 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="4a-cooperative-multitasking">4a: Cooperative Multitasking</h1>
-<h2 id="objectives">Objectives</h2>
 <p>We will build a minimum kernel that can schedule multiple cooperative tasks. </p>
+<p><img alt="" src="../qemu-sched.gif" /></p>
 <h2 id="roadmap">Roadmap</h2>
 <p>From this experiment onward, our kernel starts to schedule multiple tasks. This makes it a true "kernel" instead of a baremetal program. </p>
 <p>We will intentionally leave out interrupts, i.e. <strong>timer interrupts are OFF</strong>. Tasks must voluntarily yield to each other. As a result, we focus on scheduling and task switch and defer treatment of interrupt handling to upcoming experiment. . </p>

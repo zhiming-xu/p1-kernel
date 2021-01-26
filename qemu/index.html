@@ -147,9 +147,9 @@ export PATH=&quot;$(pwd)/qemu/aarch64-softmmu:${PATH}&quot;
 <pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -monitor stdio
 </code></pre>
 <h2 id="run-the-kernel-with-tracing">Run the kernel with tracing</h2>
-<pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -d int -D test.log 
+<pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -d int -D qemu.log 
 </code></pre>
-<p>Explanation: -d int ---&gt; enable interrupt dedug       -D test.log  ----&gt; put debug msg to a file test.log</p>
+<p>Explanation: -d int ---&gt; enable interrupt dedug       -D test.log  ----&gt; put debug msg to a file "qemu.log"</p>
 <h2 id="putting-everything-in-one-file-env-qemush">Putting everything in one file (env-qemu.sh)</h2>
 <pre><code># change the line as needed
 export PATH=&quot;$(pwd)/qemu/aarch64-softmmu:${PATH}&quot;
