@@ -1,227 +1,1052 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.6">
+    
+    
+      
         <title>exp6 - p1-kernel</title>
-        <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
-
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="../..">p1-kernel</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="../../lesson00/rpi-os/" class="nav-link">exp0</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson01/rpi-os/" class="nav-link">exp1</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson02/rpi-os/" class="nav-link">exp2</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson03/rpi-os/" class="nav-link">exp3</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson04a/rpi-os/" class="nav-link">exp4a</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson04b/rpi-os/" class="nav-link">exp4b</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson05/rpi-os/" class="nav-link">exp5</a>
-                            </li>
-                            <li class="navitem active">
-                                <a href="./" class="nav-link">exp6</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../qemu/" class="nav-link">/qemu</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../gdb/" class="nav-link">/gdb</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../cheatsheet/" class="nav-link">/aarch64</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../ssh-proxy/" class="nav-link">/ssh</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../dump/" class="nav-link">/dump</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../../lesson05/rpi-os/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../../qemu/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#6-virtual-memory-vm" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="p1-kernel" class="md-header-nav__button md-logo" aria-label="p1-kernel">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89"><path d="M3.136 17.387v42.932l42.932 21.467L3.136 17.387z"/><path d="M21.91 8l42.933 64.398-18.775 9.388L3.136 17.387 21.91 8z" fill-opacity=".5"/><path d="M67.535 17.387L40.273 35.543l21.878 32.818 5.384 2.691V17.387z"/><path d="M67.535 17.387v53.666l18.774-9.388V8l-18.774 9.387z" fill-opacity=".25"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            p1-kernel
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              exp6
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson00/rpi-os/" class="md-tabs__link">
+      exp0
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson01/rpi-os/" class="md-tabs__link">
+      exp1
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson02/rpi-os/" class="md-tabs__link">
+      exp2
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson03/rpi-os/" class="md-tabs__link">
+      exp3
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson04a/rpi-os/" class="md-tabs__link">
+      exp4a
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson04b/rpi-os/" class="md-tabs__link">
+      exp4b
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson05/rpi-os/" class="md-tabs__link">
+      exp5
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      exp6
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../qemu/" class="md-tabs__link">
+      /qemu
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../gdb/" class="md-tabs__link">
+      /gdb
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../cheatsheet/" class="md-tabs__link">
+      /aarch64
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../ssh-proxy/" class="md-tabs__link">
+      /ssh
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../dump/" class="md-tabs__link">
+      /dump
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="p1-kernel" class="md-nav__button md-logo" aria-label="p1-kernel">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89"><path d="M3.136 17.387v42.932l42.932 21.467L3.136 17.387z"/><path d="M21.91 8l42.933 64.398-18.775 9.388L3.136 17.387 21.91 8z" fill-opacity=".5"/><path d="M67.535 17.387L40.273 35.543l21.878 32.818 5.384 2.691V17.387z"/><path d="M67.535 17.387v53.666l18.774-9.388V8l-18.774 9.387z" fill-opacity=".25"/></svg>
+
+    </a>
+    p1-kernel
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson00/rpi-os/" class="md-nav__link">
+        exp0
+      </a>
+    </li>
+  
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#6-virtual-memory-vm" class="nav-link">6: Virtual memory (VM)</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#objectives" class="nav-link">Objectives</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#roadmap" class="nav-link">Roadmap</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#background-arm64-translation-process" class="nav-link">Background: ARM64 translation process</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#page-table-format" class="nav-link">Page table format</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#section-2mb-mapping" class="nav-link">Section (2MB) mapping</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#page-descriptor-format" class="nav-link">Page descriptor format</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#configuring-page-attributes" class="nav-link">Configuring page attributes</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#kernel-vs-user-virtual-memory" class="nav-link">Kernel vs user virtual memory</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#adjusting-kernel-addresses" class="nav-link">Adjusting kernel addresses</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#kernel-boot-initializing-kernel-page-tables" class="nav-link">Kernel boot: initializing kernel page tables</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#allocating-installing-a-new-pgtable" class="nav-link">Allocating &amp; installing a new pgtable</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#populating-a-pmd-table" class="nav-link">Populating a PMD table</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#putting-it-together-__create_page_tables" class="nav-link">Putting it together: __create_page_tables()</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#configuring-page-translation" class="nav-link">Configuring page translation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#compiling-loading-user-programs" class="nav-link">Compiling &amp; loading user programs</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#aside-our-user-symbol-addresses" class="nav-link">Aside: our user symbol addresses</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#creating-first-user-process" class="nav-link">Creating first user process</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#aside-tlb" class="nav-link">Aside: TLB</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#mapping-a-virtual-page-to-user" class="nav-link">Mapping a virtual page to user</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#forking-a-user-process" class="nav-link">Forking a user process</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#the-familiar-fork-semantics" class="nav-link">The familiar fork() semantics</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#implementation" class="nav-link">Implementation</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#demand-paging" class="nav-link">Demand paging</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#setting-up-page-faults" class="nav-link">Setting up page faults</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#handling-page-faults" class="nav-link">Handling page faults</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+      
+      
+      
 
-<h1 id="6-virtual-memory-vm">6: Virtual memory (VM)</h1>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson01/rpi-os/" class="md-nav__link">
+        exp1
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson02/rpi-os/" class="md-nav__link">
+        exp2
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson03/rpi-os/" class="md-nav__link">
+        exp3
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson04a/rpi-os/" class="md-nav__link">
+        exp4a
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson04b/rpi-os/" class="md-nav__link">
+        exp4b
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson05/rpi-os/" class="md-nav__link">
+        exp5
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          exp6
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        exp6
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-arm64-translation-process" class="md-nav__link">
+    Background: ARM64 translation process
+  </a>
+  
+    <nav class="md-nav" aria-label="Background: ARM64 translation process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#page-table-format" class="md-nav__link">
+    Page table format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-2mb-mapping" class="md-nav__link">
+    Section (2MB) mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-descriptor-format" class="md-nav__link">
+    Page descriptor format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-page-attributes" class="md-nav__link">
+    Configuring page attributes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-vs-user-virtual-memory" class="md-nav__link">
+    Kernel vs user virtual memory
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel vs user virtual memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adjusting-kernel-addresses" class="md-nav__link">
+    Adjusting kernel addresses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-boot-initializing-kernel-page-tables" class="md-nav__link">
+    Kernel boot: initializing kernel page tables
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel boot: initializing kernel page tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allocating-installing-a-new-pgtable" class="md-nav__link">
+    Allocating &amp; installing a new pgtable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populating-a-pmd-table" class="md-nav__link">
+    Populating a PMD table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-it-together-__create_page_tables" class="md-nav__link">
+    Putting it together: __create_page_tables()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-page-translation" class="md-nav__link">
+    Configuring page translation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-loading-user-programs" class="md-nav__link">
+    Compiling &amp; loading user programs
+  </a>
+  
+    <nav class="md-nav" aria-label="Compiling &amp; loading user programs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aside-our-user-symbol-addresses" class="md-nav__link">
+    Aside: our user symbol addresses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-first-user-process" class="md-nav__link">
+    Creating first user process
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating first user process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aside-tlb" class="md-nav__link">
+    Aside: TLB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-a-virtual-page-to-user" class="md-nav__link">
+    Mapping a virtual page to user
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forking-a-user-process" class="md-nav__link">
+    Forking a user process
+  </a>
+  
+    <nav class="md-nav" aria-label="Forking a user process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-familiar-fork-semantics" class="md-nav__link">
+    The familiar fork() semantics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    Implementation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demand-paging" class="md-nav__link">
+    Demand paging
+  </a>
+  
+    <nav class="md-nav" aria-label="Demand paging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-page-faults" class="md-nav__link">
+    Setting up page faults
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-page-faults" class="md-nav__link">
+    Handling page faults
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qemu/" class="md-nav__link">
+        /qemu
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gdb/" class="md-nav__link">
+        /gdb
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cheatsheet/" class="md-nav__link">
+        /aarch64
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ssh-proxy/" class="md-nav__link">
+        /ssh
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dump/" class="md-nav__link">
+        /dump
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#roadmap" class="md-nav__link">
+    Roadmap
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-arm64-translation-process" class="md-nav__link">
+    Background: ARM64 translation process
+  </a>
+  
+    <nav class="md-nav" aria-label="Background: ARM64 translation process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#page-table-format" class="md-nav__link">
+    Page table format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#section-2mb-mapping" class="md-nav__link">
+    Section (2MB) mapping
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#page-descriptor-format" class="md-nav__link">
+    Page descriptor format
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-page-attributes" class="md-nav__link">
+    Configuring page attributes
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-vs-user-virtual-memory" class="md-nav__link">
+    Kernel vs user virtual memory
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel vs user virtual memory">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#adjusting-kernel-addresses" class="md-nav__link">
+    Adjusting kernel addresses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#kernel-boot-initializing-kernel-page-tables" class="md-nav__link">
+    Kernel boot: initializing kernel page tables
+  </a>
+  
+    <nav class="md-nav" aria-label="Kernel boot: initializing kernel page tables">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#allocating-installing-a-new-pgtable" class="md-nav__link">
+    Allocating &amp; installing a new pgtable
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#populating-a-pmd-table" class="md-nav__link">
+    Populating a PMD table
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#putting-it-together-__create_page_tables" class="md-nav__link">
+    Putting it together: __create_page_tables()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configuring-page-translation" class="md-nav__link">
+    Configuring page translation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compiling-loading-user-programs" class="md-nav__link">
+    Compiling &amp; loading user programs
+  </a>
+  
+    <nav class="md-nav" aria-label="Compiling &amp; loading user programs">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aside-our-user-symbol-addresses" class="md-nav__link">
+    Aside: our user symbol addresses
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#creating-first-user-process" class="md-nav__link">
+    Creating first user process
+  </a>
+  
+    <nav class="md-nav" aria-label="Creating first user process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#aside-tlb" class="md-nav__link">
+    Aside: TLB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mapping-a-virtual-page-to-user" class="md-nav__link">
+    Mapping a virtual page to user
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#forking-a-user-process" class="md-nav__link">
+    Forking a user process
+  </a>
+  
+    <nav class="md-nav" aria-label="Forking a user process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-familiar-fork-semantics" class="md-nav__link">
+    The familiar fork() semantics
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#implementation" class="md-nav__link">
+    Implementation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#demand-paging" class="md-nav__link">
+    Demand paging
+  </a>
+  
+    <nav class="md-nav" aria-label="Demand paging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#setting-up-page-faults" class="md-nav__link">
+    Setting up page faults
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#handling-page-faults" class="md-nav__link">
+    Handling page faults
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="6-virtual-memory-vm">6: Virtual memory (VM)</h1>
 <h2 id="objectives">Objectives</h2>
 <p>Make our tiny kernel capable of: </p>
 <ol>
@@ -881,83 +1706,86 @@ void user_process()
 <p>In order to understand this function, you need to know a little bit about the specifics of that <code>esr_el1</code> register. Bits [32:26] of this register are called "Exception Class". We check those bits in the <code>el0_sync</code> handler to determine whether it is a syscall, or a data abort exception or potentially something else. Exception class determines the meaning of bits [24:0] - those bits are usually used to provide additional information about the exception. The meaning of [24:0] bits in case of the data abort exception is described on the page 2460 of the <code>AArch64-Reference-Manual</code>. In general, data abort exception can happen in many different scenarios (it could be a permission fault, or address size fault or a lot of other things). We are only interested in a translation fault which happens when some of the page tables for the current virtual address are not initialized.
 So in the first 2 lines of the <code>do_mem_abort</code> function, we check whether the current exception is actually a translation fault. If yes we allocate a new page and map it to the requested virtual address. All of this happens completely transparent for the user program - it doesn't notice that some of the memory accesses were interrupted and new page tables were allocated in the meantime.</p>
 <h2 id="conclusion">Conclusion</h2>
-<p>This was a long and difficult chapter, but I hope it was useful as well. Virtual memory is really one of the most fundamental pieces of any operating system and I am glad we've passed through this chapter and, hopefully, started to understand how it works at the lowest level. With the introduction of virtual memory we now have full process isolation, but the RPi OS is still far from completion. It still doesn't support file systems, drivers, signals and interrupt waitlists, networking and a lot of other useful concepts, and we will continue to uncover them in the upcoming lessons.</p></div>
-            </div>
-        </div>
+<p>This was a long and difficult chapter, but I hope it was useful as well. Virtual memory is really one of the most fundamental pieces of any operating system and I am glad we've passed through this chapter and, hopefully, started to understand how it works at the lowest level. With the introduction of virtual memory we now have full process isolation, but the RPi OS is still far from completion. It still doesn't support file systems, drivers, signals and interrupt waitlists, networking and a lot of other useful concepts, and we will continue to uncover them in the upcoming lessons.</p>
+                
+              
+              
+                
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "../..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../../js/base.js" defer></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+              
+            </article>
+          </div>
         </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../lesson05/rpi-os/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                exp5
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../qemu/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                /qemu
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
     </div>
-</div>
-
-    </body>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.53cc9318.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
 </html>

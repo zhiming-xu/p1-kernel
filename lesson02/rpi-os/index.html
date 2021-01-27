@@ -1,186 +1,863 @@
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        
-        
-        
-        <link rel="shortcut icon" href="../../img/favicon.ico">
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+      
+      <link rel="shortcut icon" href="../../assets/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.6">
+    
+    
+      
         <title>exp2 - p1-kernel</title>
-        <link href="../../css/bootstrap.min.css" rel="stylesheet">
-        <link href="../../css/font-awesome.min.css" rel="stylesheet">
-        <link href="../../css/base.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
-
-        <script src="../../js/jquery-1.10.2.min.js" defer></script>
-        <script src="../../js/bootstrap.min.js" defer></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
-    </head>
-
-    <body>
-        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
-            <div class="container">
-                <a class="navbar-brand" href="../..">p1-kernel</a>
-                <!-- Expander button -->
-                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-
-                <!-- Expanded navigation -->
-                <div id="navbar-collapse" class="navbar-collapse collapse">
-                        <!-- Main navigation -->
-                        <ul class="nav navbar-nav">
-                            <li class="navitem">
-                                <a href="../../lesson00/rpi-os/" class="nav-link">exp0</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson01/rpi-os/" class="nav-link">exp1</a>
-                            </li>
-                            <li class="navitem active">
-                                <a href="./" class="nav-link">exp2</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson03/rpi-os/" class="nav-link">exp3</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson04a/rpi-os/" class="nav-link">exp4a</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson04b/rpi-os/" class="nav-link">exp4b</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson05/rpi-os/" class="nav-link">exp5</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../lesson06/rpi-os/" class="nav-link">exp6</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../qemu/" class="nav-link">/qemu</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../gdb/" class="nav-link">/gdb</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../cheatsheet/" class="nav-link">/aarch64</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../ssh-proxy/" class="nav-link">/ssh</a>
-                            </li>
-                            <li class="navitem">
-                                <a href="../../dump/" class="nav-link">/dump</a>
-                            </li>
-                        </ul>
-
-                    <ul class="nav navbar-nav ml-auto">
-                        <li class="nav-item">
-                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
-                                <i class="fa fa-search"></i> Search
-                            </a>
-                        </li>
-                            <li class="nav-item">
-                                <a rel="prev" href="../../lesson01/rpi-os/" class="nav-link">
-                                    <i class="fa fa-arrow-left"></i> Previous
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a rel="next" href="../../lesson03/rpi-os/" class="nav-link">
-                                    Next <i class="fa fa-arrow-right"></i>
-                                </a>
-                            </li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
-    <div class="navbar-header">
-        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
-            <span class="fa fa-angle-down"></span>
-        </button>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+      
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#2-processor-initialization" class="md-skip">
+          Skip to content
+        </a>
+      
     </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="../.." title="p1-kernel" class="md-header-nav__button md-logo" aria-label="p1-kernel">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89"><path d="M3.136 17.387v42.932l42.932 21.467L3.136 17.387z"/><path d="M21.91 8l42.933 64.398-18.775 9.388L3.136 17.387 21.91 8z" fill-opacity=".5"/><path d="M67.535 17.387L40.273 35.543l21.878 32.818 5.384 2.691V17.387z"/><path d="M67.535 17.387v53.666l18.774-9.388V8l-18.774 9.387z" fill-opacity=".25"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      <div class="md-header-nav__ellipsis">
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            p1-kernel
+          </span>
+        </div>
+        <div class="md-header-nav__topic">
+          <span class="md-ellipsis">
+            
+              exp2
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active" required>
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson00/rpi-os/" class="md-tabs__link">
+      exp0
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson01/rpi-os/" class="md-tabs__link">
+      exp1
+    </a>
+  </li>
+
+      
+        
+  
+  
+    
+  
+
+
+  <li class="md-tabs__item">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
+      exp2
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson03/rpi-os/" class="md-tabs__link">
+      exp3
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson04a/rpi-os/" class="md-tabs__link">
+      exp4a
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson04b/rpi-os/" class="md-tabs__link">
+      exp4b
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson05/rpi-os/" class="md-tabs__link">
+      exp5
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../lesson06/rpi-os/" class="md-tabs__link">
+      exp6
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../qemu/" class="md-tabs__link">
+      /qemu
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../gdb/" class="md-tabs__link">
+      /gdb
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../cheatsheet/" class="md-tabs__link">
+      /aarch64
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../ssh-proxy/" class="md-tabs__link">
+      /ssh
+    </a>
+  </li>
+
+      
+        
+  
+  
+
+
+  <li class="md-tabs__item">
+    <a href="../../dump/" class="md-tabs__link">
+      /dump
+    </a>
+  </li>
+
+      
+    </ul>
+  </div>
+</nav>
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="p1-kernel" class="md-nav__button md-logo" aria-label="p1-kernel">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 89 89"><path d="M3.136 17.387v42.932l42.932 21.467L3.136 17.387z"/><path d="M21.91 8l42.933 64.398-18.775 9.388L3.136 17.387 21.91 8z" fill-opacity=".5"/><path d="M67.535 17.387L40.273 35.543l21.878 32.818 5.384 2.691V17.387z"/><path d="M67.535 17.387v53.666l18.774-9.388V8l-18.774 9.387z" fill-opacity=".25"/></svg>
+
+    </a>
+    p1-kernel
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson00/rpi-os/" class="md-nav__link">
+        exp0
+      </a>
+    </li>
+  
 
     
-    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
-        <ul class="nav flex-column">
-            
-            <li class="nav-item" data-level="1"><a href="#2-processor-initialization" class="nav-link">2: Processor initialization</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="2"><a href="#objectives" class="nav-link">Objectives</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#background-exception-levels-el" class="nav-link">Background: Exception levels (EL)</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#switching-els" class="nav-link">Switching ELs</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#enhanced-debugging" class="nav-link">Enhanced debugging</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#bring-up-printf" class="nav-link">Bring up printf()</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#qemu-gdb-debugging" class="nav-link">QEMU + GDB debugging</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#code-walkthrough" class="nav-link">Code Walkthrough</a>
-              <ul class="nav flex-column">
-            <li class="nav-item" data-level="3"><a href="#finding-out-the-current-el" class="nav-link">Finding out the current EL</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-            <li class="nav-item" data-level="3"><a href="#switching-to-el1" class="nav-link">Switching to EL1</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-            <li class="nav-item" data-level="2"><a href="#conclusion" class="nav-link">Conclusion</a>
-              <ul class="nav flex-column">
-              </ul>
-            </li>
-              </ul>
-            </li>
-        </ul>
-    </div>
-</div></div>
-                    <div class="col-md-9" role="main">
+      
+      
+      
 
-<h1 id="2-processor-initialization">2: Processor initialization</h1>
-<ul>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#background-exception-levels-el">Background: Exception levels (EL)</a><ul>
-<li><a href="#switching-els">Switching ELs</a></li>
-</ul>
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson01/rpi-os/" class="md-nav__link">
+        exp1
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+    
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          exp2
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        exp2
+      </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    Objectives
+  </a>
+  
 </li>
-<li><a href="#enhanced-debugging">Enhanced debugging</a><ul>
-<li><a href="#bring-up-printf">Bring up printf()</a></li>
-<li><a href="#qemu--gdb-debugging">QEMU + GDB debugging</a></li>
-</ul>
+      
+        <li class="md-nav__item">
+  <a href="#background-exception-levels-el" class="md-nav__link">
+    Background: Exception levels (EL)
+  </a>
+  
+    <nav class="md-nav" aria-label="Background: Exception levels (EL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#switching-els" class="md-nav__link">
+    Switching ELs
+  </a>
+  
 </li>
-<li><a href="#code-walkthrough">Code Walkthrough</a><ul>
-<li><a href="#finding-out-the-current-el">Finding out the current EL</a></li>
-<li><a href="#switching-to-el1">Switching to EL1</a></li>
-<li><a href="#sctlr_el1-system-control-register-el1">SCTLR_EL1, System Control Register (EL1)</a></li>
-<li><a href="#hcr_el2-hypervisor-configuration-el2">HCR_EL2, Hypervisor Configuration (EL2)</a></li>
-<li><a href="#scr_el3-secure-configuration-el3">SCR_EL3, Secure Configuration (EL3)</a></li>
-<li><a href="#spsr_el3-saved-program-status-el3">SPSR_EL3, Saved Program Status (EL3)</a></li>
-<li><a href="#elr_el3-exception-link-el3">ELR_EL3, Exception Link (EL3)</a></li>
-</ul>
+        
+      </ul>
+    </nav>
+  
 </li>
-<li><a href="#conclusion">Conclusion</a></li>
-</ul>
+      
+        <li class="md-nav__item">
+  <a href="#aside-enhanced-debugging" class="md-nav__link">
+    Aside: enhanced debugging
+  </a>
+  
+    <nav class="md-nav" aria-label="Aside: enhanced debugging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bring-up-printf" class="md-nav__link">
+    Bring up printf()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qemu-gdb-debugging" class="md-nav__link">
+    QEMU + GDB debugging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-walkthrough" class="md-nav__link">
+    Code Walkthrough
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-out-the-current-el" class="md-nav__link">
+    Finding out the current EL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#switching-to-el1" class="md-nav__link">
+    Switching to EL1
+  </a>
+  
+    <nav class="md-nav" aria-label="Switching to EL1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sctlr_el1-system-control-register-el1" class="md-nav__link">
+    SCTLR_EL1, System Control Register (EL1)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hcr_el2-hypervisor-configuration-el2" class="md-nav__link">
+    HCR_EL2, Hypervisor Configuration (EL2)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scr_el3-secure-configuration-el3" class="md-nav__link">
+    SCR_EL3, Secure Configuration (EL3)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spsr_el3-saved-program-status-el3" class="md-nav__link">
+    SPSR_EL3, Saved Program Status (EL3)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elr_el3-exception-link-el3" class="md-nav__link">
+    ELR_EL3, Exception Link (EL3)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson03/rpi-os/" class="md-nav__link">
+        exp3
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson04a/rpi-os/" class="md-nav__link">
+        exp4a
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson04b/rpi-os/" class="md-nav__link">
+        exp4b
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson05/rpi-os/" class="md-nav__link">
+        exp5
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../lesson06/rpi-os/" class="md-nav__link">
+        exp6
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../qemu/" class="md-nav__link">
+        /qemu
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../gdb/" class="md-nav__link">
+        /gdb
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../cheatsheet/" class="md-nav__link">
+        /aarch64
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../ssh-proxy/" class="md-nav__link">
+        /ssh
+      </a>
+    </li>
+  
+
+    
+      
+      
+      
+
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../dump/" class="md-nav__link">
+        /dump
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#objectives" class="md-nav__link">
+    Objectives
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#background-exception-levels-el" class="md-nav__link">
+    Background: Exception levels (EL)
+  </a>
+  
+    <nav class="md-nav" aria-label="Background: Exception levels (EL)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#switching-els" class="md-nav__link">
+    Switching ELs
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#aside-enhanced-debugging" class="md-nav__link">
+    Aside: enhanced debugging
+  </a>
+  
+    <nav class="md-nav" aria-label="Aside: enhanced debugging">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#bring-up-printf" class="md-nav__link">
+    Bring up printf()
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#qemu-gdb-debugging" class="md-nav__link">
+    QEMU + GDB debugging
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#code-walkthrough" class="md-nav__link">
+    Code Walkthrough
+  </a>
+  
+    <nav class="md-nav" aria-label="Code Walkthrough">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#finding-out-the-current-el" class="md-nav__link">
+    Finding out the current EL
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#switching-to-el1" class="md-nav__link">
+    Switching to EL1
+  </a>
+  
+    <nav class="md-nav" aria-label="Switching to EL1">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sctlr_el1-system-control-register-el1" class="md-nav__link">
+    SCTLR_EL1, System Control Register (EL1)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#hcr_el2-hypervisor-configuration-el2" class="md-nav__link">
+    HCR_EL2, Hypervisor Configuration (EL2)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scr_el3-secure-configuration-el3" class="md-nav__link">
+    SCR_EL3, Secure Configuration (EL3)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#spsr_el3-saved-program-status-el3" class="md-nav__link">
+    SPSR_EL3, Saved Program Status (EL3)
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#elr_el3-exception-link-el3" class="md-nav__link">
+    ELR_EL3, Exception Link (EL3)
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#conclusion" class="md-nav__link">
+    Conclusion
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="2-processor-initialization">2: Processor initialization</h1>
+<p><img alt="" src="../figures/run.png" /></p>
 <h2 id="objectives">Objectives</h2>
 <p>We are going to build: </p>
 <p>A baremetal program that can switch among CPU exception levels and print out the current level. </p>
@@ -191,36 +868,34 @@
 <li>Tinker with the kernel, e.g. debugging</li>
 </ol>
 <h2 id="background-exception-levels-el">Background: Exception levels (EL)</h2>
-<p>ARMv8 defines 4 exception levels. You can think about an exception level as a processor execution mode in which only a subset of all operations and registers is available. The least privileged exception level, i.e. lowest level, is level 0. When processor operates at this level, it mostly uses only general purpose registers (X0 - X30) and stack pointer register (SP). EL0 also allows using <code>STR</code> and <code>LDR</code> commands to load and store data to and from memory and a few other instructions commonly used by a user program.</p>
+<p>ARMv8 defines 4 exception levels. An exception level is a processor execution mode in which only a subset of all operations and registers is available. </p>
+<p>The least privileged exception level, i.e. lowest level, is level 0. When processor operates at this level, it mostly uses only general purpose registers (X0 - X30) and stack pointer register (SP). EL0 also allows using <code>STR</code> and <code>LDR</code> instructions to load and store data to and from memory, among other instructions commonly used by a user program.</p>
 <p><img alt="" src="figures\els.png" /></p>
-<p>An OS kernel deals with exception levels because it needs to implement <em>isolation</em>. A user process should not be able to access other process's data. To achieve such behavior, a kernel always runs each user process at EL0. Operating at this exception level a process can only use it's own virtual memory and can't access any instructions that change ELs, MMUs, etc. </p>
+<p>Why exception levels? Because an OS needs to implement <em>isolation</em>. A user process should not be able to access other process's data. To achieve such behavior, a kernel always runs each user process at EL0. Operating at this exception level a process can only use it's own virtual memory and can't access any instructions that change ELs, MMUs, etc. </p>
 <p>The kernel itself usually works at EL1. While running at this exception level CPU gets access to the registers that allows configuring MMU as well as some system registers. </p>
-<p><strong>About EL2/3</strong>: this lab is NOT going to use EL 2 or EL 3, but I just want to briefly describe them so you can get an idea why they are needed. </p>
-<p>EL2 is used in a scenario when we are using a hypervisor. In this case hypervisor runs at EL2 and guest OSes run at EL1. This allows the hypervisor to isolate guest OSes in a similar way how OS isolates user processes.</p>
-<p>EL3 pertains to Arm TrustZone. It is used for transitions from ARM "Secure World" to "Insecure world". This abstraction exist to provide full hardware isolation between the software running in two different "worlds". Application from an "Insecure world" can in no way access or modify information (both instruction and data) that belongs to "secure world", and this restriction is enforced at the hardware level. </p>
-<blockquote>
-<p>We will do TrustZone experiments soon!</p>
-</blockquote>
+<p><strong>About EL2/3</strong>: we will not deal with EL 2 or EL 3 until project 3 (secure hardware enclaves). Let's briefly describe them.  </p>
+<p><em>EL2 is for virtual machines.</em> In this case the virtual machine hypervisor runs at EL2 and guest OSes run at EL1. This allows the hypervisor to isolate guest OSes in a similar way how OS isolates user processes.</p>
+<p><em>EL3 is for Arm TrustZone</em>. It is used for transitions from ARM "Secure World" to "Insecure world". This abstraction exist to provide full hardware isolation between the software running in two different "worlds". Application from an "Insecure world" can in no way access or modify information (both instruction and data) that belongs to "secure world", and this restriction is enforced at the hardware level. </p>
 <h3 id="switching-els">Switching ELs</h3>
-<p>In Arm architecture, there is no way a program can raise its own exception level without involving software that already runs on a higher level. This makes a perfect sense: otherwise, any program would be able to escape its assigned EL and makes unauthorized access to memory or registers. </p>
-<p>Current EL can be changed only if an exception is generated. Common causes of exceptions include (not limited to): </p>
+<p>In Arm architecture, there is no way a program can raise its own exception level without invoking code that is allowed to run on a higher level. This makes a perfect sense: otherwise, any program would be able to escape its assigned EL and makes unauthorized access to memory or registers. </p>
+<p>Current EL can be changed only if an <strong>exception</strong> is generated. Common causes of exceptions include:  </p>
 <ul>
 <li>software executes some illegal instruction (for example, tries to access memory location at a nonexisting address; </li>
 <li>software tries to divide an integer by 0; </li>
 <li>software executes special instructions (e.g. <code>svc</code>) to request exceptions. </li>
 </ul>
-<p>In Arm's lingo, IO-generated interrupts are also handled as a special type of exceptions. </p>
-<p>Whenever an exception is generated the following sequence of steps takes place (In the description I am assuming that the exception is handled at EL <code>n</code>, were <code>n</code> could be 1, 2 or 3).</p>
+<p>How about interrupts generated by IO? In Arm's lingo, interrupts are also handled as a special type of exceptions. </p>
+<p>Whenever an exception is generated the following sequence of steps takes place (In the description, the exception is <em>handled</em> at EL <code>n</code>, were <code>n</code> could be 1, 2 or 3).</p>
 <ol>
-<li>Address of the current instruction is saved in the <code>ELR_ELn</code>  register. (It is called <code>Exception link register</code>)</li>
-<li>Current processor state is stored in <code>SPSR_ELn</code> register (<code>Saved Program Status Register</code>)</li>
+<li>Address of the current instruction is saved in <code>ELR_ELn</code> (exception link register)</li>
+<li>Current processor state is stored in <code>SPSR_ELn</code> (Saved Program Status Register)</li>
 <li>NB: As some of you may know, other CPU hardware may automatically push registers on stack prior to exception handling. Armv8 does NOT do that. </li>
-<li>An exception handler is executed and does whatever job it needs to do.</li>
-<li>Exception handler calls <code>eret</code> instruction. This instruction restores processor state from <code>SPSR_ELn</code> and resumes execution starting from the address, stored in the <code>ELR_ELn</code>  register.</li>
+<li>The CPU executes an exception handler at ELn.</li>
+<li>The exception handler calls <code>eret</code> instruction. This instruction restores processor state from <code>SPSR_ELn</code> and resumes execution starting from the address, stored in the <code>ELR_ELn</code>  register.</li>
 </ol>
 <p>There are more details, e.g. the exception handler software also needs to store the state of all general purpose registers and restore it back afterwards, as we will discuss this process in details in the upcoming experiment. For now, we need just to understand the process in general and remember the meaning of the <code>ELR_ELm</code> and <code>SPSR_ELn</code> registers.</p>
 <p>An important thing to know is that exception handler is not obliged to return to the same instruction where the exception originates. Both <code>ELR_ELm</code> and <code>SPSR_ELn</code> are writable and the exception handler can modify them in order to specify the instructions to execute right after the EL switch. We are going to use this technique to our advantage when we try to switch from EL3 to EL1 in our code.</p>
-<h2 id="enhanced-debugging">Enhanced debugging</h2>
+<h2 id="aside-enhanced-debugging">Aside: enhanced debugging</h2>
 <h3 id="bring-up-printf">Bring up printf()</h3>
 <p>Right now, the kernel can only print some constant string on a screen, but what I need is some analog of <a href="https://en.wikipedia.org/wiki/Printf_format_string">printf</a> function. With <code>printf</code> I can easily display values of different registers and variables. Such functionality is essential for the kernel development because you don't have any other debugger support and <code>printf</code> becomes the only mean for figuring out what is going on inside Rpi3.</p>
 <p>Let's not reinvent the wheel and use one of  <a href="http://www.sparetimelabs.com/tinyprintf/tinyprintf.php">existing printf implementations</a> This function consists mostly from string manipulations and is not very interesting from a kernel developer point of view. The implementation that I used is very small and don't have external dependencies, that allows it to be easily integrated into the kernel. The only thing that I have to do is to define <code>putc</code>  function that can send a single character to the screen. This function is defined <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/mini_uart.c#L59">here</a> and it just uses already existing <code>uart_send</code> function. Also, we need to initialize the <code>printf</code> library and specify the location of the <code>putc</code> function. This is done in a single <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/kernel.c#L8">line of code</a>.</p>
@@ -339,83 +1014,86 @@ What is CPU state? It consists of the following information:</p>
 <p>That is pretty much it: when we enter <code>el1_entry</code> function the execution should be already at EL1 mode. </p>
 <p>Our subsequent experiments will switch between EL1 (kernel) and EL0 (user) frequently. </p>
 <p>Go ahead and try it out! </p>
-<!--- add submission instructions ---></div>
-            </div>
-        </div>
+<!--- add submission instructions --->
+                
+              
+              
+                
 
-        <footer class="col-md-12">
-            <hr>
-            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
-        </footer>
-        <script>
-            var base_url = "../..",
-                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
-        </script>
-        <script src="../../js/base.js" defer></script>
 
-        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="searchModalLabel">Search</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-                <p>
-                    From here you can search these documents. Enter
-                    your search terms below.
-                </p>
-                <form>
-                    <div class="form-group">
-                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
-                    </div>
-                </form>
-                <div id="mkdocs-search-results"></div>
-            </div>
-            <div class="modal-footer">
-            </div>
+              
+            </article>
+          </div>
         </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../../lesson01/rpi-os/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                exp1
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../../lesson03/rpi-os/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                exp3
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
     </div>
-</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-            </div>
-            <div class="modal-body">
-              <table class="table">
-                <thead>
-                  <tr>
-                    <th style="width: 20%;">Keys</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td class="help shortcut"><kbd>?</kbd></td>
-                    <td>Open this help</td>
-                  </tr>
-                  <tr>
-                    <td class="next shortcut"><kbd>n</kbd></td>
-                    <td>Next page</td>
-                  </tr>
-                  <tr>
-                    <td class="prev shortcut"><kbd>p</kbd></td>
-                    <td>Previous page</td>
-                  </tr>
-                  <tr>
-                    <td class="search shortcut"><kbd>s</kbd></td>
-                    <td>Search</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-            <div class="modal-footer">
-            </div>
-        </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
     </div>
-</div>
-
-    </body>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.53cc9318.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['navigation.tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+    
+  </body>
 </html>
