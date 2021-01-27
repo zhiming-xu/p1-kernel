@@ -110,6 +110,10 @@
             
             <li class="nav-item" data-level="1"><a href="#inspect-kernel-binary" class="nav-link">Inspect kernel binary</a>
               <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#lookup-source-line-given-an-address" class="nav-link">Lookup source line given an address</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
             <li class="nav-item" data-level="2"><a href="#list-all-symbols-addresses" class="nav-link">List all symbols &amp; addresses</a>
               <ul class="nav flex-column">
               </ul>
@@ -142,6 +146,10 @@
                     <div class="col-md-9" role="main">
 
 <h1 id="inspect-kernel-binary">Inspect kernel binary</h1>
+<h2 id="lookup-source-line-given-an-address">Lookup source line given an address</h2>
+<pre><code>addr2line -e build/kernel8.elf 0x80038
+</code></pre>
+<p>Explanation: -e specifies the ELF file with debugging info, followed by a given address</p>
 <h2 id="list-all-symbols-addresses">List all symbols &amp; addresses</h2>
 <pre><code>$ nm build/kernel8.elf
 </code></pre>

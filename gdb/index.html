@@ -108,13 +108,29 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#on-using-gdb" class="nav-link">On using GDB</a>
+            <li class="nav-item" data-level="1"><a href="#using-gdb-to-debug-kernel" class="nav-link">Using GDB to debug kernel</a>
               <ul class="nav flex-column">
             <li class="nav-item" data-level="2"><a href="#installation" class="nav-link">Installation</a>
               <ul class="nav flex-column">
               </ul>
             </li>
             <li class="nav-item" data-level="2"><a href="#launch" class="nav-link">Launch</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#dump-register-contents" class="nav-link">Dump register contents</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#dump-memory" class="nav-link">Dump memory</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#set-a-breakpoint-at-addr" class="nav-link">Set a breakpoint at addr</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#functionsource-lookup" class="nav-link">Function/source lookup</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -133,7 +149,8 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="on-using-gdb">On using GDB</h1>
+<h1 id="using-gdb-to-debug-kernel">Using GDB to debug kernel</h1>
+<p><strong>Note (WSL users)</strong>: It seems GDB server does not play well with WSL… see below. </p>
 <h2 id="installation">Installation</h2>
 <p>Linux or WSL: </p>
 <pre><code>sudo apt install gdb-multiarch gcc-aarch64-linux-gnu build-essential 
@@ -143,7 +160,7 @@
 <p>From one terminal </p>
 <pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -s -S 
 </code></pre>
-<p>From another terminal </p>
+<p>From another terminal (the elf is needed if we need debugging info)</p>
 <pre><code>gdb-multiarch build/kernel8.elf 
 (gdb) target remote :1234 
 (gdb)layout asm 
@@ -152,10 +169,35 @@
 <pre><code>(gdb) si 
 </code></pre>
 <p><img alt="gdb-si" src="../images/gdb-si.png" /></p>
-<p>Dump register contents</p>
+<h2 id="dump-register-contents">Dump register contents</h2>
 <pre><code>(gdb) info reg 
 </code></pre>
 <p><img alt="gdb-reg" src="../images/gdb-reg.png" /></p>
+<p>show reg information at each step. This example shows </p>
+<pre><code>display/10i $sp
+</code></pre>
+<p><img alt="gdb-si-display" src="../images/gdb-si-display.gif" /></p>
+<h2 id="dump-memory">Dump memory</h2>
+<p>dump memory as instructions; can also specify raw addr </p>
+<pre><code>x/20i _start
+</code></pre>
+<p>where <code>_start</code> is a symbol name </p>
+<p>dump memory as hex (bytes)</p>
+<pre><code>x/20xb _start
+</code></pre>
+<p>dump memory as hex (words)</p>
+<pre><code>x/20xw _start
+</code></pre>
+<h2 id="set-a-breakpoint-at-addr">Set a breakpoint at addr</h2>
+<pre><code>b *0xffff0000
+</code></pre>
+<h2 id="functionsource-lookup">Function/source lookup</h2>
+<p>find out function name at a given addr</p>
+<pre><code>info line *0x10000000
+</code></pre>
+<p>list source at a given addr</p>
+<pre><code>list *0x10000000
+</code></pre>
 <h2 id="troubleshooting">Troubleshooting</h2>
 <p>"gdbserver: Target description specified unknown architecture “aarch64” 
 https://stackoverflow.com/questions/53524546/gdbserver-target-description-specified-unknown-architecture-aarch64 
