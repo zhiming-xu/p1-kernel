@@ -919,7 +919,7 @@ get_el:
 <p><strong>Rpi3:</strong> If you reproduce this experiment, you should see <code>Exception level: 3</code> on the screen. This means the CPU executes as the security monitor when it boots up. </p>
 <p><strong>QEMU:</strong> You will see <code>Exception level: 2</code> because this is how QEMU emulates the CPU: setting the initial EL as 2. Why?</p>
 <h3 id="switching-to-el1">Switching to EL1</h3>
-<p>EL1 is intended for OS kernels. Strictly speaking, our kernel is not obliged to switch to EL1 when it boots up, but EL1 is a natural choice for us because this level has just the right set of privileges to implement all common OS tasks. It also will be an interesting exercise to see how switching exceptions levels works in action. Let's take a look at the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/boot.S#L17">source code that does this</a>.</p>
+<p>EL1 is intended for OS kernels. Strictly speaking, our kernel is not obliged to switch to EL1 when it boots up, but EL1 is a natural choice for us because this level has just the right set of privileges to implement all common OS tasks. It also will be an interesting exercise to see how switching exceptions levels works in action. Let's take a look at the source code that does this (boot.S). </p>
 <pre><code>master:
     ldr    x0, =SCTLR_VALUE_MMU_DISABLED
     msr    sctlr_el1, x0        
@@ -1012,6 +1012,10 @@ What is CPU state? It consists of the following information:</p>
 <p><a href="https://developer.arm.com/docs/ddi0595/b/aarch64-system-registers/elr_el3">Official doc</a></p>
 <h2 id="conclusion">Conclusion</h2>
 <p>That is pretty much it: when we enter <code>el1_entry</code> function the execution should be already at EL1 mode. </p>
+<p>Qemu.log: </p>
+<pre><code>Exception return from AArch64 EL2 to AArch64 EL1 PC 0x80038
+</code></pre>
+<p>The address 0x80038 should point to el1_entry. Check it out using addr2line. </p>
 <p>Our subsequent experiments will switch between EL1 (kernel) and EL0 (user) frequently. </p>
 <p>Go ahead and try it out! </p>
 <!--- add submission instructions --->

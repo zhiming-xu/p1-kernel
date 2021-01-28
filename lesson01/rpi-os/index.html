@@ -1229,7 +1229,8 @@ void kernel_main(void)
 </code></pre>
 <p>This function is one of the simplest in the kernel. It works with the <code>Mini UART</code> device to print to screen and read user input. The kernel just prints <code>Hello, world!</code> and then enters an infinite loop that reads characters from the user and sends them back to the screen.</p>
 <h2 id="a-bit-about-the-rpi3-hardware">A bit about the Rpi3 hardware</h2>
-<p>The Rpi3 board is based on the BCM2837 SoC by Broadcom. The SoC manual is <a href="https://github.com/raspberrypi/documentation/files/1888662/BCM2837-ARM-Peripherals.-.Revised.-.V2-1.pdf">here</a>. The SoC is not friendly for OS hackers: Broadcom poorly documents it and the hardware has many quirks. Despite so, the community figured out most of the SoC details over years because Rpi3's popularity. It's not our goal to dive in the SoC. Rather, our philosophy is to deal BCM2837-specific details as few as possible -- just enough to get our kernel working. We will spend more efforts on explaining generic hardware such as ARM64 cores, generic timers, irq controllers, etc. </p>
+<p>The Rpi3 board is based on the BCM2837 SoC by Broadcom. The SoC manual is <a href="https://github.com/raspberrypi/documentation/files/1888662/BCM2837-ARM-Peripherals.-.Revised.-.V2-1.pdf">here</a>. The SoC is not friendly for OS hackers: Broadcom poorly documents it and the hardware has many quirks. </p>
+<p>Despite so, the community figured out most of the SoC details over years because Rpi3's popularity. It's not our goal to dive in the SoC. Rather, our philosophy is to deal BCM2837-specific details as few as possible -- just enough to get our kernel working. We will spend more efforts on explaining generic hardware such as ARM64 cores, generic timers, irq controllers, etc. </p>
 <blockquote>
 <p>Rpi4 seems more friendly to kernel hackers. </p>
 </blockquote>
@@ -1428,10 +1429,8 @@ char uart_recv ( void )
 <p>This function just iterates over all characters in a string and sends them one by one. </p>
 <p><strong>Low efficiency?</strong> Apparently Tx/Rx with busy wait burn lots of CPU cycles for no good. It's fine for our baremetal program -- simple &amp; less error-prone. Production software often do interrupt-driven Rx/Tx. </p>
 <h2 id="take-the-kernel-for-a-spin">Take the kernel for a spin</h2>
-<!-- 1. Execute `./build.sh` or `./build.bat` from [src/lesson01](https://github.com/s-matyukevich/raspberry-pi-os/tree/master/src/lesson01) in order to build the kernel. -->
-
-<p>Run <code>make</code> to build the kernel. </p>
 <h3 id="rpi3">Rpi3</h3>
+<p>Run <code>make</code> to build the kernel. </p>
 <p>The Raspberry Pi startup sequence is the following (simplified):</p>
 <ol>
 <li>The device is powered on.</li>
@@ -1482,6 +1481,7 @@ disable_commandline_tags=1
 <h3 id="qemu">QEMU</h3>
 <p><strong>Setup</strong></p>
 <p>Follow the instructions in <a href="../../lesson00/rpi-os/">Prerequisites</a>.</p>
+<p>Type <code>make -f Makefile.qemu</code> . </p>
 <p><strong>Run</strong></p>
 <pre><code>$ qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio
 VNC server running on 127.0.0.1:5900
