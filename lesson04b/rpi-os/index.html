@@ -498,8 +498,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#an-alternative-design" class="md-nav__link">
-    An alternative design
+  <a href="#aside-an-alternative-design" class="md-nav__link">
+    Aside: An alternative design
   </a>
   
 </li>
@@ -737,8 +737,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#an-alternative-design" class="md-nav__link">
-    An alternative design
+  <a href="#aside-an-alternative-design" class="md-nav__link">
+    Aside: An alternative design
   </a>
   
 </li>
@@ -893,7 +893,7 @@
 <hr />
 <p><strong>A timer interrupt occurred</strong></p>
 <ul>
-<li><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L17">kernel_entry</a> macro saves all general purpose registers + <code>elr_el1</code> and <code>spsr_el1</code> to the bottom of task 1 stack ("saved regs" in the figure below).</li>
+<li><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L17">kernel_entry</a> macro saves all general purpose registers &amp; <code>elr_el1</code> and <code>spsr_el1</code> to the bottom of task 1 stack ("saved regs" in the figure below).</li>
 <li>The kernel now executes in the irq context. It continues to grow the <em>current</em> stack which belongs to task 1. The growth is below the "saved regs" region and is marked as "irq frame" on the figure (i.e. the stack frame created by the execution in the irq context). </li>
 <li>The kernel proceeds to <code>schedule</code> and picks task 2. </li>
 </ul>
@@ -930,7 +930,7 @@
 <p><img src="figures/sched-9.png" width="600" /></p>
 <p>Finally, <code>kernel_exit</code> executes <code>eret</code> instruction which uses <code>elr_el1</code> register to jump back to <code>process</code> function. Task 1 resumes it normal execution!</p>
 <hr />
-<h4 id="an-alternative-design">An alternative design</h4>
+<h4 id="aside-an-alternative-design">Aside: An alternative design</h4>
 <ul>
 <li>
 <p>When an interrupt happens, the CPU saves irq stack frame automatically on the stack of the current task, e.g. A. This is the same as the design above. </p>
@@ -1044,10 +1044,6 @@ ret_from_fork:
 </blockquote>
 <h2 id="conclusion">Conclusion</h2>
 <p>We are done with scheduling, but right now our kernel can manage only kernel threads: they are executed at EL1 and can directly access any kernel functions or data. In the next 2 lessons we are going fix this and introduce system calls and virtual memory.</p>
-<p><strong>Previous Page</strong></p>
-<p>3.5 <a href="../../docs/lesson03/exercises.md">Interrupt handling: Exercises</a></p>
-<p><strong>Next Page</strong></p>
-<p>4.2 <a href="../../docs/lesson04/linux/basic_structures.md">Process scheduler: Scheduler basic structures</a></p>
                 
               
               

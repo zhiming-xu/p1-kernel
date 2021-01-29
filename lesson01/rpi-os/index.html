@@ -1146,7 +1146,7 @@ OBJ_FILES += $(ASM_FILES:$(SRC_DIR)/%.S=$(BUILD_DIR)/%_s.o)
 <p>After booting up, our kernel initializes the <code>.bss</code> section to 0; that's why we need to record the start and end of the section (hence the <code>bss_begin</code> and <code>bss_end</code> symbols) and align the section so that it starts at an address that is a multiple of 8. This eases kernel programming because the <code>str</code> instruction can be used only with 8-byte-aligned addresses.</p>
 <h2 id="kernel-startup">Kernel startup</h2>
 <h3 id="booting-the-kernel">Booting the kernel</h3>
-<p>boot.S contains the kernel startup code:</p>
+<p>boot.S contains the kernel startup code (VSCode: Ctrl-p then type boot.S):</p>
 <pre><code>#include &quot;mm.h&quot;
 
 .section &quot;.text.boot&quot;
@@ -1214,7 +1214,7 @@ _start:
 <p>Our <a href="../../cheatsheet.md">cheat sheet</a> summarizes common ARM64 instructions. </p>
 <p>For official documentation, <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.den0024a/index.html">here</a> is the ARMv8-A developer's guide. It's a good resource if the ARM ISA is unfamiliar to you. <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.den0024a/ch09s01s01.html">This page</a> specifically outlines the register usage convention in the ABI.</p>
 <h3 id="the-kernel_main-function">The <code>kernel_main</code> function</h3>
-<p>We have seen that the boot code eventually passes control to the <code>kernel_main</code> function. Let's take a look at it:</p>
+<p>We have seen that the boot code eventually passes control to the <code>kernel_main</code> function. (VSCode: Ctrl-t then type "kernel_main")</p>
 <pre><code>#include &quot;mini_uart.h&quot;
 
 void kernel_main(void)

@@ -1078,12 +1078,6 @@ thread_start:
 <p><code>exit_process</code> also deletes now unnecessary user stack and calls <code>schedule</code>. After <code>schedule</code> is called new task will be selected, that's why this system call never returns.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>Now that the RPi OS can manage user tasks, we become much closer to the full process isolation. But one important step is still missing: all user tasks share the same physical memory and can easily read one another's data. In the next lesson, we are going to introduce virtual memory and fix this issue.</p>
-<p><strong>Previous Page</strong></p>
-<p>4.5 <a href="../../docs/lesson04/exercises.md">Process scheduler: Exercises</a></p>
-<p><strong>Next Page</strong></p>
-<p>5.2 <a href="../../docs/lesson05/linux.md">User processes and system calls: Linux</a></p>
-<pre><code>
-</code></pre>
                 
               
               

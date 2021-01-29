@@ -515,6 +515,26 @@
     Approach 2: QEMU
   </a>
   
+    <nav class="md-nav" aria-label="Approach 2: QEMU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compile-qemu-from-source" class="md-nav__link">
+    Compile QEMU from source
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-compilation" class="md-nav__link">
+    Test the compilation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -876,6 +896,26 @@
     Approach 2: QEMU
   </a>
   
+    <nav class="md-nav" aria-label="Approach 2: QEMU">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#compile-qemu-from-source" class="md-nav__link">
+    Compile QEMU from source
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#test-the-compilation" class="md-nav__link">
+    Test the compilation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
         
       </ul>
@@ -1023,7 +1063,7 @@ Strictly speaking, Docker is not a required dependency. It is just convenient to
 -->
 
 <h3 id="approach-2-qemu">Approach 2: QEMU</h3>
-<p>You are required to compile QEMU from source. </p>
+<h4 id="compile-qemu-from-source">Compile QEMU from source</h4>
 <p>Need QEMU &gt;v2.12. Newer version is likely fine. The following shows the default QEMU coming with Ubuntu 18.04 is too old.  For instance: </p>
 <pre><code>$ qemu-system-aarch64  --version
 QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.26)
@@ -1053,6 +1093,7 @@ $ qemu-system-aarch64 -M help|grep rasp
 raspi2               Raspberry Pi 2
 raspi3               Raspberry Pi 3
 </code></pre>
+<h4 id="test-the-compilation">Test the compilation</h4>
 <p>Test QEMU with Rpi3 baremetal code (NOTE: this repo is for validating your toolchain &amp; QEMU build; it is NOT our course project)</p>
 <pre><code>git clone https://github.com/fxlin/raspi3-tutorial.git
 cd raspi3-tutorial
