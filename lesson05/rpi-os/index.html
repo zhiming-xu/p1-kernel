@@ -517,7 +517,8 @@
     Method 1: Forking user processes
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Method 1: Forking user processes">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#implementing-clone-in-kernel" class="md-nav__link">
@@ -526,10 +527,28 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
           <li class="md-nav__item">
-  <a href="#method-2-moving-a-kernel-task-to-el0" class="md-nav__link">
-    Method 2: Moving a kernel task to EL0
+  <a href="#method-2-moving-an-existing-kernel-task-to-el0" class="md-nav__link">
+    Method 2: Moving an existing kernel task to EL0
   </a>
+  
+    <nav class="md-nav" aria-label="Method 2: Moving an existing kernel task to EL0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ret_from_fork-augmented" class="md-nav__link">
+    ret_from_fork(), augmented
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -728,7 +747,8 @@
     Method 1: Forking user processes
   </a>
   
-</li>
+    <nav class="md-nav" aria-label="Method 1: Forking user processes">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#implementing-clone-in-kernel" class="md-nav__link">
@@ -737,10 +757,28 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+        
           <li class="md-nav__item">
-  <a href="#method-2-moving-a-kernel-task-to-el0" class="md-nav__link">
-    Method 2: Moving a kernel task to EL0
+  <a href="#method-2-moving-an-existing-kernel-task-to-el0" class="md-nav__link">
+    Method 2: Moving an existing kernel task to EL0
   </a>
+  
+    <nav class="md-nav" aria-label="Method 2: Moving an existing kernel task to EL0">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ret_from_fork-augmented" class="md-nav__link">
+    ret_from_fork(), augmented
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
   
 </li>
         
@@ -897,7 +935,7 @@ ni_sys:
 <p>Atop that, the kernel implements two complementary ways for launching a user process. Overview: </p>
 <p><img alt="" src="../figures/timeline-1.png" /></p>
 <hr />
-<h4 id="method-1-forking-user-processes">Method 1: Forking user processes</h4>
+<h3 id="method-1-forking-user-processes">Method 1: Forking user processes</h3>
 <p>At the user level, user_process() calls <code>call_sys_clone</code> to spawn a new task. </p>
 <pre><code>// sys.S
 .globl call_sys_clone
@@ -989,7 +1027,7 @@ p-&gt;stack = stack;
 <p>We populate the CPU context, i.e. <code>pt_regs</code>, for the new task. Note that <code>pt_regs</code> is always at the top of the stack page (recall the figure above), because when syscall enters/exits the kernel, the kernel stack is empty. </p>
 <p><code>x0</code> in the new state is set to <code>0</code>, because <code>x0</code> will be the return value of the <code>clone</code> syscall. We've just seen how clone wrapper function uses this value to determine whether we are in the parent or the child task. </p>
 <p>Next <code>sp</code> for the new task is set to point to the top of the new user stack page. We also save the pointer to the stack page in order to do a cleanup after the task finishes.</p>
-<h4 id="method-2-moving-a-kernel-task-to-el0">Method 2: Moving a kernel task to EL0</h4>
+<h3 id="method-2-moving-an-existing-kernel-task-to-el0">Method 2: Moving an existing kernel task to EL0</h3>
 <p>Overview: upon its creation, the kernel task calls its main function, <code>kernel_process()</code>, which calls <code>move_to_user_mode()</code>. The later prepares CPU context for exiting to EL0. Then <code>kernel_process()</code> returns to <code>ret_from_fork</code> which invokes the familiar <code>kernel_exit</code>. Eventually, an <code>eret</code> instruction - boom! We land in EL0. </p>
 <p><strong>Code walkthrough</strong></p>
 <p>First create a process (i.e. a task) as we did before. This is a "kernel" process to execute at EL1. </p>
@@ -1071,9 +1109,7 @@ malloc>.                                                                        
     return (struct pt_regs *)p;
 }
 </code></pre>
-<p><strong>Addition to ret_from_fork()</strong></p>
-<!-------improve writing----->
-
+<h4 id="ret_from_fork-augmented">ret_from_fork(), augmented</h4>
 <p>New addition is made to the middle of the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson05/src/entry.S#L188">ret_from_fork</a> function: </p>
 <pre><code>.globl ret_from_fork
 ret_from_fork:
