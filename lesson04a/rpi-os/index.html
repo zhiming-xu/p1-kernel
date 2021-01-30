@@ -1022,7 +1022,7 @@ ret_from_fork:
 <p>Where do <code>x19</code> and <code>x20</code> come from? See code <code>copy_process</code> above, which saves <code>fn</code> (the process's main function) and <code>arg</code> (the argument passed to the process) to<code>task_struct</code>. When switching to P, the kernel restores <code>fn</code> and <code>arg</code> from <code>task_struct</code> to <code>x19</code> and <code>x20</code>. </p>
 <p>As a result, <code>ret_from_fork</code> calls the function stored in <code>x19</code> register with the argument stored in <code>x20</code>. </p>
 <blockquote>
-<p>:wrench:Try your self with QEMU: set a breakpoint at ret_from_fork, launch the kernel, and single step into the new process function</p>
+<p>:wrench:Try your self with QEMU+GDB: set a breakpoint at ret_from_fork, launch the kernel, and single step into the new process function. </p>
 </blockquote>
 <h3 id="aside-memory-allocation">Aside: Memory allocation</h3>
 <p>Each task in the system should have its dedicated stack. That's why when creating a new task we must have a way to allocate memory. For now, our memory allocator is extremely primitive. (The implementation can be found in <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/mm.c">mm.c</a> file)</p>
