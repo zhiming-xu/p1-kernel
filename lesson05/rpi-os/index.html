@@ -840,7 +840,7 @@
 </ol>
 <h2 id="syscall-implementation">Syscall implementation</h2>
 <p>Each system call is a synchronous exception. A user program prepares all necessary arguments, and then run <code>svc</code> instruction. Such exceptions are handled at EL1 by the kernel. The kernel validates all arguments, does the syscall, and exists from the exception. After that, the user task resumes at EL0 right after the <code>svc</code> instruction. </p>
-<p><img src="figures/timeline-0.png" alt="timeline-syscall" style="zoom: 33%;" /></p>
+<p><img alt="" src="../figures/timeline-0.png" /></p>
 <p>We have 4 simple syscalls: </p>
 <ol>
 <li><code>write</code> outputs to UART. It accepts a buffer with the text to be printed as the first argument.</li>
@@ -1058,7 +1058,7 @@ int res = copy_process(PF_KTHREAD, (unsigned long)&amp;kernel_process, 0, 0);
 </code></pre>
 <p><strong>pt_regs: the exception stack frame</strong> </p>
 <p>In the previous experiment: when an interrupt happens, <code>kernel_entry</code> saves CPU context to a <em>stack frame</em> marked as "saved regs", which is somewhere in the middle of a kernel task's stack. </p>
-<p><img src="figures/pt_regs.png" alt="saved-regs" style="zoom:30%;" /></p>
+<p><img alt="" src="../figures/pt_regs.png" /></p>
 <blockquote>
 <p>Dump pt_regs in GDB:</p>
 <p>```</p>

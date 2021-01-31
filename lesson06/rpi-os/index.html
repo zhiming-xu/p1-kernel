@@ -1057,7 +1057,7 @@
 
 <h2 id="roadmap">Roadmap</h2>
 <p>Prior to this experiment, our kernel can run and schedule user processes, but the isolation between them is not complete - all processes and the kernel itself share the same memory. This allows any process to easily access somebody else's data and even kernel data. And even if we assume that all our processes are not malicious, there is another drawback: before allocating memory each process need to know which memory regions are already occupied - this makes memory allocation for a process more complicated.</p>
-<p>We will take the following steps. </p>
+<p>We take the following steps. </p>
 <ul>
 <li>Set up a pgtable for kernel. Using linear mapping. </li>
 <li>Turn on MMU shortly after kernel boots. This is a common kernel design. </li>
@@ -1101,7 +1101,7 @@
 <li>There are 4 levels in the table hierarchy: PGD (Page Global Directory), PUD (Page Upper Directory), PMD (Page Middle Directory), PTE (Page Table Entry). PTE is the last table in the hierarchy and it points to the actual page in the physical memory. </li>
 </ul>
 <blockquote>
-<p>Don't read too much into the terms, which just represent lv1, 2, ... pgtables. Them terms come from the Linux kernel (I guess x86), not ARM64. Over years, they became common lingo among kernel hackers. </p>
+<p>Don't read too much into the terms, which just represent lv1, 2, ... pgtables. Them terms come from the Linux kernel (x86), not ARM64. Over years, they became a common lingo among kernel hackers. </p>
 </blockquote>
 <ul>
 <li>
@@ -1130,7 +1130,7 @@
 <p><strong>Exercise: how large is a page table?</strong> From the diagram above we know that index in a page table occupies 9 bits (this is true for all page table levels). This means that each page table contains <code>2^9 = 512</code> items. Each item in a page table is an address of either the next page table in the hierarchy or a physical page in case of PTE. As we are using a 64-bit processor, each address must be 64 bit or 8 bytes in size. </p>
 <p>This means that each pgtable is <code>512 * 8 = 4096</code> bytes or 4 KB. <strong>A pgtable is exactly a page!</strong> This might give you an intuition why MMU designers chose such numbers.</p>
 <h3 id="section-2mb-mapping">Section (2MB) mapping</h3>
-<p>This is specific to ARM64 for mapping large parts of continuous physical memory. In this case, instead of 4 KB pages, we can directly map 2 MB blocks that are called sections. This allows to eliminate one single level of translation. The translation diagram, in this case, looks like the following.</p>
+<p>This is specific to ARM64 for mapping large, continuous physical memory. Instead of 4 KB pages, we directly map 2MB blocks called sections. This eliminates one level of translation. The translation diagram, in this case, looks like the following.</p>
 <pre><code>                           Virtual address                                               Physical Memory
 +-----------------------------------------------------------------------+              +-----------------_+
 |         | PGD Index | PUD Index | PMD Index |      Section offset     |              |                  |
@@ -1171,7 +1171,7 @@
 </ul>
 <p>See <a href="https://armv8-ref.codingbelief.com/en/chapter_d4/d43_3_memory_attribute_fields_in_the_vmsav8-64_translation_table_formats_descriptors.html#">Arm's official page</a>. </p>
 <h3 id="configuring-page-attributes">Configuring page attributes</h3>
-<p>As I mentioned in the previous section, each block descriptor contains a set of attributes (called MemAttr, bits[5:2]) that controls various virtual page parameters, notably cacheability or shareability. However, the attributes that are most important for our discussion are NOT configured directly in the descriptor. Instead, ARM processors implement a trick for compressing descriptor attributes commonly used. (The days when ARM hardware was way simpler were gone)</p>
+<p>As I mentioned in the previous section, each block descriptor contains a set of attributes (called MemAttr, bits[5:2]) that controls various virtual page parameters, notably cacheability or shareability. However, the attributes that are most important for our discussion are NOT encoded in the descriptor. Instead, ARM processors implement a trick for compressing descriptor attributes commonly used. (The days of simpler ARM hardware were gone)</p>
 <p><strong>Memory attribute indirection</strong> </p>
 <p>ARMv8 architecture introduces <code>mair_el1</code> register. See <a href="https://developer.arm.com/docs/ddi0595/b/aarch64-system-registers/mair_el1">its definition</a>. This register consists of 8 slots, each spanning 8 bits. Each slot configures a common set of attributes. A descriptor then specifies just an index of the <code>mair</code> slot, instead of specifying all attributes directly. This allows using only 3 bits in the descriptor to reference a <code>mair</code> slot. We are using only a few of available attribute options. <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson06/include/arm/mmu.h#L11">Here</a> is the code that prepares values for the <code>mair</code> register.</p>
 <pre><code>/*
