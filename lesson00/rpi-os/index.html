@@ -937,28 +937,6 @@
                 
                 
                 <h1 id="0-sharpen-your-tools">0: Sharpen your tools</h1>
-<ul>
-<li><a href="#about-the-docs">About the docs</a>                                                            </li>
-<li><a href="#terms">Terms</a>                                                                            </li>
-<li><a href="#dev-environment">Dev environment</a>                                                          </li>
-<li><a href="#host-os">Host OS</a>                                                                        </li>
-<li><a href="#toolchain">Toolchain</a>                                                                    </li>
-<li><a href="#platform-setup">Platform Setup</a>                                                            </li>
-<li><a href="#approach-1-the-real-hardware">Approach 1: the real hardware</a>                             <ul>
-<li><a href="#check-list">Check list</a>                                                                </li>
-<li><a href="#prep-raspberry-pi-3-model-b">Prep Raspberry Pi 3 Model B</a>                              </li>
-<li><a href="#load-raspbian-os-to-the-sd-card">Load Raspbian OS to the SD card</a>                      </li>
-<li><a href="#plug-in-the-serial-cable">Plug in the serial cable</a>                                    </li>
-<li><a href="#powering-up-rpi3">Powering up RPi3</a>                                                    </li>
-<li><a href="#an-example-setup">An example setup</a>                                                    </li>
-<li><a href="#test-your-dev-workflow">Test your dev workflow</a>                                        </li>
-<li><a href="#background-whats-on-sd-card">Background: what's on SD card?</a>                         </li>
-<li><a href="#update-configtxt">Update config.txt</a>                                                  </li>
-<li><a href="#build--load-sample-baremetal-program">Build &amp; load sample baremetal program</a>       </li>
-</ul>
-</li>
-<li><a href="#approach-2-qemu">Approach 2: QEMU</a>                                                       </li>
-</ul>
 <h2 id="about-the-docs">About the docs</h2>
 <p>Be aware: it may contain URLs referring to the upstream git repo, which may slightly differ from what we use. </p>
 <h3 id="terms">Terms</h3>
@@ -1057,11 +1035,6 @@ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
 <p><img alt="serial" src="../figures/serial.png" /></p>
 <p>(Your serial number may be different)</p>
 <p>Viola! You just built your first baremetal program for Rpi3! </p>
-<!--### 4. Docker
-Strictly speaking, Docker is not a required dependency. It is just convenient to use Docker to build source code of the lessons, especially for Mac and Windows users. Each lesson has `build.sh` script (or `build.bat` for windows users) This script uses Docker to build source code of the lesson. Instructions how to install docker for your platform can be found on the [official docker website]
-(https://docs.docker.com/engine/installation/)  If for some reasons you want to avoid using Docker, you can install the [make utility](http://www.math.tau.ac.il/~danha/courses/software1/make-intro.html) as well as  `aarch64-linux-gnu` toolchain. If you are using Ubuntu you just need to install `gcc-aarch64-linux-gnu` and `build-essential` packages.
--->
-
 <h3 id="approach-2-qemu">Approach 2: QEMU</h3>
 <h4 id="compile-qemu-from-source">Compile QEMU from source</h4>
 <p>Need QEMU &gt;v2.12. Newer version is likely fine. The following shows the default QEMU coming with Ubuntu 18.04 is too old.  For instance: </p>
@@ -1074,10 +1047,9 @@ Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
 sudo apt install gdb-multiarch build-essential pkg-config
 sudo apt install libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
 </code></pre>
-<p>Grab the source.  We specify QEMU v4.2. </p>
-<pre><code>git clone git://git.qemu.org/qemu.git
+<p>Grab the source.  Our QEMU is based on upstream v4.2 <strong>with some aarch64 debugging support.</strong> </p>
+<pre><code>git clone https://github.com/fxlin/qemu-cs4414.git
 cd qemu
-git checkout v4.2.0
 ./configure --target-list=aarch64-softmmu
 make -j`nproc`
 export PATH=&quot;$(pwd)/aarch64-softmmu:${PATH}&quot;
@@ -1112,6 +1084,7 @@ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
 <img alt="" src="../test-qemu.gif" /></p>
 <p>On Windows (WSL) </p>
 <p><img alt="" src="../test-qemu-wsl.gif" /></p>
+<p>Move to <a href="../../qemu/">the QEMU cheatsheet</a>. </p>
                 
               
               
