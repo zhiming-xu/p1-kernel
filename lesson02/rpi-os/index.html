@@ -870,7 +870,7 @@
 <h2 id="background-exception-levels-el">Background: Exception levels (EL)</h2>
 <p>ARMv8 defines 4 exception levels. An exception level is a processor execution mode in which only a subset of all operations and registers is available. </p>
 <p>The least privileged exception level, i.e. lowest level, is level 0. When processor operates at this level, it mostly uses only general purpose registers (X0 - X30) and stack pointer register (SP). EL0 also allows using <code>STR</code> and <code>LDR</code> instructions to load and store data to and from memory, among other instructions commonly used by a user program.</p>
-<p><img alt="" src="figures\els.png" /></p>
+<p><img alt="" src="../figures/els.png" /></p>
 <p>Why exception levels? Because an OS needs to implement <em>isolation</em>. A user process should not be able to access other process's data. To achieve such behavior, a kernel always runs each user process at EL0. Operating at this exception level a process can only use it's own virtual memory and can't access any instructions that change ELs, MMUs, etc. </p>
 <p>The kernel itself usually works at EL1. While running at this exception level CPU gets access to the registers that allows configuring MMU as well as some system registers. </p>
 <p><strong>About EL2/3</strong>: we will not deal with EL 2 or EL 3 until project 3 (secure hardware enclaves). Let's briefly describe them.  </p>
@@ -900,9 +900,7 @@
 <p>Right now, the kernel can only print some constant string on a screen, but what I need is some analog of <a href="https://en.wikipedia.org/wiki/Printf_format_string">printf</a> function. With <code>printf</code> I can easily display values of different registers and variables. Such functionality is essential for the kernel development because you don't have any other debugger support and <code>printf</code> becomes the only mean for figuring out what is going on inside Rpi3.</p>
 <p>Let's not reinvent the wheel and use one of  <a href="http://www.sparetimelabs.com/tinyprintf/tinyprintf.php">existing printf implementations</a> This function consists mostly from string manipulations and is not very interesting from a kernel developer point of view. The implementation that I used is very small and don't have external dependencies, that allows it to be easily integrated into the kernel. The only thing that I have to do is to define <code>putc</code>  function that can send a single character to the screen. This function is defined <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/mini_uart.c#L59">here</a> and it just uses already existing <code>uart_send</code> function. Also, we need to initialize the <code>printf</code> library and specify the location of the <code>putc</code> function. This is done in a single <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson02/src/kernel.c#L8">line of code</a>.</p>
 <h3 id="qemu-gdb-debugging">QEMU + GDB debugging</h3>
-<!--- Todo: add GDB debugging --->
-
-<p>GDB allows you to do single step, etc. It may help understand/debug specific instructions. You can find extensive information online. A quick note is <a href="../../gdb.md">here</a>.</p>
+<p>GDB allows you to do single step, etc. It may help understand/debug specific instructions. You can find extensive information online. A quick note is <a href="gdb.md">here</a>.</p>
 <h2 id="code-walkthrough">Code Walkthrough</h2>
 <h3 id="finding-out-the-current-el">Finding out the current EL</h3>
 <p>As we are equipped with the <code>printf</code> function, we can proceed to figure out at which exception level the kernel is booted. A small function that can answer this question looks like this.</p>

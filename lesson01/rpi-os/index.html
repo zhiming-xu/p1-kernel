@@ -1211,7 +1211,7 @@ _start:
 <li><a href="http://www.keil.com/support/man/docs/armasm/armasm_dom1361289865686.htm"><strong>bl</strong></a> "Branch with a link": perform an unconditional branch and store the return address in x30 (the link register). When the subroutine is finished, use the <code>ret</code> instruction to jump back to the return address.</li>
 <li><a href="http://www.keil.com/support/man/docs/armasm/armasm_dom1361289878994.htm"><strong>mov</strong></a> Move a value between registers or from a constant to a register.</li>
 </ul>
-<p>Our <a href="../../cheatsheet.md">cheat sheet</a> summarizes common ARM64 instructions. </p>
+<p>Our <a href="cheatsheet.md">cheat sheet</a> summarizes common ARM64 instructions. </p>
 <p>For official documentation, <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.den0024a/index.html">here</a> is the ARMv8-A developer's guide. It's a good resource if the ARM ISA is unfamiliar to you. <a href="http://infocenter.arm.com/help/index.jsp?topic=/com.arm.doc.den0024a/ch09s01s01.html">This page</a> specifically outlines the register usage convention in the ABI.</p>
 <h3 id="the-kernel_main-function">The <code>kernel_main</code> function</h3>
 <p>We have seen that the boot code eventually passes control to the <code>kernel_main</code> function. (VSCode: Ctrl-t then type "kernel_main")</p>

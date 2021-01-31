@@ -793,7 +793,7 @@
 </ol>
 <p><strong>Processes vs tasks</strong>. As we do not have virtual memory yet, we use the term "tasks" instead of "processes". </p>
 <h2 id="key-data-structures">Key data structures</h2>
-<p><img alt="" src="sched/Slide1.png" /> 
+<p><img alt="" src="../sched/Slide1.png" /> 
 <em>An array of pointers to task_structs of tasks</em> </p>
 <h3 id="task_struct">task_struct</h3>
 <p>To manage tasks, the first thing we should do is to create a struct that describes a task. Linux has such a struct and it is called <code>task_struct</code>  (in Linux both thread and processes are just different types of tasks; the difference is in how they share address spaces). As we are mostly mimicking Linux implementation, we are going to do the same. It looks like the following (in sched.h).</p>
@@ -933,7 +933,7 @@ cpu_switch_to:
     stp    x29, x9, [x8], #16
     str    x30, [x8]
 </code></pre>
-<p><img alt="" src="../sched/Slide2.PNG" /></p>
+<p><img alt="" src="sched/Slide2.PNG" /></p>
 <p><em>Figure above: Registers are being saved to task_struct.context</em></p>
 <p>Next all callee-saved registers are stored in the order, in which they are defined in <code>cpu_context</code> structure. The current stack pointer is saved as <code>cpu_context.sp</code> and <code>x29</code> is saved as <code>cpu_context.fp</code> (frame pointer).</p>
 <p>Note: <code>x30</code>, the link register containing function return address, is stored as <code>cpu_context.pc</code>. Why?</p>
@@ -988,7 +988,7 @@ cpu_switch_to:
 <table>
 <thead>
 <tr>
-<th align="center"><img alt="" src="sched/Slide3.png" /></th>
+<th align="center"><img alt="" src="../sched/Slide3.png" /></th>
 </tr>
 </thead>
 <tbody>
