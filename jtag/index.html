@@ -14,7 +14,7 @@
     
     
       
-        <title>Simplifying the dev workflow - p1-kernel</title>
+        <title>/jtag - p1-kernel</title>
       
     
     
@@ -62,7 +62,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#simplifying-the-dev-workflow" class="md-skip">
+        <a href="#jtag-for-rpi3" class="md-skip">
           Skip to content
         </a>
       
@@ -94,7 +94,7 @@
         <div class="md-header-nav__topic">
           <span class="md-ellipsis">
             
-              Simplifying the dev workflow
+              /jtag
             
           </span>
         </div>
@@ -303,10 +303,12 @@
         
   
   
+    
+  
 
 
   <li class="md-tabs__item">
-    <a href="../jtag/" class="md-tabs__link">
+    <a href="./" class="md-tabs__link md-tabs__link--active">
       /jtag
     </a>
   </li>
@@ -546,11 +548,20 @@
 
   
   
+    
   
-    <li class="md-nav__item">
-      <a href="../jtag/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         /jtag
       </a>
+      
     </li>
   
 
@@ -573,76 +584,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#motivation" class="md-nav__link">
-    Motivation
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#is-it-safe-to" class="md-nav__link">
-    Is it safe to ...?
-  </a>
-  
-    <nav class="md-nav" aria-label="Is it safe to ...?">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#unplug-the-micro-sd-card-usd-when-rpi3-is-powered-on" class="md-nav__link">
-    Unplug the micro SD card (uSD) when Rpi3 is powered on?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#plug-in-a-micro-sd-card-when-rpi3-is-powered-on" class="md-nav__link">
-    Plug in a micro SD card when Rpi3 is powered on?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#disconnect-the-serial-cable-when-rpi3-is-on" class="md-nav__link">
-    Disconnect the serial cable when Rpi3 is on?
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#unplug-micro-sd-from-pc-without-ejectingunmounting-from-the-pc-os" class="md-nav__link">
-    Unplug micro SD from PC without "ejecting/unmounting" from the PC OS?
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-manual-workflow" class="md-nav__link">
-    The manual workflow
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#the-automated-workflow" class="md-nav__link">
-    The automated workflow
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -654,37 +595,19 @@
               
                 
                 
-                <h1 id="simplifying-the-dev-workflow">Simplifying the dev workflow</h1>
-<p>This is for developing for the actual Rpi3 hardware. Does not apply if you use QEMU. </p>
-<h2 id="motivation">Motivation</h2>
-<p>You may have found that building &amp; testing the kernel requires tedious manual effort. Here are some steps to simplify the workflow, so that we can focus on kernel hacking. </p>
-<p>You should proceed only after having verified your hardware setup is correct. </p>
-<h2 id="is-it-safe-to">Is it safe to ...?</h2>
-<h4 id="unplug-the-micro-sd-card-usd-when-rpi3-is-powered-on">Unplug the micro SD card (uSD) when Rpi3 is powered on?</h4>
-<p><strong>Safe</strong>. Doing so when Rpi3 runs a full-fledged OS, e.g. Raspbian OS, may corrupt data because the OS caches data in memory. Our tiny kernel does not attempt to write any data to the micro SD. </p>
-<h4 id="plug-in-a-micro-sd-card-when-rpi3-is-powered-on">Plug in a micro SD card when Rpi3 is powered on?</h4>
-<p><strong>Safe</strong>. Then you can power-cycle the Rpi3 so </p>
-<h4 id="disconnect-the-serial-cable-when-rpi3-is-on">Disconnect the serial cable when Rpi3 is on?</h4>
-<p><strong>Safe</strong>. If your Rpi3 is powered over the serial cable -- no state to lose. If you Rpi3 is powered over micro USB: why disconnect the serial cable frequently? </p>
-<h4 id="unplug-micro-sd-from-pc-without-ejectingunmounting-from-the-pc-os">Unplug micro SD from PC without "ejecting/unmounting" from the PC OS?</h4>
-<p><strong>Safe</strong>. See <a href="https://docs.microsoft.com/en-us/windows/client-management/change-default-removal-policy-external-storage-media">here</a>. </p>
-<h2 id="the-manual-workflow">The manual workflow</h2>
-<p>(Once) Connect Rpi3 and PC via the serial cable. </p>
-<p>Repeat: </p>
-<ol>
-<li>Modify our kernel source if needed. Make kernel8.img</li>
-<li>Unplug uSD from Rpi3. Rpi3 does not have to be powered off. </li>
-<li>Plug in uSD to the card reader on PC. </li>
-<li>Copy kernel8.img to the uSD's boot partition. Overwrite the previous kernel8.img.</li>
-<li>Eject/umount uSD from PC. </li>
-<li>Plug in uSD to Rpi3.</li>
-<li>Power-cycle Rpi3. Wait for the kernel to execute. See output. Reason about it. </li>
-</ol>
-<h2 id="the-automated-workflow">The automated workflow</h2>
-<p>Depending on your PC OS: </p>
-<p>Linux: there's a Python script which you can adapt. </p>
-<p>Windows (WSL): (contribute your experience)</p>
-<p>OSX: (contribute your experience)</p>
+                <h1 id="jtag-for-rpi3">JTAG for Rpi3</h1>
+<p><img alt="" src="https://www.suse.com/c/wp-content/uploads/2018/06/jtag-complete.jpg" /></p>
+<p><em>Picture above: A JTAG debugger (blackbox), among other things, connected to an Rpi3 board.</em> </p>
+<p>JTAG is a special hardware connection to a target board, allowing debugging of the target board in situ -- watching registers,  setting breakpoints, dumping memory regions -- just as we debug kernel on QEMU. </p>
+<p>While sounding very useful, JTAG is not widely used even by kernel hackers as a debugging method. When building kernels on real hardware, programmers mostly debug by printing to UART, except for the very early stage of kernel boot, before the UART is up. </p>
+<p>Because of this reason, hardware/software for JTAG is lacking, even for popular boards like Rpi. Years ago, I have done JTAG debugging with a board of Texas Instruments (Pandaborad, Cortex-A9) with their $5,000 proprietary tool. I can attest it was very difficult to use. </p>
+<p>For education purpose though, it may be useful to watch registers &amp; set breakpoints when we play with Rpi3. There are reports on how to do so (see references below). In general, the support for aarch64 seems spotty (as opposed to microcontroller boards).  As of Jan 2021, the support was described as "stalled". I would expect caveats. </p>
+<p>That being said, it's gonna be fun to try! If you are interested, let us know by all means! We can provide JTAG hardware for you. </p>
+<p>References:</p>
+<p>https://metebalci.com/blog/bare-metal-raspberry-pi-3b-jtag/</p>
+<p>https://www.suse.com/c/debugging-raspberry-pi-3-with-jtag/</p>
+<p>https://www.linaro.org/blog/open-on-chip-debugger-ocd-at-linaro/</p>
+<p>https://collaborate.linaro.org/display/TCWGPUB/OpenOCD+for+AArch64</p>
                 
               
               
@@ -699,6 +622,27 @@
       
         
 <footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../dump/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                /ker dump
+              </div>
+            </div>
+          </a>
+        
+        
+      </nav>
+    </div>
   
   <div class="md-footer-meta md-typeset">
     <div class="md-footer-meta__inner md-grid">
