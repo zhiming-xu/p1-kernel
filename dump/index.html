@@ -620,6 +620,13 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#online-disassembler-oda" class="md-nav__link">
+    Online disassembler (ODA)
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -718,6 +725,13 @@
         <li class="md-nav__item">
   <a href="#dump-a-section-as-raw-bytes" class="md-nav__link">
     Dump a section as raw bytes
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#online-disassembler-oda" class="md-nav__link">
+    Online disassembler (ODA)
   </a>
   
 </li>
@@ -835,6 +849,23 @@ ffff00000008100c:       790053bf        strh    wzr, [x29, #40]
  ffff000000084a08 0a0d0000 00000000 6572726f 72207768  ........error wh
  ffff000000084a18 696c6520 73746172 74696e67 206b6572  ile starting ker
 </code></pre>
+<h2 id="online-disassembler-oda">Online disassembler (ODA)</h2>
+<p>https://onlinedisassembler.com/odaweb/</p>
+<p>A nice web UI to disassemble an ELF file uploaded. </p>
+<p><img alt="image-20210201130120738" src="../image-20210201130120738.png" />
+<em>Figure above: upload file to ODA.</em> </p>
+<hr />
+<p><img alt="image-20210201130221211" src="../image-20210201130221211.png" />
+<em>Figure above: ODA recognizes the uploaded file as ELF for aarch64.</em> </p>
+<hr />
+<p><img alt="image-20210201130353802" src="../image-20210201130353802.png" /></p>
+<p><em>Figure above: kernel8.elf disassembled. Top (the blue bar): a mini map of memory layout. Left: a list of symbols. Right: the list of instructions at the specified symbol.</em> </p>
+<hr />
+<p><img alt="image-20210201130643484" src="../image-20210201130643484.png" /></p>
+<p><em>Figure above: ODA shows ELF sections of kernel8.elf.</em> </p>
+<hr />
+<p><img alt="image-20210201131041671" src="../image-20210201131041671.png" /></p>
+<p><em>Figure above: ODA visualizes the memory layout of IRQ vectors</em> </p>
                 
               
               
