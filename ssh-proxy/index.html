@@ -777,13 +777,13 @@
 <tbody>
 <tr>
 <td>granger1.cs.virginia.edu</td>
-<td>p1,p3,p4</td>
+<td>p1-p4</td>
 <td>Dual Xeon 2630v4 Broadwell (10c20t), 20 cores</td>
 <td>Ubuntu 20.04 LTS</td>
 </tr>
 <tr>
-<td>labsrv06.cs.virginia.edu (1/30: temporarily out of service)</td>
-<td>p1,p2,p3,p4</td>
+<td>labsrv06.cs.virginia.edu (Jan 30: temporarily out of service)</td>
+<td>All but p2</td>
 <td>Single Xeon Silver 4410 CPU (8c16t), 8 cores</td>
 <td>Ubuntu 20.04 LTS</td>
 </tr>
@@ -807,7 +807,7 @@ $ ssh xl6yq@granger1.cs.virginia.edu
 (type in password...)
 Welcome to Ubuntu 20.04 LTS (GNU/Linux 5.4.0-45-generic x86_64)
 </code></pre>
-<p>SSH Connecting to CS servers can be automated. </p>
+<p>Connecting to CS servers can be automated. </p>
 <p><img alt="" src="../images/ssh-proxy.gif" /></p>
 <p>The picture shows the final results: From a local terminal (e.g. my minibox), connecting to a CS server by simply typing <code>ssh granger1</code>. Read on for how to configure.</p>
 <h3 id="1-use-key-based-authentication-in-lieu-of-password">1. Use key-based authentication in lieu of password</h3>
@@ -861,13 +861,13 @@ OpenSSH_7.6p1 Ubuntu-4ubuntu0.3, OpenSSL 1.0.2n  7 Dec 2017
 <p>tl;dr: VSCode will connect to the CS server (Linux) using SSH under the hood. To do so you install the "Remote development" <a href="https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.vscode-remote-extensionpack">package</a> which will install the "Remote.SSH" extension for VSCode. </p>
 <p><img alt="" src="../vscode-remove-ssh.png" /></p>
 <blockquote>
-<p><em>Screenshot from Peiyi Yang (@py5yy). Her VSCode color scheme is a different than mine.</em> </p>
+<p><em>Screenshot from Peiyi Yang (py5yy@). Her VSCode color scheme is different from mine.</em> </p>
 </blockquote>
 <h3 id="windows-caveat-1-ssh-keys">Windows caveat 1: ssh keys</h3>
 <p>The extension (Remote.SSH) will invoke Window's ssh client (<code>c:\Windows\System32\OpenSSH\ssh.exe</code>), which different from the ssh client that you run in WSL. The Window's ssh client expects its config file at <code>C:\Users\%USERNAME%\.ssh\config</code>. </p>
 <p><img alt="" src="../images/vscode-ssh-config.png" /></p>
 <blockquote>
-<p><em>Screenshot from Peiyi Yang (@py5yy). Her VSCode color scheme is a different than mine.</em> </p>
+<p>*Screenshot from Peiyi Yang (py5yy@). * </p>
 </blockquote>
 <p>If you haven't generated your SSH keys so far, you can do so by launching a PowerShell console and run <code>ssh-keygen</code> there. </p>
 <table>
