@@ -782,16 +782,14 @@
 </ul>
 </li>
 <li>x29 (FP): frame pointer, pointing to the base of the current stack frame</li>
-<li>
-<p>x30 (LR): link register</p>
-</li>
-<li>
-<p>SP      Stack pointer                      </p>
-</li>
-<li>
-<p>PC     Program counter                     </p>
-</li>
+<li>x30 (LR): link register</li>
+<li>SP      Stack pointer                      </li>
+<li>PC     Program counter                     </li>
 </ul>
+<p>Our <a href="../gdb/">GDB customization</a> color-codes the registers. </p>
+<p>White highlight (x0-x7): parameter/results; red background (x19-x29): callee saved. </p>
+<p>(Green reg values: the values have changed since the last instruction)</p>
+<p><img alt="" src="../images/gdb-dash-aarch64-reg.png" /></p>
 <h2 id="special-purpose-registers">Special purpose registers</h2>
 <table>
 <thead>
