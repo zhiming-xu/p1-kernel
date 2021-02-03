@@ -978,8 +978,10 @@
 <li>OS X: (likely HomeBrew is needed. Not tested)</li>
 </ul>
 <h3 id="toolchain">Toolchain</h3>
-<p>These are compiler, linker, etc. for us to generate the kernel code. Use the one provided by Ubuntu </p>
-<pre><code>$ sudo apt install gcc-aarch64-linux-gnu 
+<p>These are compiler, linker, etc. for us to generate the kernel code. Use the one provided by Ubuntu. </p>
+<pre><code># this is necessary only when you develop kernel code on your own machine (not recommended)
+# the server already has the toolchain installed
+$ sudo apt install gcc-aarch64-linux-gnu 
 
 $ aarch64-linux-gnu-gcc --version
 aarch64-linux-gnu-gcc (Ubuntu 9.3.0-17ubuntu1~20.04) 9.3.0
