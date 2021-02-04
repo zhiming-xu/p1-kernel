@@ -1072,11 +1072,13 @@ QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.26)
 Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
 </code></pre>
 <p>Now, build QEMU from source. Clean any pre-installed qemu and install necessary tools: </p>
-<pre><code>sudo apt remove qemu-system-arm
+<pre><code># this is necessary only when you develop kernel code on your own machine (not recommended)
+# the server already has these software uninstalled/installed
+sudo apt remove qemu-system-arm
 sudo apt install gdb-multiarch build-essential pkg-config
 sudo apt install libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
 </code></pre>
-<p>Grab the source.  Our QEMU is based on upstream v4.2 <strong>with some aarch64 debugging support.</strong> </p>
+<p>Grab the source.  Our QEMU is based on upstream v4.2 <strong>with custom aarch64 debugging support.</strong> </p>
 <pre><code>git clone https://github.com/fxlin/qemu-cs4414.git
 cd qemu
 ./configure --target-list=aarch64-softmmu
