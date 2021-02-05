@@ -566,6 +566,13 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#troubleshooting-what-if-the-server-still-asks-for-password" class="md-nav__link">
+    Troubleshooting: what if the server still asks for password?
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#2-connect-to-cs-servers-using-one-line-of-command" class="md-nav__link">
     2. Connect to CS servers using one line of command
   </a>
@@ -698,6 +705,13 @@
           <li class="md-nav__item">
   <a href="#1-use-key-based-authentication-in-lieu-of-password" class="md-nav__link">
     1. Use key-based authentication in lieu of password
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting-what-if-the-server-still-asks-for-password" class="md-nav__link">
+    Troubleshooting: what if the server still asks for password?
   </a>
   
 </li>
@@ -862,6 +876,29 @@ $ ssh-copy-id xl6yq@granger1.cs.virginia.edu
 $ ssh xl6yq@granger1.cs.virginia.edu
 </code></pre>
 <p>If things do not work, e.g. servers keep asking for passwords even after copying ssh key over, chances are that these keys do not have right file permissions on your local machine filesystem or on the server filesystem. A quick Googling can yield quick fixes. </p>
+<h3 id="troubleshooting-what-if-the-server-still-asks-for-password">Troubleshooting: what if the server still asks for password?</h3>
+<p>Let's use granger1 as an example. </p>
+<ul>
+<li>On granger1, check the content of ~/.ssh/authorized_keys. You should see your public key saved there. For instance, mine is: </li>
+</ul>
+<pre><code>$ cat ~/.ssh/authorized_keys
+ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQCkkCZ2PO7GdX5CBL26zcIFz4XgMiHSQjaU32evuidvMXsC
+ZExT9QHl3Ou00QfuagmfebugxB0aruGAsKmBxEBmlj0r1uAVCekYaIn8IPA5jynQnDRDdIABaZBWlsPx9jKo
+KQqLlKgdG4JziQOAr0HaUgr+oIXgRUq7V/W1OhV9SQVF+vcIy8vVwNdLBNdbw/GtU0oKb76yxfXOC/VZM7eZ
+xhovb/J450U5Op8tL/+Lg5x2sJKqR2juCFAicGbVNuXXazEDrXHgDQp+WQS8rYK4Zs95KqAsMfxvsFSbs8lf
+h0pIs+sozBNUt+1noJkcyLfxhzu0yGEsxMULHE/KdAst xl6yq@portal03                        
+</code></pre>
+<p>"xl6yq@portal03" is the textual tag of the pubkey, indicating it is a pubkey generated on portal.cs</p>
+<ul>
+<li>On granger1, check the permission of ~/.ssh. It should be: </li>
+</ul>
+<pre><code>$ ls -la ~ | grep .ssh
+drwx------ 
+</code></pre>
+<p>Check the permission of ~/.ssh/authorized_keys. It should be: </p>
+<pre><code>$ ls -l ~/.ssh/authorized_keys
+-rw------- 
+</code></pre>
 <p><strong>Note to Windows Users</strong>: if you try to invoke ssh-copy-id that comes with Windows (the one you can invoke in PowerShell, not the one in WSL), there may be some caveats. See <a href="https://www.chrisjhart.com/Windows-10-ssh-copy-id/">here</a>. I would say just invoke ssh-copy-id in WSL. </p>
 <h3 id="2-connect-to-cs-servers-using-one-line-of-command">2. Connect to CS servers using one line of command</h3>
 <pre><code>$ ssh -l USERNAME granger1.cs.virginia.edu -J portal.cs.virginia.edu
