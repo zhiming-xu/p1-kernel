@@ -1166,19 +1166,15 @@ qemu-system-aarch64 -M raspi3 -kernel kernel8.img -serial stdio
 <p>Viola! You just built your first baremetal program for Rpi3! </p>
 <h3 id="approach-2-qemu">Approach 2: QEMU</h3>
 <h4 id="compile-qemu-from-source">Compile QEMU from source</h4>
-<p>Need QEMU &gt;v2.12. Newer version is likely fine. The following shows the default QEMU coming with Ubuntu 18.04 is too old.  For instance: </p>
-<pre><code>$ qemu-system-aarch64  --version
-QEMU emulator version 2.11.1(Debian 1:2.11+dfsg-1ubuntu7.26)
-Copyright (c) 2003-2017 Fabrice Bellard and the QEMU Project developers
-</code></pre>
-<p>Now, build QEMU from source. Clean any pre-installed qemu and install necessary tools: </p>
+<p><em>This is required no matter you develop on local machines or on the server.</em> </p>
+<p>Clean any pre-installed qemu and install necessary tools: </p>
 <pre><code># this is necessary only when you develop kernel code on your own machine (not recommended)
 # the server already has these software uninstalled/installed
 sudo apt remove qemu-system-arm
 sudo apt install gdb-multiarch build-essential pkg-config
 sudo apt install libglib2.0-dev libfdt-dev libpixman-1-dev zlib1g-dev
 </code></pre>
-<p>Grab the source.  Our QEMU is based on upstream v4.2 <strong>with custom aarch64 debugging support.</strong> </p>
+<p>Grab the QEMU source.  Our QEMU is based on upstream v4.2 <strong>with custom aarch64 debugging support.</strong> </p>
 <pre><code>git clone https://github.com/fxlin/qemu-cs4414.git
 cd qemu
 ./configure --target-list=aarch64-softmmu
@@ -1188,13 +1184,14 @@ export PATH=&quot;$(pwd)/aarch64-softmmu:${PATH}&quot;
 <p>If successful, this will result in QEMU executables in ./aarch64-softmmu/. The last line above adds the path to our search path. </p>
 <p>If you encounter compilation errors (e.g. unmet dependencies), make sure you run all <code>apt get</code> commands above. </p>
 <p>Now try QEMU &amp; check its version. The supported machines should include Rpi3</p>
-<pre><code>$ qemu-system-aarch64  --version
-QEMU emulator version 4.2.0 (v4.2.0-11797-g2890edc853-dirty)
-Copyright (c) 2003-2019 Fabrice Bellard and the QEMU Project developers
+<pre><code>$ qemu-system-aarch64  --version                 
+QEMU emulator version 5.0.50 (v5.0.0-1247-gaf6f75d03f-dirty)                   
+Copyright (c) 2003-2020 Fabrice Bellard and the QEMU Project developers        
+patched for cs4414/6456 aarch64 kernel hacking    
 
 $ qemu-system-aarch64 -M help|grep rasp
-raspi2               Raspberry Pi 2
-raspi3               Raspberry Pi 3
+raspi2               Raspberry Pi 2B
+raspi3               Raspberry Pi 3B
 </code></pre>
 <h4 id="test-the-compilation">Test the compilation</h4>
 <p>Test QEMU with Rpi3 baremetal code (NOTE: this repo is for validating your toolchain &amp; QEMU build; it is NOT our course project)</p>
