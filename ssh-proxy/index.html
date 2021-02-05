@@ -838,7 +838,7 @@ Welcome to Ubuntu 20.04 LTS (GNU/Linux 5.4.0-45-generic x86_64)
 <p><img alt="" src="../images/ssh-proxy.gif" /></p>
 <p>The picture shows the final results: From a local terminal (e.g. my minibox), connecting to a CS server by simply typing <code>ssh granger1</code>. Read on for how to configure.</p>
 <h3 id="1-use-key-based-authentication-in-lieu-of-password">1. Use key-based authentication in lieu of password</h3>
-<p>Applicable local environment: Linux, Windows (WSL)</p>
+<p>Applicable local environment: Linux, MacOS, &amp; Windows (WSL)</p>
 <p>The pub key on your local machine is at <code>~/.ssh/id_rsa.pub</code>. Check out the file &amp; its content. If it does not exist, generate a pub key by running <code>ssh-keygen</code>. </p>
 <pre><code># on the local console (Linux or WSL)
 $ ssh-keygen
@@ -862,6 +862,7 @@ $ ssh-copy-id xl6yq@granger1.cs.virginia.edu
 $ ssh xl6yq@granger1.cs.virginia.edu
 </code></pre>
 <p>If things do not work, e.g. servers keep asking for passwords even after copying ssh key over, chances are that these keys do not have right file permissions on your local machine filesystem or on the server filesystem. A quick Googling can yield quick fixes. </p>
+<p><strong>Note to Windows Users</strong>: if you try to invoke ssh-copy-id that comes with Windows (the one you can invoke in PowerShell, not the one in WSL), there may be some caveats. See <a href="https://www.chrisjhart.com/Windows-10-ssh-copy-id/">here</a>. I would say just invoke ssh-copy-id in WSL. </p>
 <h3 id="2-connect-to-cs-servers-using-one-line-of-command">2. Connect to CS servers using one line of command</h3>
 <pre><code>$ ssh -l USERNAME granger1.cs.virginia.edu -J portal.cs.virginia.edu
 </code></pre>
