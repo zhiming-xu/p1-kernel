@@ -573,15 +573,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-connect-to-course-servers-using-one-line-of-command" class="md-nav__link">
-    2. Connect to course servers using one line of command
+  <a href="#2-save-connection-info-in-ssh-config" class="md-nav__link">
+    2. Save connection info in SSH config
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-save-connection-info-in-ssh-config" class="md-nav__link">
-    3. Save connection info in SSH config
+  <a href="#3-optional-connect-to-course-servers-using-one-line-of-command" class="md-nav__link">
+    3. (Optional) connect to course servers using one line of command
   </a>
   
 </li>
@@ -717,15 +717,15 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#2-connect-to-course-servers-using-one-line-of-command" class="md-nav__link">
-    2. Connect to course servers using one line of command
+  <a href="#2-save-connection-info-in-ssh-config" class="md-nav__link">
+    2. Save connection info in SSH config
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-save-connection-info-in-ssh-config" class="md-nav__link">
-    3. Save connection info in SSH config
+  <a href="#3-optional-connect-to-course-servers-using-one-line-of-command" class="md-nav__link">
+    3. (Optional) connect to course servers using one line of command
   </a>
   
 </li>
@@ -819,7 +819,8 @@
 
 <p>These servers are behind the campus firewall. You need to first SSH to <strong>portal.cs.virginia.edu</strong>, and from there SSH over to the course servers, e.g. labsrv06. This is described <a href="https://www.cs.virginia.edu/wiki/doku.php?id=linux_ssh_access">here</a>. </p>
 <p><strong>WARNING:</strong> portal is managed by the UVA IT. You use your existing computing ID &amp; password. The course server is managed by cs4414 staff. Use the credentials that we share with you. </p>
-<p><img alt="" src="../images/servers.png" /></p>
+<p><img alt="" src="../images/servers.png" />
+<em>Figure above: your local machine, the portal, and the server. Texts on the bottom: key files and their purpose.</em> </p>
 <h2 id="terminal-over-ssh">Terminal over SSH</h2>
 <pre><code>$ ssh xl6yq@portal.cs.virginia.edu
 (type in password...)
@@ -892,14 +893,7 @@ drwx------
 </code></pre>
 <p>Explanation: -vv tells ssh to dump its interactions with granger1 on negotiating keys. As a reference, my output is <a href="../granger1-ssh-output.txt">here</a>. At the end of the output, you can see granger1 accepts my key offered from portal. </p>
 <p><strong>Note to Windows Users</strong>: if you try to invoke ssh-copy-id that comes with Windows (the one you can invoke in PowerShell, not the one in WSL), there may be some caveats. See <a href="https://www.chrisjhart.com/Windows-10-ssh-copy-id/">here</a>. I would say just invoke ssh-copy-id in WSL. </p>
-<h3 id="2-connect-to-course-servers-using-one-line-of-command">2. Connect to course servers using one line of command</h3>
-<pre><code>$ ssh -l USERNAME granger1.cs.virginia.edu -J portal.cs.virginia.edu
-</code></pre>
-<p>The -J option is available with your local ssh client OpenSSH &gt;= 7.3p1. See <a href="https://unix.stackexchange.com/questions/423205/can-i-access-ssh-server-by-using-another-ssh-server-as-intermediary/423211#423211">here</a> for more details. For instance, my version: </p>
-<pre><code>$ ssh -V
-OpenSSH_7.6p1 Ubuntu-4ubuntu0.3, OpenSSL 1.0.2n  7 Dec 2017
-</code></pre>
-<h3 id="3-save-connection-info-in-ssh-config">3. Save connection info in SSH config</h3>
+<h3 id="2-save-connection-info-in-ssh-config">2. Save connection info in SSH config</h3>
 <p>Append the following to your ssh client configuration (<code>~/.ssh/config</code>). <strong>Replace USERNAME with your actual username</strong>: </p>
 <pre><code>Host granger1
    User USERNAME
@@ -908,6 +902,13 @@ OpenSSH_7.6p1 Ubuntu-4ubuntu0.3, OpenSSL 1.0.2n  7 Dec 2017
 </code></pre>
 <p>With the configuration, your local ssh client knows that when connecting  to host <code>granger1</code>, use <code>portal</code> as the jump proxy. So you can directly connect to <code>granger1</code> from your local machine: </p>
 <pre><code>$ ssh granger1
+</code></pre>
+<h3 id="3-optional-connect-to-course-servers-using-one-line-of-command">3. (Optional) connect to course servers using one line of command</h3>
+<pre><code>$ ssh -l USERNAME granger1.cs.virginia.edu -J portal.cs.virginia.edu
+</code></pre>
+<p>The -J option is available with your local ssh client OpenSSH &gt;= 7.3p1. See <a href="https://unix.stackexchange.com/questions/423205/can-i-access-ssh-server-by-using-another-ssh-server-as-intermediary/423211#423211">here</a> for more details. For instance, my version: </p>
+<pre><code>$ ssh -V
+OpenSSH_7.6p1 Ubuntu-4ubuntu0.3, OpenSSL 1.0.2n  7 Dec 2017
 </code></pre>
 <h2 id="remote-development-with-vscode">Remote development with VSCode</h2>
 <p>Many students may prefer VSCode. Here is how to make it work for our kernel hacking. </p>
