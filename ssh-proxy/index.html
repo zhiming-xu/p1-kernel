@@ -844,7 +844,7 @@ $ ssh-keygen
 Generating public/private rsa key pair.
 Enter file in which to save the key (/home/xzl/.ssh/id_rsa):
 </code></pre>
-<p>Now, append your pubic key to both portal and granger1 (<code>~/.ssh/authorized_keys</code>). </p>
+<p>Now, append your public key to both portal and granger1 (<code>~/.ssh/authorized_keys</code>). </p>
 <p>Don't do this manually. Instead, do so by the command <code>ssh-copy-id</code>. For instance: </p>
 <pre><code># copy the pubkey from your local machine to portal
 $ ssh-copy-id xl6yq@portal.cs.virginia.edu
@@ -853,7 +853,10 @@ $ ssh-copy-id xl6yq@portal.cs.virginia.edu
 # connect to &quot;portal&quot;, it should no longer ask for password
 $ ssh xl6yq@portal.cs.virginia.edu
 
-# now we are on &quot;portal&quot;, copy the pubkey to the course server
+# now we are on &quot;portal&quot;. generate a new pair of public/private keys, which will be used between portal and granger1 
+$ ssh-keygen
+
+# copy the new public key from portal to granger1
 $ ssh-copy-id xl6yq@granger1.cs.virginia.edu
 (... type in password ...)
 
