@@ -731,6 +731,12 @@ export PATH=&quot;$(pwd)/qemu/aarch64-softmmu:${PATH}&quot;
 # (optional: grab a sample kernel binary for testing)
 wget https://github.com/fxlin/p1-kernel/releases/download/exp1/kernel8.img
 </code></pre>
+<p>Explanation: the <code>export</code> command adds the path to QEMU to the search paths, so that whenever you type <code>qemu-system-aarch64</code>, the shell can find it. You may want to add the line to <code>~/.bashrc</code> so it is executed whenever you log in to the server</p>
+<p><code>echo export PATH="$(pwd)/aarch64-softmmu:${PATH}" &gt;&gt; ~/.bashrc</code></p>
+<p>To test if the QEMU path is added to PATH (the output is an example from my machine)</p>
+<pre><code>$ whereis qemu-system-aarch64
+qemu-system-aarch64: /home/xzl/qemu/aarch64-softmmu/qemu-system-aarch64
+</code></pre>
 <h2 id="launch-the-kernel-free-run">Launch the kernel, free run</h2>
 <pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio
 
@@ -808,8 +814,8 @@ run-debug() {
     qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -s -S
 }
 </code></pre>
-<p>To use: </p>
-<pre><code># switch to dir where qemu tree is under qemu/
+<p>To use: every time when you log in to the server and wants to develop the kernel</p>
+<pre><code># switch to dir where the qemu source directory is qemu/
 $ source env-qemu.sh
 
 # switch to dir where kernel8.img resides
