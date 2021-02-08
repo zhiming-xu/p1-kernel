@@ -838,6 +838,7 @@
 <li>Understand context switch driven by interrupts, in particular switch to/from interrupt handlers</li>
 <li>Atomic kernel regions where preemption is disallowed </li>
 </ol>
+<p><strong>Source code location: p1-kernel/src/lesson04b</strong></p>
 <h2 id="roadmap">Roadmap</h2>
 <p>We will turn on timer interrupts. In the interrupt handler, our kernel invokes its scheduler to switch among runnable tasks. </p>
 <p>In addition to <code>switch_to</code>, the kernel should save &amp; restore CPU state upon entering/existing interrupt handling. </p>
