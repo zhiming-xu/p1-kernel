@@ -580,8 +580,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-optional-connect-to-course-servers-using-one-line-of-command" class="md-nav__link">
-    3. (Optional) connect to course servers using one line of command
+  <a href="#fyi-a-one-liner-for-connecting-to-course-servers" class="md-nav__link">
+    (FYI) a one-liner for connecting to course servers
   </a>
   
 </li>
@@ -724,8 +724,8 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#3-optional-connect-to-course-servers-using-one-line-of-command" class="md-nav__link">
-    3. (Optional) connect to course servers using one line of command
+  <a href="#fyi-a-one-liner-for-connecting-to-course-servers" class="md-nav__link">
+    (FYI) a one-liner for connecting to course servers
   </a>
   
 </li>
@@ -864,7 +864,9 @@ $ ssh-copy-id xl6yq@granger1.cs.virginia.edu
 # it should no longer ask for password
 $ ssh xl6yq@granger1.cs.virginia.edu
 </code></pre>
-<p>If things do not work, e.g. servers keep asking for passwords even after copying ssh key over, chances are that these keys do not have right file permissions on your local machine filesystem or on the server filesystem. A quick Googling can yield quick fixes. </p>
+<p><strong>An alternative procedure (02/07/21):</strong> Peiyi Yang, our TA, reported her successful configuration procedure as follows. </p>
+<p>Started from scratch. First edited the ssh config file on the local computer saying to jump through portal when going to granger1. Then ran ssh-copy-id id@portal and entered the password to install the local's pubkey on portal. Then from local, ran ssh-copy-id id@granger1 and entered the password to install the local's pubkey on granger1.</p>
+<p>So there is only one key pair. The pubkey is copied to portal and then to granger1. </p>
 <h3 id="troubleshooting-the-server-still-asks-for-password">Troubleshooting: the server still asks for password?</h3>
 <p>Let's use granger1 as an example. </p>
 <ul>
@@ -903,7 +905,7 @@ drwx------
 <p>With the configuration, your local ssh client knows that when connecting  to host <code>granger1</code>, use <code>portal</code> as the jump proxy. So you can directly connect to <code>granger1</code> from your local machine: </p>
 <pre><code>$ ssh granger1
 </code></pre>
-<h3 id="3-optional-connect-to-course-servers-using-one-line-of-command">3. (Optional) connect to course servers using one line of command</h3>
+<h3 id="fyi-a-one-liner-for-connecting-to-course-servers">(FYI) a one-liner for connecting to course servers</h3>
 <pre><code>$ ssh -l USERNAME granger1.cs.virginia.edu -J portal.cs.virginia.edu
 </code></pre>
 <p>The -J option is available with your local ssh client OpenSSH &gt;= 7.3p1. See <a href="https://unix.stackexchange.com/questions/423205/can-i-access-ssh-server-by-using-another-ssh-server-as-intermediary/423211#423211">here</a> for more details. For instance, my version: </p>
