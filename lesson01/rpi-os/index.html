@@ -1479,15 +1479,28 @@ disable_commandline_tags=1
 <p><strong>Run</strong></p>
 <ol>
 <li>Copy the generated <code>kernel8.img</code> file to the <code>boot</code> partition of your Raspberry Pi flash card and delete <code>kernel7.img</code> as well as any other <code>kernel*.img</code> files on your SD card. Make sure you left all other files in the boot partition untouched (see <a href="https://github.com/s-matyukevich/raspberry-pi-os/issues/43">43</a> and <a href="https://github.com/s-matyukevich/raspberry-pi-os/issues/158">158</a> issues for details). </li>
-<li>Modify the <code>config.txt</code> file as described above.</li>
-<li>Connect the USB-to-TTL serial cable as described in the <a href="../../lesson00/rpi-os/">Prerequisites</a>.</li>
-<li>Power on your Raspberry Pi.</li>
-<li>Open your terminal emulator. You should be able to see the <code>Hello, world!</code> message there.</li>
+</ol>
+<p><strong>Update</strong> (2/10/21): students reported that UART1 stops to work with the newest Rpi3 firmware (either extracted from Raspbian OS or from the upstream github repo). The symptom: no "helloworld" is printed, while UART1 seems echoing fine. UART0 seems unaffected. My guess: it has something to do with the firmware's new device tree feature? <strong>Action:</strong> use older firmware provided by us: https://github.com/fxlin/p1-kernel/releases/tag/exp1-rpi3. </p>
+<ol>
+<li>
+<p>Modify the <code>config.txt</code> file as described above.</p>
+</li>
+<li>
+<p>Connect the USB-to-TTL serial cable as described in the <a href="../../lesson00/rpi-os/">Prerequisites</a>.</p>
+</li>
+<li>
+<p>Power on your Raspberry Pi.</p>
+</li>
+<li>
+<p>Open your terminal emulator. You should be able to see the <code>Hello, world!</code> message there.</p>
+</li>
 </ol>
 <p><strong>Aside (optional): prepare the SD card from scratch (w/o Raspbian)</strong></p>
 <p>The steps above assume that you have Raspbian installed on your SD card. It is also possible to run the RPi OS using an empty SD card.</p>
 <ol>
-<li>Prepare your SD card:<ul>
+<li>
+<p>Prepare your SD card:</p>
+<ul>
 <li>Use an MBR partition table</li>
 <li>Format the boot partition as FAT32<blockquote>
 <p>The card should be formatted exactly in the same way as it is required to install Raspbian. Check <code>HOW TO FORMAT AN SD CARD AS FAT</code> section in the <a href="https://www.raspberrypi.org/documentation/installation/noobs.md">official documenation</a> for more information.</p>
@@ -1495,15 +1508,30 @@ disable_commandline_tags=1
 </li>
 </ul>
 </li>
-<li>Copy the following files to the card:<ul>
-<li><a href="https://github.com/raspberrypi/firmware/blob/master/boot/bootcode.bin">bootcode.bin</a> This is the GPU bootloader, it contains the GPU code to start the GPU and load the GPU firmware. </li>
-<li><a href="https://github.com/raspberrypi/firmware/blob/master/boot/start.elf">start.elf</a> This is the GPU firmware. It reads <code>config.txt</code> and enables the GPU to load and run ARM specific user code from <code>kernel8.img</code></li>
-</ul>
+<li>
+<p>Copy the following files to the card:</p>
+<ul>
+<li>
+<p><a href="https://github.com/raspberrypi/firmware/blob/master/boot/bootcode.bin">bootcode.bin</a> This is the GPU bootloader, it contains the GPU code to start the GPU and load the GPU firmware. </p>
 </li>
-<li>Copy <code>kernel8.img</code> and <code>config.txt</code> files. </li>
-<li>Connect the USB-to-TTL serial cable.</li>
-<li>Power on your Raspberry Pi.</li>
-<li>Use your terminal emulator to connect to the RPi OS. </li>
+<li>
+<p><a href="https://github.com/raspberrypi/firmware/blob/master/boot/start.elf">start.elf</a> This is the GPU firmware. It reads <code>config.txt</code> and enables the GPU to load and run ARM specific user code from <code>kernel8.img</code></p>
+</li>
+</ul>
+<p><strong>Update</strong> (2/10/21): UART1 is broken by these upstream firmware for unknown reason. Use older firmware provided by us: https://github.com/fxlin/p1-kernel/releases/tag/exp1-rpi3. </p>
+</li>
+<li>
+<p>Copy <code>kernel8.img</code> and <code>config.txt</code> files. </p>
+</li>
+<li>
+<p>Connect the USB-to-TTL serial cable.</p>
+</li>
+<li>
+<p>Power on your Raspberry Pi.</p>
+</li>
+<li>
+<p>Use your terminal emulator to connect to the RPi OS. </p>
+</li>
 </ol>
 <p>Unfortunately, all Raspberry Pi firmware files are closed-sourced and undocumented. For more information about the Raspberry Pi startup sequence, you can refer to some unofficial sources, like <a href="https://raspberrypi.stackexchange.com/questions/10442/what-is-the-boot-sequence">this</a> StackExchange question or <a href="https://github.com/DieterReuter/workshop-raspberrypi-64bit-os/blob/master/part1-bootloader.md">this</a> Github repository.</p>
 <h3 id="qemu">QEMU</h3>
