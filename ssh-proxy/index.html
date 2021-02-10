@@ -948,7 +948,7 @@ OpenSSH_7.6p1 Ubuntu-4ubuntu0.3, OpenSSL 1.0.2n  7 Dec 2017
 </table>
 <p>Or, you can you copy existing ssh keys and config (e.g. from WSL <code>~/.ssh/</code>) to the location mentioned above. Btw, the way to access WSL's root filesystem is to type <code>\\wsl$</code> in the explorer address bar. See the figure above. </p>
 <h3 id="windows-caveat-2-an-outdated-ssh-client">Windows caveat 2: an outdated ssh client</h3>
-<p>The current VSCode has a bug that breaks ssh with jumphost. You have to manually fix it by following <a href="https://github.com/microsoft/vscode-remote-release/issues/18#issuecomment-507258777">this</a>. In a nutshell, manual download a newer win32 ssh to overwrite the one shipping with Win 10 (it's a good idea to save a back up). Window's security mechanism is in your way. Work around it. </p>
+<p>The current VSCode has a bug that breaks ssh with jumphost. You have to manually fix it by following <a href="https://github.com/microsoft/vscode-remote-release/issues/18#issuecomment-507258777">this</a>. In a nutshell, manual download a newer win32 ssh to overwrite the one shipping with Win 10 (it's a good idea to save a back up). Window's security mechanism is in your way. Work around it. (<strong>Note</strong>: please double check the SSH version. See the screenshot below.)</p>
 <table>
 <thead>
 <tr>
