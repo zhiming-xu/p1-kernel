@@ -473,11 +473,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
-    Functions
+  <a href="#task-switch" class="md-nav__link">
+    Task switch
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+    <nav class="md-nav" aria-label="Task switch">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -508,29 +508,29 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#aside-memory-allocation" class="md-nav__link">
-    Aside: Memory allocation
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-allocation" class="md-nav__link">
+    Memory allocation
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#the-scheduler" class="md-nav__link">
     The scheduler
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#conclusion" class="md-nav__link">
     Conclusion
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -729,11 +729,11 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#functions" class="md-nav__link">
-    Functions
+  <a href="#task-switch" class="md-nav__link">
+    Task switch
   </a>
   
-    <nav class="md-nav" aria-label="Functions">
+    <nav class="md-nav" aria-label="Task switch">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -764,29 +764,29 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#aside-memory-allocation" class="md-nav__link">
-    Aside: Memory allocation
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#memory-allocation" class="md-nav__link">
+    Memory allocation
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#the-scheduler" class="md-nav__link">
     The scheduler
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
+      
+        <li class="md-nav__item">
   <a href="#conclusion" class="md-nav__link">
     Conclusion
   </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -809,7 +809,7 @@
 <p><strong>Source code location: p1-kernel/src/lesson04a</strong></p>
 <h2 id="roadmap">Roadmap</h2>
 <p>From this experiment onward, our kernel starts to schedule multiple tasks. This makes it a true "kernel" instead of a baremetal program. </p>
-<p>We will intentionally leave out interrupts, i.e. <strong>timer interrupts are OFF</strong>. Tasks must voluntarily yield to each other. As a result, we focus on scheduling and task switch and defer treatment of interrupt handling to upcoming experiment. . </p>
+<p>We will intentionally leave out interrupts, i.e. <strong>timer interrupts are OFF</strong>. Tasks must voluntarily yield to each other. As a result, this experiment focuses on scheduling and task switch. We defer interrupt handling to upcoming experiment. . </p>
 <p>We will implement: </p>
 <ol>
 <li>The <code>task_struct</code> data structure </li>
@@ -822,9 +822,9 @@
 <p><strong>Processes vs tasks</strong>. As we do not have virtual memory yet, we use the term "tasks" instead of "processes". </p>
 <h2 id="key-data-structures">Key data structures</h2>
 <p><img alt="" src="../sched/Slide1.png" /> 
-<em>An array of pointers to task_structs of tasks</em> </p>
+<em>Figure above: an array of pointers to task_structs of tasks</em> </p>
 <h3 id="task_struct">task_struct</h3>
-<p>To manage tasks, the first thing we should do is to create a struct that describes a task. Linux has such a struct and it is called <code>task_struct</code>  (in Linux both thread and processes are just different types of tasks; the difference is in how they share address spaces). As we are mostly mimicking Linux implementation, we are going to do the same. It looks like the following (in sched.h).</p>
+<p>The first thing is to create a struct that describes a task. Linux has such a struct and it is called <code>task_struct</code>  (in Linux both thread and processes are just different types of tasks; the difference is in how they share address spaces). As we are mostly mimicking Linux implementation, we are going to do the same. It looks like the following (<code>sched.h</code>).</p>
 <pre><code>struct cpu_context {
     unsigned long x19;
     unsigned long x20;
@@ -851,24 +851,21 @@ struct task_struct {
 </code></pre>
 <p>This struct has the following members:</p>
 <ul>
-<li><code>cpu_context</code> This is an embedded structure that contains values of all registers that might be different between the tasks, that are being switched. </li>
-<li>Why don't we save all registers, but only registers <code>x19 - x30</code> and <code>sp</code>? (<code>fp</code> is <code>x29</code> and <code>pc</code> is <code>x30</code>). Because task switch happens only when a task calls <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.S#L4">cpu_switch_to</a> function. </li>
-<li>So, from the point of view of the task that is being switched, it just calls <code>cpu_switch_to</code> function and it returns after some (potentially long) time. The "switched from" task doesn't notice that another task happens to runs during this period.  </li>
-<li>Accordingly to ARM calling conventions registers <code>x0 - x18</code> can be overwritten by the callee, so the caller must not assume that the values of those registers will survive after a function call. That's why it doesn't make sense to save <code>x0 - x18</code> registers.</li>
-<li><code>state</code> This is the state of the currently running task (note: NOT CPU state which is an orthogonal concept). For tasks that are just doing CPU work but not IO, the state will always be <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/include/sched.h#L15">TASK_RUNNING</a>. For now, this is the only state supported by our kernel. </li>
-<li>Later we add a few additional states. For example, a task that is waiting for an interrupt should be moved to a different state, because it doesn't make sense to awake the task while the required interrupt hasn't yet happened.</li>
-<li><code>counter</code> This field is used to determine how long the current task has been running. <code>counter</code> decreases by 1 each timer tick and when it reaches 0 another task is scheduled. This supports our simple scheduling algorithm.</li>
-<li><code>priority</code>  When a new task is scheduled its <code>priority</code> is copied to <code>counter</code>. By setting tasks priority, we can regulate the amount of processor time that the task gets relative to other tasks.</li>
-<li><code>preempt_count</code> If this field has a non-zero value it is an indicator that right now the current task is executing some critical function that must not be interrupted (for example, it runs the scheduling function.). If timer tick occurs at such time it is ignored and rescheduling is not triggered.</li>
+<li><code>cpu_context</code> This is a struct that contains values of all registers that might be different between the tasks.</li>
+<li>Why don't we save all registers, but only <code>x19 - x30</code> and <code>sp</code>? (<code>fp</code> is <code>x29</code> and <code>pc</code> is <code>x30</code>). Because task switch happens only when a task calls <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.S#L4">cpu_switch_to</a> function. </li>
+<li>From the point of view of the task that is being scheduled out (i.e. the "switched-from" task), it just calls <code>cpu_switch_to</code> function and it returns after some (potentially long) time. The "switched from" task is unaware of that another task (i.e. the "switched-to" task) happens to runs during this period.  </li>
+<li>Accordingly to ARM calling conventions registers <code>x0 - x18</code> can be overwritten by the callee (i.e. <code>cpu_switch_to()</code> in our case). Hence, the kernel doesn't have to save the contents of <code>x0 - x18</code> for the caller (the "switched-from" task). </li>
+<li><code>state</code> This is the state of the currently running task (NOT PSTATE -- an orthogonal concept). For a task just doing CPU work but not IO, the task state will always be <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/include/sched.h#L15">TASK_RUNNING</a>. For now, this is the only state supported by our kernel. </li>
+<li>Later we add a few additional states. For example, a task waiting for an interrupt should be in a different state, because it doesn't make sense to schedule the task when it is not ready to run yet. </li>
+<li><code>counter</code> is used to determine how long the current task has been running. <code>counter</code> decreases by 1 each timer tick. When it reaches 0, the kernel will attempt to schedule another task. This supports our simple scheduling algorithm.</li>
+<li><code>priority</code>  When the kernel schedules a new task, the kernel copies the task's  <code>priority</code> value <code>counter</code>. In this way, the kernel can regulate the amount of processor time the task gets relative to other tasks.</li>
+<li><code>preempt_count</code> A flag. A non-zero value means that the current task is executing in a critical code region that cannot be interrupted, e.g. by switching to another task. Any timer tick should be ignored and not triggering rescheduling. </li>
 </ul>
 <p>After the kernel startup, there is only one task running: the one that runs kernel_main(). It is called "init task". Before the scheduler is enabled, we must fill <code>task_struct</code> of the init task. This is done in <code>INIT_TASK</code>.</p>
-<p>All <code>task_struct</code>s are stored in <code>task</code> (sched.c) array. This array has only 64 slots - that is the maximum number of simultaneous tasks that we can have in the kernel. It won't suit a production OS, but it is ok for our goals.</p>
-<p>An important global variable is <code>current</code> (sched.c) that always points to <code>task_struct</code> of currently executing task. Both <code>current</code> and <code>task</code> array are initially set to hold a pointer to the init task. There is also a global variable called <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L8">nr_tasks</a> - it contains the number of currently running tasks in the system.</p>
-<p>Those are all structures and global variables needed to implement the scheduler. In the description of the <code>task_struct</code> I already briefly mentioned some aspects of how scheduling works, because it is impossible to understand the meaning of a particular <code>task_struct</code> field without understanding how this field is used. </p>
-<p>Now examine the scheduling algorithm in much more details and we will start with the <code>kernel_main</code> function.</p>
-<h2 id="functions">Functions</h2>
+<p>All <code>task_struct</code>s are stored in <code>task</code> (sched.c) array. This array has only 64 slots - that is the maximum number of simultaneous tasks the kernel can have. It won't suit a production OS, but it is ok for our goals.</p>
+<p>An important global variable is <code>current</code> (sched.c) that always points to <code>task_struct</code> of currently executing task. Both <code>current</code> and <code>task</code> array are initially set to hold a pointer to the init task. There is also a global variable <code>nr_task</code> - it contains the number of currently running tasks in the system.</p>
+<h2 id="task-switch">Task switch</h2>
 <h3 id="preparing-task_structs-kernelc">Preparing task_structs (kernel.c)</h3>
-<p>How to prove that the scheduler actually works? </p>
 <pre><code>void kernel_main(void)
 {
     uart_init();
@@ -891,15 +888,20 @@ struct task_struct {
     }
 }
 </code></pre>
-<p>There are a few important things about this code.</p>
 <ol>
-<li>New function <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/fork.c#L5">copy_process</a> is introduced. <code>copy_process</code> takes 2 arguments: a function to execute in a new thread and an argument that need to be passed to this function. <code>copy_process</code> allocates a new <code>task_struct</code>  and makes it available for the scheduler.</li>
-<li>Another new function for us is called <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L21">schedule</a>. This is the core scheduler function: it checks whether there is a new task that needs to preempt the current one. In cooperative scheduling, a task voluntarily calls <code>schedule</code> if it doesn't have any work to do at the moment. Spoiler: for preemptive multitasking, <code>schedule</code> is also called from the timer interrupt handler.</li>
+<li>
+<p>A new function <code>copy_process</code> is introduced. <code>copy_process</code> takes 2 arguments: a function to execute in a new thread and an argument passed to this function. <code>copy_process</code> allocates a new <code>task_struct</code>  and makes it available for the scheduler.</p>
+</li>
+<li>
+<p>Another new function <code>schedule</code>. This is the core scheduler function: it checks whether there is a new task that needs to preempt the current one. In cooperative scheduling, a task voluntarily calls <code>schedule</code> if it doesn't have any work to do at the moment. </p>
+</li>
 </ol>
 <blockquote>
+<p>For preemptive multitasking, <code>schedule</code> is also called from the timer interrupt handler.</p>
 <p>Try your self with QEMU: set a breakpoint at copy_process &amp; launch the kernel. Examine task_struct with <code>print *p</code>. Examine the value of cpu_context.[pc|sp|fn|arg]. </p>
 </blockquote>
-<p>We are calling <code>copy_process</code> 2 times, each time passing a pointer to the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/kernel.c#L9">process</a> function as the first argument. <code>process</code> function is very simple.</p>
+<p>We are calling <code>copy_process</code> 2 times, each time passing a pointer to the process function as the first argument.</p>
+<p><code>process</code> function is very simple.</p>
 <pre><code>void process(char *array)
 {
     while (1){
@@ -911,7 +913,7 @@ struct task_struct {
     }
 }
 </code></pre>
-<p>It just keeps printing on the screen characters from the array, that is passed as an argument The first time it is called with the argument "12345" and second time the argument is "abcde". After printing out a string, a task yields to others by calling <code>schedule()</code>. If our scheduler implementation is correct, we should see on the output from both threads.</p>
+<p>It just keeps printing characters from the array, which is passed as an argument. Task 1 is created with the argument "12345" and task 2 is with the argument "abcde". After printing out a string, a task yields to others by calling <code>schedule()</code>. If our scheduler implementation is correct, both threads will take turns to print strings. </p>
 <h3 id="switching-tasks-schedc-scheds">Switching tasks (sched.c &amp; sched.S)</h3>
 <p>This is where the magic happens. The code looks like this.</p>
 <pre><code>void switch_to(struct task_struct * next)
@@ -923,7 +925,7 @@ struct task_struct {
     cpu_switch_to(prev, next);
 }
 </code></pre>
-<p>Here we check that next process is not the same as the current, and if not, <code>current</code> variable is updated. The actual work is redirected to <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.S">cpu_switch_to</a> function. It is in assembly as it manipulates registers. </p>
+<p>If the "next" process is not the same as the "current",  the kernel updates <code>current</code>. The <code>cpu_switch_to</code> function is where the real context switch happens. To manipulates registers, it is in assembly. </p>
 <pre><code>.globl cpu_switch_to
 cpu_switch_to:
     mov    x10, #THREAD_CPU_CONTEXT
@@ -947,11 +949,11 @@ cpu_switch_to:
     mov    sp, x9
     ret
 </code></pre>
-<p>This is the place where the real context switch happens. Let's examine it line by line.</p>
+<p>Let's examine it line by line.</p>
 <pre><code>    mov    x10, #THREAD_CPU_CONTEXT
     add    x8, x0, x10
 </code></pre>
-<p><code>THREAD_CPU_CONTEXT</code> constant contains offset of the <code>cpu_context</code> structure in the <code>task_struct</code>. <code>x0</code> contains a pointer to the first argument, which is the current <code>task_struct</code> (i.e. the "switch_from" task).  After the copied 2 lines are executed, <code>x8</code> will contain a pointer to the current <code>cpu_context</code>.</p>
+<p><code>THREAD_CPU_CONTEXT</code> constant contains offset of the <code>cpu_context</code> structure in the <code>task_struct</code> (the offset is 0 in the current implementation). <code>x0</code> contains a pointer to the first argument, which is the current <code>task_struct</code> (i.e. the "switch-from" task).  After the copied 2 lines are executed, <code>x8</code> will contain a pointer to the current <code>cpu_context</code>.</p>
 <pre><code>    mov    x9, sp
     stp    x19, x20, [x8], #16        // store callee-saved registers
     stp    x21, x22, [x8], #16
@@ -962,13 +964,13 @@ cpu_switch_to:
     str    x30, [x8]
 </code></pre>
 <p><img alt="" src="sched/Slide2.PNG" /></p>
-<p><em>Figure above: Registers are being saved to task_struct.context</em></p>
+<p><em>The figure above: Registers are being saved to task_struct.context</em></p>
 <p>Next all callee-saved registers are stored in the order, in which they are defined in <code>cpu_context</code> structure. The current stack pointer is saved as <code>cpu_context.sp</code> and <code>x29</code> is saved as <code>cpu_context.fp</code> (frame pointer).</p>
 <p>Note: <code>x30</code>, the link register containing function return address, is stored as <code>cpu_context.pc</code>. Why?</p>
 <p>Now we calculate the address of the next task's <code>cpu_context</code>: </p>
 <pre><code>    add    x8, x1, x10
 </code></pre>
-<p>This a cute hack. <code>x10</code> contains an offset of the <code>cpu_context</code> structure inside <code>task_struct</code>, <code>x1</code> is a pointer to the next <code>task_struct</code>, so <code>x8</code> will contain a pointer to the next <code>cpu_context</code>.</p>
+<p>This a cute hack. <code>x10</code> contains <code>THREAD_CPU_CONTEXT</code> , the offset of the <code>cpu_context</code> structure inside <code>task_struct</code>. <code>x1</code> is a pointer to the next <code>task_struct</code>, so <code>x8</code> will contain a pointer to the next <code>cpu_context</code>.</p>
 <p>Now, restore the CPU context of "switch_to" task from memory to CPU regs. A mirror procedure. </p>
 <pre><code>    ldp    x19, x20, [x8], #16        // restore callee-saved registers
     ldp    x21, x22, [x8], #16
@@ -980,10 +982,10 @@ cpu_switch_to:
     mov    sp, x9
     ret
 </code></pre>
-<p>After <code>ret</code>, kernel returns to the location pointed to by the link register (<code>x30</code>). If we are switching to a task for the first time, this will be <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L148">ret_from_fork</a> function. More on it below. In all other cases this will be the location, previously saved in the <code>cpu_context.pc</code> by the <code>cpu_switch_to</code> function. Think: which instruction does it point to? </p>
+<p>The <code>ret</code> instruction will jump to the location pointed to by the link register (<code>x30</code>). If we are switching to a task for the first time, this will be the beginning of the <code>ret_from_fork</code> function. More on that below. In all other cases this will be the location previously saved in the <code>cpu_context.pc</code> by the <code>cpu_switch_to</code> function. Think: which instruction does it point to? </p>
 <h3 id="launching-a-new-task">Launching a new task</h3>
-<p>After seeing task switch, new task creation starts to make more sense. It is implemented in <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/fork.c#L5">copy_process</a> function.</p>
-<p>Keep in mind: after <code>copy_process</code> finishes execution, no context switch happens. The function only prepares new <code>task_struct</code> and adds it to the <code>task</code> array — this task will be executed only after <code>schedule</code> function is called.</p>
+<p>New task creation is implemented in the copy_process function.</p>
+<p>Keep in mind: after <code>copy_process</code> finishes execution, no context switch happens yet. The function only prepares new <code>task_struct</code> and adds it to the <code>task</code> array — this task will be executed only after <code>schedule</code> function is called.</p>
 <pre><code>int copy_process(unsigned long fn, unsigned long arg)
 {
     struct task_struct *p;
@@ -1004,7 +1006,7 @@ cpu_switch_to:
     return 0;
 }
 </code></pre>
-<p>Now, we are going to examine it in details.</p>
+<p>We examine it in details.</p>
 <pre><code>    struct task_struct *p;
 </code></pre>
 <p>The function starts with allocating a pointer for the new task. As interrupts are off, the kernel will not be interrupted in the middle of the <code>copy_process</code> function.</p>
@@ -1012,7 +1014,7 @@ cpu_switch_to:
     if (!p)
         return 1;
 </code></pre>
-<p>Next, a new page is allocated. At the bottom of this page, we are putting the <code>task_struct</code> for the newly created task. The rest of this page will be used as the task stack. A few lines below, <code>context.sp</code> is set as <code>p + THREAD_SIZE</code>. THREAD_SIZE is defined as 4KB. It is the total amount of memory for a task. The name, again, is following the Linux kernel convention. </p>
+<p>Next, a new page is allocated. At the bottom of this page, we are putting the <code>task_struct</code> for the newly created task. The rest of this page will be used as the task stack. A few lines below, <code>context.sp</code> is set as <code>p + THREAD_SIZE</code>. THREAD_SIZE is defined as 4KB. It is the total amount of kernel memory for a task. The name, again, is following the Linux kernel convention. </p>
 <table>
 <thead>
 <tr>
@@ -1035,7 +1037,7 @@ cpu_switch_to:
     p-&gt;cpu_context.pc = (unsigned long)ret_from_fork;
     p-&gt;cpu_context.sp = (unsigned long)p + THREAD_SIZE;
 </code></pre>
-<p>This is the most important part of the function. Here <code>cpu_context</code> is initialized. The stack pointer is set to the top of the newly allocated memory page. <code>pc</code>  is set to the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L146">ret_from_fork</a> function, and we need to look at this function now in order to understand why the rest of the <code>cpu_context</code> registers are initialized in the way they are.</p>
+<p>This is the most important part of the function. Here <code>cpu_context</code> is initialized. The stack pointer is set to the top of the newly allocated memory page (see the figure above). <code>pc</code>  is set to the ret_from_fork function. Details below. </p>
 <h3 id="ret_from_fork-entrys">ret_from_fork (entry.S)</h3>
 <p>This is the <strong>first</strong> piece of code executed by a newly created process. A new process P executes <code>ret_from_fork</code> after <strong>it is switched to</strong> for the first time. That is right after the scheduler picks P for the first time and restores P's CPU context from <code>task_struct</code> to CPU registers. Throughout its lifetime, P only executes <code>ret_from_fork</code> once. </p>
 <blockquote>
@@ -1047,13 +1049,12 @@ ret_from_fork:
     mov    x0, x20
     blr    x19         //should never return
 </code></pre>
-<p>Where do <code>x19</code> and <code>x20</code> come from? See code <code>copy_process</code> above, which saves <code>fn</code> (the process's main function) and <code>arg</code> (the argument passed to the process) to<code>task_struct</code>. When switching to P, the kernel restores <code>fn</code> and <code>arg</code> from <code>task_struct</code> to <code>x19</code> and <code>x20</code>. </p>
-<p>As a result, <code>ret_from_fork</code> calls the function stored in <code>x19</code> register with the argument stored in <code>x20</code>. </p>
+<p>What are the initial values of <code>x19</code> and <code>x20</code>? See code <code>copy_process</code> above, which saves <code>fn</code> (the process's main function) and <code>arg</code> (the argument passed to the process) to<code>task_struct.x19</code> and <code>x20</code>. When switching to P, the kernel restores <code>fn</code> and <code>arg</code> from <code>task_struct</code> to <code>x19</code> and <code>x20</code>. And here we are:  <code>ret_from_fork</code> calls the function stored in <code>x19</code> register with the argument stored in <code>x20</code>. </p>
 <blockquote>
 <p>:wrench:Try your self with QEMU+GDB: set a breakpoint at ret_from_fork, launch the kernel, and single step into the new process function. </p>
 </blockquote>
-<h3 id="aside-memory-allocation">Aside: Memory allocation</h3>
-<p>Each task in the system should have its dedicated stack. That's why when creating a new task we must have a way to allocate memory. For now, our memory allocator is extremely primitive. (The implementation can be found in <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/mm.c">mm.c</a> file)</p>
+<h2 id="memory-allocation">Memory allocation</h2>
+<p>Each task in the system should have its dedicated stack. That's why when creating a new task we must have a way to allocate memory. For now, our memory allocator is extremely primitive. (The implementation can be found in mm.c file)</p>
 <pre><code>static unsigned short mem_map [ PAGING_PAGES ] = {0,};
 
 unsigned long get_free_page()
@@ -1076,14 +1077,14 @@ void free_page(unsigned long p){
 </blockquote>
 <p>The allocator can work only with memory pages (each page is 4 KB in size). There is an array called <code>mem_map</code> that for each page in the system holds its status: whether it is allocated or free. Whenever we need to allocate a new page, we just loop through this array and return the first free page. This implementation is based on 2 assumptions:</p>
 <ol>
-<li>We know the total amount of memory in the system. It is <code>1 GB - 1 MB</code> (the last megabyte of memory is reserved for device registers.). This value is stored in the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/include/mm.h#L14">HIGH_MEMORY</a> constant.</li>
-<li>First 4 MB of memory are reserved for the kernel image and init task stack. This value is stored in <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/include/mm.h#L13">LOW_MEMORY</a> constant. All memory allocations start right after this point.</li>
+<li>We know the total amount of memory in the system. It is <code>1 GB - 1 MB</code> (the last megabyte of memory is reserved for device registers.). This value is stored in the HIGH_MEMORY constant.</li>
+<li>First 4 MB of memory are reserved for the kernel image and init task stack. This value is stored in the LOW_MEMORY constant. All memory allocations start right after this point.</li>
 </ol>
 <blockquote>
 <p>Note: even with QEMU our kernel must start from 0x80000 (512KB), the above assumptions are good as there's still plenty room in 512KB -- LOW_MEMORY for our tiny kernel.</p>
 </blockquote>
-<h3 id="the-scheduler">The scheduler</h3>
-<p>Finally, we are ready to look at the scheduler algorithm. I almost precisely copied this algorithm from the first release of the Linux kernel. You can find the original version <a href="https://github.com/zavg/linux-0.01/blob/master/kernel/sched.c#L68">here</a>.</p>
+<h2 id="the-scheduler">The scheduler</h2>
+<p>Finally, we are ready to look at the scheduler algorithm. We almost precisely copied this algorithm from the first release of the Linux kernel. </p>
 <pre><code>void _schedule(void)
 {
     int next,c;
@@ -1129,7 +1130,7 @@ void free_page(unsigned long p){
 </li>
 </ul>
 <p>We will augment the scheduling algorithm for preemptive multitasking later. </p>
-<h3 id="conclusion">Conclusion</h3>
+<h2 id="conclusion">Conclusion</h2>
 <p>We have seen important nuts &amp; bolts of multitasking. The subsequent experiment will enable task preemption. We will show a detailed workflow of context switch there. </p>
                 
               

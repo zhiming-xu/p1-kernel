@@ -1297,7 +1297,7 @@ void kernel_main(void)
 </table>
 <p>UART1/Mini UART: easier to program; limited performance/functionalities. That's fine for our goal. For specification of the Mini UART registers: see page 8 of the SoC manual. </p>
 <p>UART0/PL011: richer functions; higher speed. Yet one needs to configure the board clock by talking to the GPU firmware. We won't do that. see <a href="https://github.com/bztsrc/raspi3-tutorial/tree/master/05_uart0">Example code</a> if you are interested. </p>
-<p>Both UARTs can be mapped to the same pins by setting the GPFSEL1 register. See the GPIO function diagram below. </p>
+<p><strong>Both UARTs can be mapped to the same physical pins</strong> by setting the GPFSEL1 register. See the GPIO function diagram below. </p>
 <p>That's enough to know about Rpi UARTs. More:  <a href="https://www.raspberrypi.org/documentation/configuration/uart.md">official web page</a>. </p>
 <h3 id="gpio">GPIO</h3>
 <p>Another IO device is GPIO <a href="https://en.wikipedia.org/wiki/General-purpose_input/output">General-purpose input/output</a>. GPIO provides a bunch of registers. Each bit in such a register corresponds to a pin on the Rpi3 board. By writing 1 or 0 to register bits, software can control the output voltage on the pins, e.g. for turning on/off LEDs connected to such pins. Reading is done in a similar fashion. The picture below shows GPIO pin headers populated on Rpi3. (Note: the picture shows Rpi2, which has the same pinout as Rpi3)</p>

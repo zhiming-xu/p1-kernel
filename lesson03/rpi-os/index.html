@@ -616,11 +616,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#timers-on-rpi3" class="md-nav__link">
-    Timers on Rpi3
+  <a href="#fyi-other-timers-on-rpi3" class="md-nav__link">
+    FYI: other timers on Rpi3
   </a>
   
-    <nav class="md-nav" aria-label="Timers on Rpi3">
+    <nav class="md-nav" aria-label="FYI: other timers on Rpi3">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1022,11 +1022,11 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#timers-on-rpi3" class="md-nav__link">
-    Timers on Rpi3
+  <a href="#fyi-other-timers-on-rpi3" class="md-nav__link">
+    FYI: other timers on Rpi3
   </a>
   
-    <nav class="md-nav" aria-label="Timers on Rpi3">
+    <nav class="md-nav" aria-label="FYI: other timers on Rpi3">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
@@ -1356,8 +1356,6 @@ disable_irq:
 }
 </code></pre>
 <p><strong>To summarize</strong>: we have to program three places in order to receive the timer interrupts: the timer device, the per-core interrupt controller, and the core itself (DAIF). </p>
-<!----- need a figure --->
-
 <h4 id="handing-timer-interrupts">Handing timer interrupts</h4>
 <p>The kernel gets an irq. The kernel check if it comes from the timer; if so, the kernel sets the timer for firing the next interrupt. </p>
 <pre><code>void handle_irq(void) {
@@ -1378,7 +1376,7 @@ disable_irq:
     msr CNTP_TVAL_EL0, x0
     ret
 </code></pre>
-<h3 id="timers-on-rpi3">Timers on Rpi3</h3>
+<h3 id="fyi-other-timers-on-rpi3">FYI: other timers on Rpi3</h3>
 <p>There are other timers on Rpi3 which you may see from various online blogs/tutorials/forums. The information can be very confusing. The naming of timers does NOT help. I list them below together with Arm generic timers described above. I suggest you stay away from other timers because the experience will not be as useful. </p>
 <table>
 <thead>
