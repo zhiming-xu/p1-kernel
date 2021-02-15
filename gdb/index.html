@@ -498,9 +498,167 @@
         
       
       
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          /gdb
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
       <a href="./" class="md-nav__link md-nav__link--active">
         /gdb
       </a>
+      
+        
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gdb-installation" class="md-nav__link">
+    GDB Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-workflow" class="md-nav__link">
+    The workflow
+  </a>
+  
+    <nav class="md-nav" aria-label="The workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#launch-qemu-the-kernel-and-wait-for-the-debugger" class="md-nav__link">
+    Launch QEMU + the kernel and wait for the debugger
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-gdb" class="md-nav__link">
+    Launch GDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dump-register-contents" class="md-nav__link">
+    Dump register contents
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dump-memory" class="md-nav__link">
+    Dump memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-out-variablesstructures" class="md-nav__link">
+    Print out variables/structures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-a-breakpoint-at-addr" class="md-nav__link">
+    Set a breakpoint at addr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functionsource-lookup" class="md-nav__link">
+    Function/source lookup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-gdb-dashboard-enhancement" class="md-nav__link">
+    The GDB "dashboard" enhancement
+  </a>
+  
+    <nav class="md-nav" aria-label="The GDB "dashboard" enhancement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#customize" class="md-nav__link">
+    Customize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-enhancement-fyi" class="md-nav__link">
+    Other enhancement (FYI)
+  </a>
+  
+    <nav class="md-nav" aria-label="Other enhancement (FYI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    Reference
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
       
     </li>
   
@@ -584,6 +742,150 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#gdb-installation" class="md-nav__link">
+    GDB Installation
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-workflow" class="md-nav__link">
+    The workflow
+  </a>
+  
+    <nav class="md-nav" aria-label="The workflow">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#launch-qemu-the-kernel-and-wait-for-the-debugger" class="md-nav__link">
+    Launch QEMU + the kernel and wait for the debugger
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#launch-gdb" class="md-nav__link">
+    Launch GDB
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dump-register-contents" class="md-nav__link">
+    Dump register contents
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dump-memory" class="md-nav__link">
+    Dump memory
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#print-out-variablesstructures" class="md-nav__link">
+    Print out variables/structures
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#set-a-breakpoint-at-addr" class="md-nav__link">
+    Set a breakpoint at addr
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functionsource-lookup" class="md-nav__link">
+    Function/source lookup
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#the-gdb-dashboard-enhancement" class="md-nav__link">
+    The GDB "dashboard" enhancement
+  </a>
+  
+    <nav class="md-nav" aria-label="The GDB "dashboard" enhancement">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#installation" class="md-nav__link">
+    Installation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#usage" class="md-nav__link">
+    Usage
+  </a>
+  
+    <nav class="md-nav" aria-label="Usage">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#customize" class="md-nav__link">
+    Customize
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-enhancement-fyi" class="md-nav__link">
+    Other enhancement (FYI)
+  </a>
+  
+    <nav class="md-nav" aria-label="Other enhancement (FYI)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#troubleshooting" class="md-nav__link">
+    Troubleshooting
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reference" class="md-nav__link">
+    Reference
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -601,13 +903,13 @@
 <li>Read the whole document before you attempt GDB. </li>
 <li><em>WSL users who want to develop on local machines instead of the server</em>: gdbserver may not play well with WSL. See "troubleshooting"  below. You are fine if you develop on the server. </li>
 </ol>
-<h1 id="gdb-installation">GDB Installation</h1>
+<h2 id="gdb-installation">GDB Installation</h2>
 <p>We've done this on the server already. Do this if developing on local machines (Linux or WSL). </p>
 <pre><code>sudo apt install gdb-multiarch gcc-aarch64-linux-gnu build-essential 
 </code></pre>
 <p>Note: the gdb for aarch64 is NOT called aarch64-XXXX-gdb.</p>
-<h1 id="the-workflow">The workflow</h1>
-<h2 id="launch-qemu-the-kernel-and-wait-for-the-debugger">Launch QEMU + the kernel and wait for the debugger</h2>
+<h2 id="the-workflow">The workflow</h2>
+<h3 id="launch-qemu-the-kernel-and-wait-for-the-debugger">Launch QEMU + the kernel and wait for the debugger</h3>
 <pre><code># will wait for gdb to connect at local tcp 1234
 qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -s -S
 
@@ -616,7 +918,7 @@ qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -
 </code></pre>
 <p>Explanation: -S not starting the guest until you tell it to from gdb.  -s listening for an incoming connection from gdb on TCP port 1234</p>
 <p><strong>WARNING</strong> If multiple students run the first command on the server machine, they all attempt to listen on tcp port 1234. Only one will succeed. If you see such a failure, use the second form to specify a different TCP port number. </p>
-<h2 id="launch-gdb">Launch GDB</h2>
+<h3 id="launch-gdb">Launch GDB</h3>
 <p>From another terminal</p>
 <pre><code>gdb-multiarch build/kernel8.elf 
 (gdb) target remote :1234 
@@ -626,7 +928,7 @@ qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -
 <pre><code>(gdb) si 
 </code></pre>
 <p><img alt="gdb-si" src="../images/gdb-si.png" /></p>
-<h2 id="dump-register-contents">Dump register contents</h2>
+<h3 id="dump-register-contents">Dump register contents</h3>
 <pre><code>(gdb) info reg 
 </code></pre>
 <p><img alt="gdb-reg" src="../images/gdb-reg.png" /></p>
@@ -634,7 +936,7 @@ qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -
 <pre><code>(gdb) display/10i $sp
 </code></pre>
 <p><img alt="gdb-si-display" src="../images/gdb-si-display.gif" /></p>
-<h2 id="dump-memory">Dump memory</h2>
+<h3 id="dump-memory">Dump memory</h3>
 <p>You can specify a symbol or a raw addr </p>
 <p>... as instructions</p>
 <pre><code>x/20i _start
@@ -649,16 +951,16 @@ qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -
 <pre><code>x/s _start
 x/s $x0
 </code></pre>
-<h2 id="print-out-variablesstructures">Print out variables/structures</h2>
+<h3 id="print-out-variablesstructures">Print out variables/structures</h3>
 <pre><code>print *mem_map
 </code></pre>
 <p>print the first 10 elements of mem_map, a pointer of type short*</p>
 <pre><code>print (short[10])*mem_map
 </code></pre>
-<h2 id="set-a-breakpoint-at-addr">Set a breakpoint at addr</h2>
+<h3 id="set-a-breakpoint-at-addr">Set a breakpoint at addr</h3>
 <pre><code>b *0xffff0000
 </code></pre>
-<h2 id="functionsource-lookup">Function/source lookup</h2>
+<h3 id="functionsource-lookup">Function/source lookup</h3>
 <p>Look up type of a given symbol </p>
 <pre><code>ptype mem_map
 </code></pre>
@@ -669,18 +971,18 @@ x/s $x0
 <pre><code>list *0x10000000
 list *fn 
 </code></pre>
-<h1 id="the-gdb-dashboard-enhancement">The GDB "dashboard" enhancement</h1>
+<h2 id="the-gdb-dashboard-enhancement">The GDB "dashboard" enhancement</h2>
 <p>The basic GDB UI is too primitive to beginners. We provide you an enhancement called GDB-dashboard. The upstream source is <a href="https://github.com/fxlin/gdb-dashboard-aarch64">here</a>. I adapted it for aarch64. Screenshot: </p>
 <p><img alt="Screenshot" src="https://raw.githubusercontent.com/fxlin/gdb-dashboard-aarch64/master/gdb-dash-aarch64.png" /></p>
-<h2 id="installation">Installation</h2>
+<h3 id="installation">Installation</h3>
 <p>Grab from my repository: </p>
 <pre><code>wget -P ~ https://raw.githubusercontent.com/fxlin/gdb-dashboard-aarch64/master/.gdbinit
 </code></pre>
 <p>There's only one file: <code>.gdbinit</code>. It's the initial script that GDB will load upon start. The above line download it to your home directory. </p>
-<h2 id="usage">Usage</h2>
+<h3 id="usage">Usage</h3>
 <p><em>All GDB commands still apply</em>, e.g. "si" is single step per instruction; "b" is to set a breakpoint; "c" for continuing execution. See below for more. </p>
 <p>The major features here are multiple views: for registers, stack, assembly, and source. </p>
-<h3 id="customize">Customize</h3>
+<h4 id="customize">Customize</h4>
 <p>Open ~/.gdbinit. Go to near line 2500 where you can see initialization commands for GDB, e.g. </p>
 <pre><code>file build/kernel8.elf
 target remote :1234
@@ -695,7 +997,7 @@ dashboard assembly -style height 8
 <p>The best documentation of gdb-dashboard seems from typing <code>help dashboard</code> in the GDB console. e.g. In GDB, type: </p>
 <pre><code>&gt;&gt;&gt; help dashboard expressions 
 </code></pre>
-<h1 id="other-enhancement-fyi">Other enhancement (FYI)</h1>
+<h2 id="other-enhancement-fyi">Other enhancement (FYI)</h2>
 <p>GEF (https://github.com/hugsy/gef) is also viable. Both GEF and GDB-dashboard: </p>
 <ul>
 <li>
@@ -710,11 +1012,11 @@ dashboard assembly -style height 8
 </ul>
 <p>GEF screenshot (note the CPU flags it recognized)</p>
 <p><img alt="image-20210127220750060" src="../lesson03/images/gef.png" /></p>
-<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="troubleshooting">Troubleshooting</h3>
 <p>"gdbserver: Target description specified unknown architecture “aarch64” 
 https://stackoverflow.com/questions/53524546/gdbserver-target-description-specified-unknown-architecture-aarch64 
 It seems GDB server does not play well with WSL… be aware! </p>
-<h2 id="reference">Reference</h2>
+<h3 id="reference">Reference</h3>
 <p>Launch qemu with gdb </p>
 <p>https://en.wikibooks.org/wiki/QEMU/Debugging_with_QEMU#Launching_QEMU_from_GDB </p>
 <p>more info about gdb for kernel debugging </p>
