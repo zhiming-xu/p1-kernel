@@ -446,8 +446,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    Roadmap
+  <a href="#overview" class="md-nav__link">
+    Overview
   </a>
   
 </li>
@@ -702,8 +702,8 @@
     <ul class="md-nav__list" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#roadmap" class="md-nav__link">
-    Roadmap
+  <a href="#overview" class="md-nav__link">
+    Overview
   </a>
   
 </li>
@@ -804,27 +804,26 @@
                 
                 
                 <h1 id="4a-cooperative-multitasking">4a: Cooperative Multitasking</h1>
-<p>We will build a minimum kernel that can schedule multiple cooperative tasks. </p>
 <p><img alt="" src="../qemu-sched.gif" /></p>
 <p><strong>Source code location: p1-kernel/src/lesson04a</strong></p>
-<h2 id="roadmap">Roadmap</h2>
+<h2 id="overview">Overview</h2>
 <p>From this experiment onward, our kernel starts to schedule multiple tasks. This makes it a true "kernel" instead of a baremetal program. </p>
-<p>We will intentionally leave out interrupts, i.e. <strong>timer interrupts are OFF</strong>. Tasks must voluntarily yield to each other. As a result, this experiment focuses on scheduling and task switch. We defer interrupt handling to upcoming experiment. . </p>
-<p>We will implement: </p>
+<p>This experiment focuses on scheduling and task switch. Tasks must voluntarily yield to each other.  We defer interrupt handling to upcoming experiment. We will intentionally leave out interrupts, i.e. <strong>timer interrupts are left OFF</strong>. </p>
+<p><strong>Roadmap.</strong> We will implement: </p>
 <ol>
 <li>The <code>task_struct</code> data structure </li>
 <li>Task creation by manipulating <code>task_struct</code>, registers, and stack</li>
 <li>Minimalist memory allocation</li>
-<li>A minimalist task scheduler 
+<li>Minimalist task scheduling
    <!--- counter. must be maintained in timer_tick() for accounting ... --->
 </li>
 </ol>
-<p><strong>Processes vs tasks</strong>. As we do not have virtual memory yet, we use the term "tasks" instead of "processes". </p>
+<p><strong>Processes or tasks?</strong>. As we do not have virtual memory yet, we use the term "tasks" instead of "processes". Note: in Linux both thread and processes are just different types of tasks; the difference is in how they share address spaces. </p>
 <h2 id="key-data-structures">Key data structures</h2>
 <p><img alt="" src="../sched/Slide1.png" /> 
 <em>Figure above: an array of pointers to task_structs of tasks</em> </p>
 <h3 id="task_struct">task_struct</h3>
-<p>The first thing is to create a struct that describes a task. Linux has such a struct and it is called <code>task_struct</code>  (in Linux both thread and processes are just different types of tasks; the difference is in how they share address spaces). As we are mostly mimicking Linux implementation, we are going to do the same. It looks like the following (<code>sched.h</code>).</p>
+<p>A struct describing a task. Its name comes from the Linux kernel (again). The code is as follows (<code>sched.h</code>).</p>
 <pre><code>struct cpu_context {
     unsigned long x19;
     unsigned long x20;
@@ -852,10 +851,13 @@ struct task_struct {
 <p>This struct has the following members:</p>
 <ul>
 <li><code>cpu_context</code> This is a struct that contains values of all registers that might be different between the tasks.</li>
-<li>Why don't we save all registers, but only <code>x19 - x30</code> and <code>sp</code>? (<code>fp</code> is <code>x29</code> and <code>pc</code> is <code>x30</code>). Because task switch happens only when a task calls <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.S#L4">cpu_switch_to</a> function. </li>
-<li>From the point of view of the task that is being scheduled out (i.e. the "switched-from" task), it just calls <code>cpu_switch_to</code> function and it returns after some (potentially long) time. The "switched from" task is unaware of that another task (i.e. the "switched-to" task) happens to runs during this period.  </li>
+<li>Why don't we save all registers, but only <code>x19 - x30</code> and <code>sp</code>? (<code>fp</code> is <code>x29</code> and <code>pc</code> is <code>x30</code>). A short answer: to cater to the Armv8 calling convention. <ul>
+<li>Because task switch happens only when a task calls <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.S#L4">cpu_switch_to</a> function. From the point of view of the task that is being scheduled out (i.e. the "switched-from" task), it just calls <code>cpu_switch_to</code> function and it returns after some (potentially long) time. </li>
+<li>The "switched from" task is unaware of that another task (i.e. the "switched-to" task) happens to runs during this period.  </li>
 <li>Accordingly to ARM calling conventions registers <code>x0 - x18</code> can be overwritten by the callee (i.e. <code>cpu_switch_to()</code> in our case). Hence, the kernel doesn't have to save the contents of <code>x0 - x18</code> for the caller (the "switched-from" task). </li>
-<li><code>state</code> This is the state of the currently running task (NOT PSTATE -- an orthogonal concept). For a task just doing CPU work but not IO, the task state will always be <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/include/sched.h#L15">TASK_RUNNING</a>. For now, this is the only state supported by our kernel. </li>
+</ul>
+</li>
+<li><code>state</code> The state of the currently running task (NOT <code>PSTATE</code> -- an orthogonal concept). For a task just doing CPU work but not IO, the task state will always be <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/include/sched.h#L15">TASK_RUNNING</a>. For now, this is the only state supported by our kernel. </li>
 <li>Later we add a few additional states. For example, a task waiting for an interrupt should be in a different state, because it doesn't make sense to schedule the task when it is not ready to run yet. </li>
 <li><code>counter</code> is used to determine how long the current task has been running. <code>counter</code> decreases by 1 each timer tick. When it reaches 0, the kernel will attempt to schedule another task. This supports our simple scheduling algorithm.</li>
 <li><code>priority</code>  When the kernel schedules a new task, the kernel copies the task's  <code>priority</code> value <code>counter</code>. In this way, the kernel can regulate the amount of processor time the task gets relative to other tasks.</li>
@@ -964,7 +966,7 @@ cpu_switch_to:
     str    x30, [x8]
 </code></pre>
 <p><img alt="" src="sched/Slide2.PNG" /></p>
-<p><em>The figure above: Registers are being saved to task_struct.context</em></p>
+<p><em>The figure above: During context switch, registers are being saved to task_struct.context</em></p>
 <p>Next all callee-saved registers are stored in the order, in which they are defined in <code>cpu_context</code> structure. The current stack pointer is saved as <code>cpu_context.sp</code> and <code>x29</code> is saved as <code>cpu_context.fp</code> (frame pointer).</p>
 <p>Note: <code>x30</code>, the link register containing function return address, is stored as <code>cpu_context.pc</code>. Why?</p>
 <p>Now we calculate the address of the next task's <code>cpu_context</code>: </p>
