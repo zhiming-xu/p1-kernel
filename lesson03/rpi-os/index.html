@@ -1251,7 +1251,7 @@ disable_irq:
 <h3 id="arms-generic-hardware-timer">Arm's generic hardware timer</h3>
 <p>We use the Arm generic timer, which is part of Arm64 core design (i.e. not defined by SoC). This is nice, as the generic timers exist for all Armv8 CPUs. Your experiences will apply to other Armv8 SoCs as well. Arm's <a href="https://developer.arm.com/architectures/learn-the-architecture/generic-timer/single-page">official webpage</a> (ARM062-1010708621-30) describes the use of generic timers. </p>
 <p>The following figure shows the generic timer hardware. In a nutshell, a global, chip-level hardware counter (i.e. "System Counter") drives per-core timer instances. As hardware boots, System Counter keeps incrementing, i.e. free running. Software can read the current System Counter. But System Counter alone does not generate interrupts. Software must program the timers so that they interrupt corresponding CPU cores at specific time intervals. Note: PE means CPU cores.</p>
-<p><img src="images/1_and_3_System_counter_ST1.png" width="400" /></p>
+<p><img alt="" src="../images/1_and_3_System_counter_ST1.png" /></p>
 <p>As our kernel only deals with one core, we focus on one timer instance. </p>
 <p>How should the kernel program the timer? The timer provides two core registers (among others) as two <strong>alternative</strong> ways for programming the same timer. They are intuitive: </p>
 <ul>
