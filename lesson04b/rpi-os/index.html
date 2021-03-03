@@ -503,11 +503,24 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-workflow" class="md-nav__link">
-    Example workflow
+  <a href="#an-example-workflow" class="md-nav__link">
+    An example workflow
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+    <nav class="md-nav" aria-label="">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#aside-an-alternative-design" class="md-nav__link">
@@ -757,11 +770,24 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#example-workflow" class="md-nav__link">
-    Example workflow
+  <a href="#an-example-workflow" class="md-nav__link">
+    An example workflow
   </a>
   
 </li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#_1" class="md-nav__link">
+    
+  </a>
+  
+    <nav class="md-nav" aria-label="">
+      <ul class="md-nav__list">
         
           <li class="md-nav__item">
   <a href="#aside-an-alternative-design" class="md-nav__link">
@@ -869,12 +895,12 @@
 }
 </code></pre>
 <h3 id="calling-schedule-in-timer-tick">Calling <code>schedule()</code> in timer tick</h3>
-<p>With preemptive scheduling, schedule() are called in 2 scenarios.</p>
+<p>With preemptive scheduling, schedule() are called in two places. </p>
 <ol>
-<li>A task can call <code>schedule</code> voluntarily. </li>
-<li><code>schedule</code> is also called on a regular basis from the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/timer.c#L21">timer interrupt handler</a>.</li>
+<li>A task can call <code>schedule</code> voluntarily (as in cooperative scheduling). </li>
+<li>On a regular basis from the timer interrupt handler.</li>
 </ol>
-<p>Now let's take a look at <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L70">timer_tick</a> function, which is called from the timer interrupt.</p>
+<p>Look at <code>timer_tick()</code>, which is called from the timer interrupt.</p>
 <pre><code>void timer_tick()
 {
     --current-&gt;counter;
@@ -887,41 +913,42 @@
     disable_irq();
     ... 
 </code></pre>
-<p>First of all, it decreases current task's counter. If the counter is greater then 0 or preemption is currently disabled the function returns, but otherwise<code>schedule</code> is called with interrupts enabled. (Note: we just came from an interrupt handler and CPU just automatically disabled all interrupts) </p>
-<p>We will see why interrupts must be enabled during scheduler execution in the next section.</p>
+<p>First of all, it decreases current task's counter. If the counter is greater then 0 or preemption is currently disabled the function returns. Otherwise<code>schedule</code> is called with interrupts enabled. (Note: we just came from an interrupt handler and CPU just automatically disabled all interrupts.) </p>
+<p>Why interrupts must be enabled in the scheduler? More on this later. </p>
 <h2 id="how-scheduling-works-with-interrupt-entryexit">How scheduling works with interrupt entry/exit?</h2>
-<p>With preemptive scheduling, the kernel must save &amp; restore CPU contexts for each task being interrupted. This is because, e.g. a task A may be interrupted at any point and get descheduled. Later, when the kernel reschedules A, A should resume from where it is interrupted. </p>
-<p>In previous baremetal experiments with only one task, we have seen how <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L17">kernel_entry</a> and <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L4">kernel_exit</a> macros save and restore general-purpose CPU regs upon switch to/from an interrupt/exception handler. (btw, where was the CPU state saved?) There, we rely on that the hardware automatically saves exception return address and CPU status in registers, <code>elr_el1</code> register and <code>spsr_el</code> register. When <code>eret</code> is executed, CPU restores execution from these registers.</p>
+<p>With preemptive scheduling, the kernel must save &amp; restore CPU contexts for the task being interrupted. This is because, e.g. a task A may be interrupted at any point and get preempted (i.e. "losing CPU"). Later, when the kernel reschedules A, A should resume from where it was interrupted. </p>
+<p><strong>Refresh your memory</strong>: in previous baremetal experiments with no multitasking, we have seen how kernel_entry and kernel_exit macros save and restore general-purpose CPU regs upon switch to/from an interrupt/exception handler. There, we rely on that the hardware automatically saves exception return address and CPU status in registers, <code>elr_el1</code> register and <code>spsr_el</code> register. When <code>eret</code> is executed, CPU restores execution from these registers.</p>
+<p><img alt="" src="../../lesson03/images/irq.png" /></p>
+<p><em>Figure above: in previous experiments w/o multitasking, save/restore registers upon entering/leaving irq handlers.</em> </p>
 <p>With multitasking, the kernel now has to create per-task copies of CPU context in memory: general-purpose registers plus <code>elr_el1</code> and <code>spsr_el</code>. </p>
 <p><strong>Where to store the CPU context?</strong> </p>
-<p>Our implementation choice is on the current task's kernel stack (not in <code>task_struct.cpu_context</code>). There are alternative designs to be examined later. </p>
-<h4 id="example-workflow">Example workflow</h4>
+<p>We choose to store the CPU context on the current task's stack (NOT in its <code>task_struct.cpu_context</code>). There are alternative designs to be examined later. </p>
+<h4 id="an-example-workflow">An example workflow</h4>
 <p><strong>Kernel boots</strong></p>
-<p><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/kernel.c#L19">kernel_main</a> function is executed. The initial stack is configured to start at <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/include/mm.h#L13">LOW_MEMORY</a>, which is at 0x0040:0000 (4 MB).</p>
-<p><img src="figures/sched-0.png" width="400" /></p>
-<hr />
+<p>kernel_main function is executed. The initial stack is configured to start at LOW_MEMORY, which is at 0x0040:0000 (4 MB).</p>
+<h2 id="_1"><img alt="" src="../figures/sched-0.png" /></h2>
 <p><strong>Task 1 creation</strong></p>
-<p><code>kernel_main</code> calls <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/fork.c#L5">copy_process</a> for the first time. A new 4 KB page is allocated, and <code>task_struct</code> is placed at the bottom of this page. </p>
-<p><img src="figures/sched-1.png" width="400" /></p>
+<p><code>kernel_main</code> calls <code>copy_process</code> for the first time. A new 4 KB page is allocated, and <code>task_struct</code> is placed at the bottom of this page. </p>
+<p><img alt="" src="../figures/sched-1.png" /></p>
 <hr />
 <p><strong>Task 2 creation</strong></p>
-<p><code>kernel_main</code> calls <code>copy_process</code> for the second time and the same process repeats. Task 2 is created and added to the task list.</p>
-<p><img src="figures/sched-2.png" width="600" /></p>
+<p><code>kernel_main</code> calls <code>copy_process</code> for the second time and the same process repeats. Task 2 is created and added to the task list.
+<img alt="" src="../figures/sched-2.png" /></p>
 <hr />
 <p><strong>Switching to task 1; task 1 runs</strong></p>
-<p><code>kernel_main</code> voluntarily calls <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L21">schedule</a> function and it decides to switch to task 1.</p>
+<p><code>kernel_main</code> calls the schedule function and it decides to switch to task 1.</p>
 <ul>
-<li><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.S#L4">cpu_switch_to</a> saves callee-saved registers in the init task <code>cpu_context</code>, which is located inside the kernel image.</li>
-<li><code>cpu_switch_to</code> restores callee-saved registers from task 1's <code>task_struct</code>.  At this point, <code>cpu_context.sp</code> points to <code>0x00401000</code>, lr points to <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L146">ret_from_fork</a> function, <code>x19</code> contains a pointer to the start of <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/kernel.c#L9">process()</a> and <code>x20</code> a pointer to string "12345", which is located somewhere in the kernel image.</li>
+<li><code>cpu_switch_to</code> saves callee-saved registers in the init task <code>cpu_context</code>, which is located inside the kernel image.</li>
+<li><code>cpu_switch_to</code> restores callee-saved registers from task 1's <code>task_struct</code>.  At this point, <code>cpu_context.sp</code> points to <code>0x00401000</code>, lr points to ret_from_fork function, <code>x19</code> contains a pointer to the start of process() and <code>x20</code> a pointer to string "12345", which is located somewhere in the kernel image.</li>
 <li><code>cpu_switch_to</code> executes  <code>ret</code>, which jumps to the <code>ret_from_fork</code> function.</li>
 <li><code>ret_from_fork</code> reads <code>x19</code> and <code>x20</code> registers and  calls <code>process</code> function with the argument "12345". </li>
 <li>After <code>process</code> function starts, the stack of task 1 begins to grow.</li>
 </ul>
 <p><img src="figures/sched-3.png" width="600" /></p>
 <hr />
-<p><strong>A timer interrupt occurred</strong></p>
+<p><strong>While task 1 runs, a timer interrupt occurred</strong></p>
 <ul>
-<li><a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/entry.S#L17">kernel_entry</a> macro saves all general purpose registers &amp; <code>elr_el1</code> and <code>spsr_el1</code> to the bottom of task 1 stack ("saved regs" in the figure below).</li>
+<li><code>kernel_entry</code> saves all general purpose registers &amp; <code>elr_el1</code> and <code>spsr_el1</code> to the bottom of task 1 stack ("saved regs" in the figure below).</li>
 <li>The kernel now executes in the irq context. It continues to grow the <em>current</em> stack which belongs to task 1. The growth is below the "saved regs" region and is marked as "irq frame" on the figure (i.e. the stack frame created by the execution in the irq context). </li>
 <li>The kernel proceeds to <code>schedule</code> and picks task 2. </li>
 </ul>
@@ -930,16 +957,14 @@
 <p><strong>Switching to task 2; task 2 runs</strong></p>
 <p><code>cpu_switch_to</code> executes exactly the same sequence of steps that it does for task 1. Task 2 started to execute and it stack grows. </p>
 <p><img src="figures/sched-5.png" width="600" /></p>
-<p><strong>Note:</strong> until now, the kernel has NOT executed <code>eret</code> for the previous irq. This is fine, as an implementation choice made for this particular experiment. </p>
-<p>How can we execute task 2 in the context of the previous irq? It works because ARM64 CPU does not differentiate execution in an irq context vs. in an exception (i.e. syscall) context. All the CPU knows is the current EL (we always stay at EL1 before/after the irq) and the irq enable status. And irqs have been enabled previously in <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L70">timer_tick</a> before <code>schedule</code> was called. </p>
+<p><strong>Note:</strong> until now, the kernel has NOT executed <code>eret</code> for the previous timer irq. This is fine as an intentional choice made for this experiment. </p>
+<p>How can we execute task 2 in the context of the previous irq? This is allowed because ARM64 CPU does not differentiate execution in an irq context vs. in an exception (i.e. syscall) context. All the CPU knows is the current EL (we always stay at EL1 before/after the irq) and the irq enable status. And irqs have been enabled previously in timer_tick before <code>schedule</code> was called. </p>
 <blockquote>
-<p>Nevertheless, there's a more common design in which the kernel returns from the irq context before switching to a new task. See "alternative design" below. </p>
+<p>Nevertheless, there's a more common design in which the kernel finishes the previous irq handling (i.e. 'eret') before switching to a new task. See "alternative design" below. </p>
 </blockquote>
-<!---- that we didn't return from an interrupt at this point, but this is ok because interrupts now are enabled (interrupts have been enabled previously in [timer_tick](https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L70) before `schedule` was called) --->
-
 <hr />
 <p><strong>Another timer interrupt occurred while task 2 is running</strong></p>
-<p><code>kernel_entry</code> saves all general purpose registers + <code>elr_el1</code> and <code>spsr_el1</code> at the bottom of task 2's stack. Task 2's irq frame begins to grow.</p>
+<p>Same as above, <code>kernel_entry</code> saves all general purpose registers + <code>elr_el1</code> and <code>spsr_el1</code> at the bottom of task 2's stack. Task 2's irq frame begins to grow.</p>
 <p><img src="figures/sched-6.png" width="600" /></p>
 <hr />
 <p><strong>Scheduling out task 2</strong></p>
@@ -948,8 +973,8 @@
 <hr />
 <p><strong>Switching to task 1, exiting from the 1st irq</strong></p>
 <ol>
-<li><code>cpu_switch_to</code> is called and it restores previously saved callee-saved registers from task 1 <code>cpu_context</code>. Link register now points <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L63">here</a> because this is the place from which <code>cpu_switch_to</code> was called last time when task 1 was executed. <code>sp</code> points to the bottom of task 1 interrupt stack.</li>
-<li><code>timer_tick</code> function resumes execution, starting from <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L79">this</a> line. (Can you pinpoint the instruction?) It disables interrupts and finally <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson04/src/sched.c#L79">kernel_exit</a> is executed. By the time <code>kernel_exit</code> is called, task 1 irq frame is unwound. <code>kernel_exit</code> further unwinds the saved regs. </li>
+<li><code>cpu_switch_to</code> is called and it restores previously saved callee-saved registers from task 1 <code>cpu_context</code>. Link register now points to the instruction right after <code>cpu_switch_to</code>, which was called last time when task 1 was executed. <code>sp</code> points to the bottom of task 1 interrupt stack. This is because task 1 finished handling the previous interrupt handler. </li>
+<li>From <code>cpu_switch_to</code>, task1 returns back to <code>switch_to</code>, to <code>_schedule</code>, and then to <code>timer_tick</code>. There, it disables interrupts and finally executes <code>kernel_exit</code>. There, task 1 irq frame (including the save regs) is unwound. </li>
 </ol>
 <p><img src="figures/sched-7.png" width="600" /></p>
 <hr />
