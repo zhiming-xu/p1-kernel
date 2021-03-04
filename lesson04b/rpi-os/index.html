@@ -944,7 +944,7 @@
 <li><code>ret_from_fork</code> reads <code>x19</code> and <code>x20</code> registers and  calls <code>process</code> function with the argument "12345". </li>
 <li>After <code>process</code> function starts, the stack of task 1 begins to grow.</li>
 </ul>
-<p><img src="figures/sched-3.png" width="600" /></p>
+<p><img alt="" src="../figures/sched-3.png" /></p>
 <hr />
 <p><strong>While task 1 runs, a timer interrupt occurred</strong></p>
 <ul>
@@ -952,11 +952,11 @@
 <li>The kernel now executes in the irq context. It continues to grow the <em>current</em> stack which belongs to task 1. The growth is below the "saved regs" region and is marked as "irq frame" on the figure (i.e. the stack frame created by the execution in the irq context). </li>
 <li>The kernel proceeds to <code>schedule</code> and picks task 2. </li>
 </ul>
-<p><img src="figures/sched-4.png" width="600" /></p>
+<p><img alt="" src="../figures/sched-4.png" /></p>
 <hr />
 <p><strong>Switching to task 2; task 2 runs</strong></p>
 <p><code>cpu_switch_to</code> executes exactly the same sequence of steps that it does for task 1. Task 2 started to execute and it stack grows. </p>
-<p><img src="figures/sched-5.png" width="600" /></p>
+<p><img alt="" src="../figures/sched-5.png" /></p>
 <p><strong>Note:</strong> until now, the kernel has NOT executed <code>eret</code> for the previous timer irq. This is fine as an intentional choice made for this experiment. </p>
 <p>How can we execute task 2 in the context of the previous irq? This is allowed because ARM64 CPU does not differentiate execution in an irq context vs. in an exception (i.e. syscall) context. All the CPU knows is the current EL (we always stay at EL1 before/after the irq) and the irq enable status. And irqs have been enabled previously in timer_tick before <code>schedule</code> was called. </p>
 <blockquote>
@@ -965,7 +965,7 @@
 <hr />
 <p><strong>Another timer interrupt occurred while task 2 is running</strong></p>
 <p>Same as above, <code>kernel_entry</code> saves all general purpose registers + <code>elr_el1</code> and <code>spsr_el1</code> at the bottom of task 2's stack. Task 2's irq frame begins to grow.</p>
-<p><img src="figures/sched-6.png" width="600" /></p>
+<p><img alt="" src="../figures/sched-6.png" /></p>
 <hr />
 <p><strong>Scheduling out task 2</strong></p>
 <p>The kernel calls <code>schedule()</code>. It observes that all tasks have their counters set to 0 and set counters to their tasks priorities.</p>
@@ -976,11 +976,11 @@
 <li><code>cpu_switch_to</code> is called and it restores previously saved callee-saved registers from task 1 <code>cpu_context</code>. Link register now points to the instruction right after <code>cpu_switch_to</code>, which was called last time when task 1 was executed. <code>sp</code> points to the bottom of task 1 interrupt stack. This is because task 1 finished handling the previous interrupt handler. </li>
 <li>From <code>cpu_switch_to</code>, task1 returns back to <code>switch_to</code>, to <code>_schedule</code>, and then to <code>timer_tick</code>. There, it disables interrupts and finally executes <code>kernel_exit</code>. There, task 1 irq frame (including the save regs) is unwound. </li>
 </ol>
-<p><img src="figures/sched-7.png" width="600" /></p>
+<p><img alt="" src="../figures/sched-7.png" /></p>
 <hr />
 <p><strong>Task 1 resumes normal execution</strong></p>
 <p><code>kernel_exit</code> restores all general purpose registers as well as <code>elr_el1</code> and <code>spsr_el1</code>. <code>elr_el1</code> now points somewhere in the middle of the <code>process</code> function. <code>sp</code> points to the bottom of task 1 stack. (Note: the remaining task size depends on the size  of local variables in <code>process</code> )</p>
-<p><img src="figures/sched-9.png" width="600" /></p>
+<p><img alt="" src="../figures/sched-9.png" /></p>
 <p>Finally, <code>kernel_exit</code> executes <code>eret</code> instruction which uses <code>elr_el1</code> register to jump back to <code>process</code> function. Task 1 resumes it normal execution!</p>
 <hr />
 <h4 id="aside-an-alternative-design">Aside: An alternative design</h4>
