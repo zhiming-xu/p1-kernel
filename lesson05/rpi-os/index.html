@@ -859,12 +859,11 @@
 <p>NOTE: this experiment enables running user/kernel at different ELs. Yet, it does not NOT give each task its own address space — we are going to tackle this issue in lesson 6!</p>
 <p><strong>Source code location: p1-kernel/src/lesson05</strong></p>
 <h2 id="roadmap">Roadmap</h2>
-<p>We will: </p>
 <ol>
 <li>Implement the syscall mechanism, in particular switch between EL0 and EL1 (you have already done something similar in previous experiments!)</li>
 <li>Implement two mechanisms that put user tasks to EL0: </li>
-<li>moving a kernel task EL1 -&gt; EL0</li>
 <li>forking an existing user task at EL0</li>
+<li>moving a kernel task EL1 -&gt; EL0</li>
 </ol>
 <h2 id="syscall-implementation">Syscall implementation</h2>
 <p>Each system call is a synchronous exception. A user program prepares all necessary arguments, and then run <code>svc</code> instruction. Such exceptions are handled at EL1 by the kernel. The kernel validates all arguments, does the syscall, and exists from the exception. After that, the user task resumes at EL0 right after the <code>svc</code> instruction. </p>
@@ -876,7 +875,7 @@
 <li><code>malloc</code> allocates a memory page for a user process. There is no analog of this syscall in Linux (and I think in any other OS as well.) The only reason that we have no virtual memory yet, and all user processes work with physical memory. Each process needs a way to figure out which memory page can be used. <code>malloc</code> syscall return pointer to the newly allocated page or -1 in case of an error.</li>
 <li><code>exit</code> Each process must call this syscall after it finishes execution. It will do cleanup.</li>
 </ol>
-<p>All syscalls are defined in the <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson05/src/sys.c">sys.c</a> file. There is also an array <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson05/src/sys.c">sys_call_table</a> that contains pointers to all syscall handlers. Each syscall has a "syscall number" — this is just an index in the <code>sys_call_table</code> array. All syscall numbers are defined <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson05/include/sys.h#L6">here</a> — they are used by the assembler code to look up syscall. </p>
+<p>All syscalls are defined in <code>sys.c</code>. There is also an array <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson05/src/sys.c">sys_call_table</a> that contains pointers to all syscall handlers. Each syscall has a "syscall number" — this is just an index in the <code>sys_call_table</code> array. All syscall numbers are defined <a href="https://github.com/s-matyukevich/raspberry-pi-os/blob/master/src/lesson05/include/sys.h#L6">here</a> — they are used by the assembler code to look up syscall. </p>
 <p>Let's use <code>write</code> syscall as an example: </p>
 <pre><code>//sys.S, executed at the user level
 .globl call_sys_write
@@ -904,10 +903,10 @@ msr    sp_el0, x21
 ...
 eret
 </code></pre>
-<p>We are using 2 distinct stacks for EL0 and EL1. This is a common design because we want to separate user/kernel. </p>
-<p>Supported by CPU hardware, after taking an exception from EL0 to EL1, the CPU is using the SP for EL1. The SP for EL0 can be found in the <code>sp_el0</code> register. </p>
+<p>Even for the same task, we are using 2 distinct stacks for EL0 and EL1. This is a common design because we want to separate user/kernel. </p>
+<p>Supported by CPU hardware, after taking an exception from EL0 to EL1, the CPU automatically starts use the SP for EL1. The SP for EL0 can be found in the <code>sp_el0</code> register. </p>
 <p>The value of this register must be stored and restored upon entering/exiting the kernel, even if the kernel does not  use <code>sp_el0</code> in the exception handler. Reason: we need to virtualize <code>sp_el0</code> for each task because each task has its own user stack. Try to visualize this in your mind. </p>
-<p>When we do <code>kernel_exit</code>, how do we specify which EL to return to, EL0 or EL1? <code>eret</code> does not have to explicitly specify so. This EL level is encoded in the <code>spsr_el1</code> register that was saved, e.g. when syscall enters the kernel. So we always return to the level from which the exception was taken.</p>
+<p>When we do <code>kernel_exit</code>, how do we specify which EL to return to, EL0 or EL1? This EL level is encoded in the <code>spsr_el1</code> register that was saved, e.g. when syscall enters the kernel. So we always return to the level from which the exception was taken.</p>
 <blockquote>
 <p>How did we treat SP when taking interrupts (from EL1)? Revisit the figures in previous experiments. </p>
 </blockquote>
