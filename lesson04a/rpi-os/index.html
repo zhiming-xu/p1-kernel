@@ -980,7 +980,7 @@ cpu_switch_to:
     stp    x29, x9, [x8], #16
     str    x30, [x8]
 </code></pre>
-<p><img alt="" src="sched/Slide2.PNG" /></p>
+<p><img alt="" src="../sched/Slide2.png" /></p>
 <p><em>The figure above: During context switch, registers are being saved to task_struct.context</em></p>
 <p>Next all callee-saved registers are stored in the order, in which they are defined in <code>cpu_context</code> structure. The current stack pointer is saved as <code>cpu_context.sp</code> and <code>x29</code> is saved as <code>cpu_context.fp</code> (frame pointer).</p>
 <p>Note: <code>x30</code>, the link register containing function return address, is stored as <code>cpu_context.pc</code>. Why?</p>
