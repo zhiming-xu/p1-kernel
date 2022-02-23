@@ -515,6 +515,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#interrupt-enabledisable" class="md-nav__link">
+    interrupt enable/disable?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -914,6 +921,13 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#interrupt-enabledisable" class="md-nav__link">
+    interrupt enable/disable?
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1187,6 +1201,8 @@ irq_vector_init:
 <p>According to <code>kernel_entry</code>, there is <code>kernel_exit</code> to be called as the last thing of an exception handler. <code>kernel_exit</code> restores the CPU state by copying back the values of x0 - x30. The order exactly mirrors that of <code>kernel_entry</code> otherwise we will see wrong register values. Finally <code>kernel_exit</code> executes <code>eret</code>, which returns to the normal execution. </p>
 <p>The following figure shows how the kernel memory look like before &amp; after handling an interrupt. </p>
 <p><img alt="" src="../images/irq.png" /></p>
+<h4 id="interrupt-enabledisable">interrupt enable/disable?</h4>
+<p>When an exception happens, the CPU will turn off interrupts automatically. When we return from an interrupt, ERET will restore PSTATE from SPSR_EL1, which contains the DAIF flags that control the interrupt state (i.e. enabled or disabled). </p>
 <h2 id="configuring-interrupts">Configuring interrupts</h2>
 <h4 id="_1"><img alt="image-20210127215831536" src="../images/irq-routing.png" /></h4>
 <h3 id="configuring-the-interrupt-controller">Configuring the Interrupt controller</h3>
@@ -1260,7 +1276,7 @@ disable_irq:
 <ul>
 <li>CVAL, a 64-bit comparator. Roughly, this sets a "threshold" for System Counter: </li>
 <li>Example: The kernel writes a value X to CVAL. When System Counter exceeds X, the timer generates an interrupt.</li>
-<li>TVAL, a 32-bit timer value. Roughly, this sets a "delta" for System Counter: </li>
+<li>TVAL, a 32-bit <em>signed</em> timer value. Roughly, this sets a "delta" for System Counter: </li>
 <li>Example: The kernel writes a value X to TVAL. The hardware updates CVAL +=  the Current System Counter + TVAL. The timer generates an interrupt according to the new CVAL. </li>
 </ul>
 <p>The above brief description would suffice in our kernel experiment. Beyond them, TVAL has another less intuitive, "countdown" function (not used in this experiment but useful for timekeeping). Since the last write by software, TVAL decrements as System Counter increments. The moment TVAL counts down to 0 is when an interrupt fires. After that, TVAL will keep counting down to a minus value. </p>
@@ -1346,6 +1362,11 @@ disable_irq:
 </tr>
 </tbody>
 </table>
+<p>(From Arm's generic timer document:)</p>
+<p>The CNTPCT_EL0 system register reports the current system count value.</p>
+<blockquote>
+<p>CNTFRQ_EL0reports the frequency of the system count. However, this register is not populated by hardware. The register is write-able at the highest implemented Exception level and readable at all Exception levels. Firmware, typically running at EL3, populates this register as part of early system initialization. Higher-level software, like an operating system, can then use the register to get the frequency.</p>
+</blockquote>
 <h4 id="turn-on-timer-interrupt-at-the-cpu-core">Turn on timer interrupt at the CPU core</h4>
 <p>We have to deal with yet another Rpi3 quirk. The Arm generic timer IRQs are wired to a per-core interrupt controller/register. For core 0, this is <code>TIMER_INT_CTRL_0</code> at 0x40000040; bit 1 is for physical timer at EL1 (CNTP). This register is documented in the <a href="https://www.raspberrypi.org/documentation/hardware/raspberrypi/bcm2836/QA7_rev3.4.pdf">manual</a> of BCM2836 (search for "Core timers interrupts"). Note the manual is NOT for the BCM2837 SoC used by Rpi3. I have no idea how community figured this out. </p>
 <pre><code>void enable_interrupt_controller()
@@ -1393,7 +1414,7 @@ disable_irq:
 <td>System Timer</td>
 <td>Broadcom (?)</td>
 <td>Global. In GPU irq space</td>
-<td>Implemented as bcm2835_systmr. However free running and <a href="https://lists.sr.ht/~philmd/qemu/patches/8811&lt;br/&gt;">cannot generate irq</a>.</td>
+<td>Implemented as bcm2835_systmr. However free running and <a href="https://lists.sr.ht/~philmd/qemu/patches/8811">cannot generate irq</a>.</td>
 <td>3f003000</td>
 <td>BCM2837</td>
 </tr>

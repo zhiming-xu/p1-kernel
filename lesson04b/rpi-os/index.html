@@ -913,14 +913,14 @@
     disable_irq();
     ... 
 </code></pre>
-<p>First of all, it decreases current task's counter. If the counter is greater then 0 or preemption is currently disabled the function returns. Otherwise<code>schedule</code> is called with interrupts enabled. (Note: we just came from an interrupt handler and CPU just automatically disabled all interrupts.) </p>
+<p>First of all, it decreases current task's counter. If the counter is greater than 0 or preemption is currently disabled the function returns. Otherwise<code>schedule</code> is called with interrupts enabled. (Note: we just came from an interrupt handler and CPU just automatically disabled all interrupts.) </p>
 <p>Why interrupts must be enabled in the scheduler? More on this later. </p>
 <h2 id="how-scheduling-works-with-interrupt-entryexit">How scheduling works with interrupt entry/exit?</h2>
 <p>With preemptive scheduling, the kernel must save &amp; restore CPU contexts for the task being interrupted. This is because, e.g. a task A may be interrupted at any point and get preempted (i.e. "losing CPU"). Later, when the kernel reschedules A, A should resume from where it was interrupted. </p>
 <p><strong>Refresh your memory</strong>: in previous baremetal experiments with no multitasking, we have seen how kernel_entry and kernel_exit macros save and restore general-purpose CPU regs upon switch to/from an interrupt/exception handler. There, we rely on that the hardware automatically saves exception return address and CPU status in registers, <code>elr_el1</code> register and <code>spsr_el</code> register. When <code>eret</code> is executed, CPU restores execution from these registers.</p>
 <p><img alt="" src="../../lesson03/images/irq.png" /></p>
 <p><em>Figure above: in previous experiments w/o multitasking, save/restore registers upon entering/leaving irq handlers.</em> </p>
-<p>With multitasking, the kernel now has to create per-task copies of CPU context in memory: general-purpose registers plus <code>elr_el1</code> and <code>spsr_el</code>. </p>
+<p>With multitasking, the kernel now has to create per-task copies of CPU context in memory: ALL general-purpose registers plus <code>elr_el1</code> and <code>spsr_el</code>. </p>
 <p><strong>Where to store the CPU context?</strong> </p>
 <p>We choose to store the CPU context on the current task's stack (NOT in its <code>task_struct.cpu_context</code>). There are alternative designs to be examined later. </p>
 <h4 id="an-example-workflow">An example workflow</h4>
