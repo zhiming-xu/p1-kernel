@@ -1239,7 +1239,7 @@
 </ul>
 <p>The CPU also enforces that software at EL0 can never access virtual addresses started with <code>0xffff</code>. Doing so triggers a synchronous exception.  </p>
 <p>Here is a picture the memory layout. Source: Arm's document "ARMv8-A Address Translation". </p>
-<p><img alt="image.png" src="s3" /></p>
+<p><img alt="addrspace.jpg" src="s3" /></p>
 <h3 id="adjusting-kernel-addresses"><strong>Adjusting kernel addresses</strong></h3>
 <p>All absolute kernel addresses must start with <code>0xffff...</code>. There are 2 places in the kernel source code shall be changed. </p>
 <ul>
