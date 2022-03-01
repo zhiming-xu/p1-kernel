@@ -889,7 +889,7 @@
 <li>moving a kernel task EL1 -&gt; EL0</li>
 </ol>
 <h2 id="syscall-implementation">Syscall implementation</h2>
-<p>Each system call is a synchronous exception. A user program prepares all necessary arguments, and then run <code>svc</code> instruction. Such exceptions are handled at EL1 by the kernel. The kernel validates all arguments, does the syscall, and exists from the exception. After that, the user task resumes at EL0 right after the <code>svc</code> instruction. </p>
+<p>Each system call is a synchronous exception. A user program prepares all necessary arguments, and then run <code>svc</code> instruction. Such exceptions are handled at EL1 by the kernel. The kernel validates all arguments, does the syscall, and exits from the exception. After that, the user task resumes at EL0 right after the <code>svc</code> instruction. </p>
 <p><img alt="" src="../figures/timeline-0.png" /></p>
 <p>We have 4 simple syscalls: </p>
 <ol>
