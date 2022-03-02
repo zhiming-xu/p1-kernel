@@ -1302,7 +1302,7 @@ disable_irq:
 <li>TVAL, a 32-bit <em>signed</em> timer value. Roughly, this sets a "delta" for System Counter: </li>
 <li>Example: The kernel writes a value X to TVAL. The hardware updates CVAL +=  the Current System Counter + TVAL. The timer generates an interrupt according to the new CVAL. </li>
 </ul>
-<p>The above brief description would suffice in our kernel experiment. Beyond them, TVAL has another less intuitive, "countdown" function (not used in this experiment but useful for timekeeping). Since the last write by software, TVAL decrements as System Counter increments. The moment TVAL counts down to 0 is when an interrupt fires. After that, TVAL will keep counting down to a minus value. </p>
+<p>The above brief description would suffice in our kernel experiment. Beyond them, TVAL has another less intuitive, "countdown" function (not used in this experiment but useful for timekeeping). Since the last write by software, TVAL decrements as System Counter increments. The moment TVAL counts down to 0 is when an interrupt fires. After that, TVAL will keep counting down to a negative value. </p>
 <p><strong>To summarize</strong>: If software needs a timer event in X ticks of the clock, the software can write X to TVAL periodically. Alternatively, if software wants an event when the system count reaches Y, software can write Y to CVAL. If software wants to know the remaining ticks until the next interrupt, the software reads from TVAL.</p>
 <h4 id="initialize-timer-timers">Initialize timer (timer.S)</h4>
 <p>By programming the timer device, We turn on the timer and allow it to generate interrupts. </p>
@@ -1312,6 +1312,8 @@ disable_irq:
     ret
 </code></pre>
 <p>This writes 1 to the control register (<code>CNTP_CTL_EL0</code>) of <strong>the EL1 physical timer</strong>. See <a href="https://developer.arm.com/docs/ddi0595/latest/aarch64-system-registers/cntp_ctl_el0">here</a> for the register definition. </p>
+<p>Note: some students observed that if at the time of writing to CNTP_CTL_EL0 the timer firing condition is met (i.e. TVAL is a negative value), an interrupt will be fired immediately. 
+If you experience the same thing, you should omit the spurious interrupt.</p>
 <blockquote>
 <p>How to interpret the register name "CNTP_CTL_EL0": </p>
 <p>CTL indicates this is a control register; </p>
