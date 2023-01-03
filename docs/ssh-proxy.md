@@ -10,7 +10,11 @@ This document describes server resources and how to connect for development.
 
 <!--- Using your CS credentials (not the UVA ones). See [wiki page](https://www.cs.virginia.edu/wiki/doku.php?id=compute_resources). Contact felixlin@ if you do not have CS credentials.  --->
 
-These servers are behind the campus firewall. You need to first SSH to **portal.cs.virginia.edu**, and from there SSH over to the course servers, e.g. labsrv06. This is described [here](https://www.cs.virginia.edu/wiki/doku.php?id=linux_ssh_access). 
+These servers are behind the campus firewall. If you are off the grounds, you must connect the UVA VPN first. 
+
+**(Jan 2023): The above should be it! The following method of SSH jumphost is considered obsoleted. It is kept for archival.**
+
+You need to first SSH to **portal.cs.virginia.edu**, and from there SSH over to the course servers, e.g. labsrv06. This is described [here](https://www.cs.virginia.edu/wiki/doku.php?id=linux_ssh_access). 
 
 **WARNING:** portal is managed by the UVA IT. You use your existing computing ID & password. The course server is managed by cs4414 staff. Use the credentials that we share with you. 
 
