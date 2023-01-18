@@ -24,8 +24,8 @@ static unsigned int read_cntfrq(void)
 
 void generic_timer_init ( void )
 {
-//	interval = read_cntfrq();
-//  printf("System count freq (CNTFRQ) is: %u\n", interval);
+	unsigned int freq  = read_cntfrq();
+	printf("System count freq (CNTFRQ) is: %u\n", freq);
 
 	printf("interval is set to: %u\n", interval);
 	gen_timer_init();
