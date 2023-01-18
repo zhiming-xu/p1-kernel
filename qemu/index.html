@@ -779,7 +779,7 @@ qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -serial null -serial stdio -
 </code></pre>
 <p>Explanation: -S not starting the guest until you tell it to from gdb. 
 -s listening for an incoming connection from gdb on TCP port 1234</p>
-<p>The second form is useful in that if multiple students attempt to listen on tcp port 1234 on the same machine, all but one will fail. See <a href="g*Donna Chen*db.md"></a> for details. </p>
+<p>The second form is useful in that if multiple students attempt to listen on tcp port 1234 on the same machine, all but one will fail. See <a href="../gdb/"></a> for details. </p>
 <h2 id="launch-the-kernel-with-monitor">Launch the kernel with monitor</h2>
 <pre><code>qemu-system-aarch64 -M raspi3 -kernel ./kernel8.img -monitor stdio
 # multiplex both board serial and monitor output on stdio
