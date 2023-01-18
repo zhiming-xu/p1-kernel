@@ -37,14 +37,14 @@ plugins:
 #  - git-revision-date-localized
 
 nav:
-  - exp0: lesson00/rpi-os.md
-  - exp1: lesson01/rpi-os.md
-  - exp2: lesson02/rpi-os.md  
-  - exp3: lesson03/rpi-os.md
-  - exp4a: lesson04a/rpi-os.md
-  - exp4b: lesson04b/rpi-os.md
-  - exp5: lesson05/rpi-os.md  
-  - exp6: lesson06/rpi-os.md  
+  - exp0: exp0/rpi-os.md
+  - exp1: exp1/rpi-os.md
+  - exp2: exp2/rpi-os.md  
+  - exp3: exp3/rpi-os.md
+  - exp4a: exp4a/rpi-os.md
+  - exp4b: exp4b/rpi-os.md
+  - exp5: exp5/rpi-os.md  
+  - exp6: exp6/rpi-os.md  
   #- Device:
    # - Hikey: devices/hikey.md
     #- Odroid: devices/odroid.md

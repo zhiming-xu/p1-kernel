@@ -12,7 +12,7 @@ Explanation: -e specifies the ELF file with debugging info, followed by a given 
 $ nm build/kernel8.elf
 ```
 
-Sample output: [kernel8.nm](https://github.com/fxlin/p1-kernel/blob/master/src/lesson06/kernel8.nm)
+Sample output: [kernel8.nm](https://github.com/fxlin/p1-kernel/blob/master/src/exp6/kernel8.nm)
 
 ```assembly
 ffff000000082934 t a2d
@@ -37,7 +37,7 @@ aarch64-linux-gnu-objdump -dS build/kernel8.elf
 ```
 Explanation: -d disassembly; -S interleave assembly instructions with source
 
-Sample output: [kernel8.objdump](https://github.com/fxlin/p1-kernel/blob/master/src/lesson06/kernel8.objdump)
+Sample output: [kernel8.objdump](https://github.com/fxlin/p1-kernel/blob/master/src/exp6/kernel8.objdump)
 
 ```assembly
 build/kernel8.elf:     file format elf64-littleaarch64

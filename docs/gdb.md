@@ -210,7 +210,7 @@ GEF (https://github.com/hugsy/gef) is also viable. Both GEF and GDB-dashboard:
 
 GEF screenshot (note the CPU flags it recognized)
 
-![image-20210127220750060](lesson03/images/gef.png)
+![image-20210127220750060](exp3/images/gef.png)
 
 
 

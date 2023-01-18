@@ -1,1 +1,0 @@
-sched/*.PNG has updated figures. replace *png with them.

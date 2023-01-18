@@ -49,22 +49,22 @@ Experimenting with these features is difficult with commodity kernels due to the
 <!---- to complete --->
 
 ## Experiments
-0. **[Sharpen your tools!](lesson00/rpi-os.md)** (p1 exp0) 
+0. **[Sharpen your tools!](exp0/rpi-os.md)** (p1 exp0) 
 1. **Helloworld from baremetal** (p1 exp1) 
-      * [Power on + UART bring up](lesson01/rpi-os.md)
-      * [Simplifying dev workflow](lesson01/workflow.md)
+      * [Power on + UART bring up](exp1/rpi-os.md)
+      * [Simplifying dev workflow](exp1/workflow.md)
 2. **Exception elevated** (p1 exp2) 
-      * [CPU initialization, exception levels](lesson02/rpi-os.md)
+      * [CPU initialization, exception levels](exp2/rpi-os.md)
 3. **Heartbeats on** (p1 exp3) 
-      * [Interrupt handling](lesson03/rpi-os.md)
-      * [Interrupt-driven animation](lesson03/fb.md)
+      * [Interrupt handling](exp3/rpi-os.md)
+      * [Interrupt-driven animation](exp3/fb.md)
 4. **Process scheduler** (p1 exp4) 
-      * [A. Cooperative](lesson04a/rpi-os.md) 
-      * [B. Preemptive](lesson04b/rpi-os.md) 
+      * [A. Cooperative](exp4a/rpi-os.md) 
+      * [B. Preemptive](exp4b/rpi-os.md) 
 5. **A world of two lands** (p1 exp5) 
-      * [User processes and system calls](lesson05/rpi-os.md) 
+      * [User processes and system calls](exp5/rpi-os.md) 
 6. **Into virtual** (p1 exp6) 
-      * [Virtual memory management](lesson06/rpi-os.md) 
+      * [Virtual memory management](exp6/rpi-os.md) 
 
 ## Assignment weights
 
