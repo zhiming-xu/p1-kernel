@@ -37,6 +37,7 @@ plugins:
 #  - git-revision-date-localized
 
 nav:
+  - OVERVIEW: README.md
   - exp0: exp0/rpi-os.md
   - exp1: exp1/rpi-os.md
   - exp2: exp2/rpi-os.md  
@@ -54,3 +55,4 @@ nav:
   - /ssh: ssh-proxy.md
   - /ker dump: dump.md
   - /jtag: jtag.md
+  - /rpi workflow: exp1/workflow.md

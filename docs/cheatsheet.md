@@ -130,7 +130,7 @@ See "Fundamentals of ARMv8-A", Chapter "Processor state"
 
 ## Common instructions
 
-[A more detailed instruction quick reference](../../arm64.pdf) 
+[A more detailed instruction quick reference](arm64.pdf) 
 
 * mrs	Load value from a system register to one of the general purpose registers (x0–x30)
 * and	Perform the logical AND operation. 
