@@ -96,8 +96,10 @@ ffff00000008100c:       790053bf        strh    wzr, [x29, #40]
 ### Disassemble a specific function
 
 ```
-gdb -batch -ex 'file build/kernel8.elf' -ex 'disassemble /mr loop'
+gdb-multiarch -batch -ex 'file build/kernel8.elf' -ex 'disassemble /mr loop'
 ```
+
+(Note: -multiarch is the gdb version that can recognize aarch64 instructions)
 
 Sample output:
 
