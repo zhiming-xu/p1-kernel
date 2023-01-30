@@ -4,6 +4,8 @@ todel/*
 
 backup/*
 src/*/build
+src/*/build-qemu
+src/*/build-rpi
 **/*.o
 **/*.d
 **/*.swp
