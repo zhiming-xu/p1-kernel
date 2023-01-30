@@ -900,8 +900,9 @@ ffff00000008100c:       790053bf        strh    wzr, [x29, #40]
         while (1){
 </code></pre>
 <h3 id="disassemble-a-specific-function">Disassemble a specific function</h3>
-<pre><code>gdb -batch -ex 'file build/kernel8.elf' -ex 'disassemble /mr loop'
+<pre><code>gdb-multiarch -batch -ex 'file build/kernel8.elf' -ex 'disassemble /mr loop'
 </code></pre>
+<p>(Note: -multiarch is the gdb version that can recognize aarch64 instructions)</p>
 <p>Sample output:</p>
 <pre><code class="language-assembly">Dump of assembler code for function loop:
 6       {
