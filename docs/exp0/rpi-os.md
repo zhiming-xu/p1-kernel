@@ -244,10 +244,10 @@ My serial number is: 0000000000000000
 ```
 >  Note: the test program runs an infinite loop which will cause high CPU usage on your host machine. Kill the test program timely. 
 
-On Linux:
+On Linux (e.g. connecting to the course server from your local machine):
 ![](test-qemu.gif)
 
-On Windows (WSL) 
+On Windows (local WSL, not using the course server) 
 
 ![](test-qemu-wsl.gif)
 
