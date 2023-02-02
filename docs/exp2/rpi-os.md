@@ -28,7 +28,7 @@ Why exception levels? Because an OS needs to implement *isolation*. A user proce
 
 The kernel itself usually works at EL1. While running at this exception level CPU gets access to the registers that allows configuring MMU as well as some system registers. 
 
-**About EL2/3**: we will not deal with EL 2 or EL 3 until project 3 (secure hardware enclaves). Let's briefly describe them.  
+**About EL2/3**: 
 
 *EL2 is for virtual machines.* In this case the virtual machine hypervisor runs at EL2 and guest OSes run at EL1. This allows the hypervisor to isolate guest OSes in a similar way how OS isolates user processes.
 
@@ -139,7 +139,7 @@ Here we set the value of the `sctlr_el1` system register. `sctlr_el1` is respons
 * `#define SCTLR_D_CACHE_DISABLED          (0 << 2)` Disable data cache.
 * `#define SCTLR_MMU_DISABLED              (0 << 0)` Disable MMU. MMU must be disabled until the lesson 6, where we are going to prepare page tables and start working with virtual memory.
 
-FYI - [official doc](https://developer.arm.com/docs/ddi0595/b/aarch64-system-registers/sctlr_el1)
+FYI - [official doc](https://developer.arm.com/documentation/ddi0595/2021-12/AArch64-Registers/SCTLR-EL1--System-Control-Register--EL1-?lang=en)
 
 #### HCR_EL2, Hypervisor Configuration (EL2) 
 <!--- Page 2487 of AArch64-Reference-Manual.  -->
