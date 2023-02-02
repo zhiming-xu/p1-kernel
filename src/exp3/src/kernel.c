@@ -17,7 +17,7 @@ void kernel_main(void)
 	enable_irq();
 	// disable_irq();
 
-	// Some ideas for triggering exceptions. Do they work? Validate your guess. Or come up with your own method.
+	// FL (2/1/23): some ideas for triggering exceptions. Do they work? Validate your guess. Or come up with your own method...
 	// a = a / 0; 
 	// asm("mrs x0, elr_el2"); // will trigger exception at EL1
 	// asm("hvc #0");
