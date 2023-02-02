@@ -978,7 +978,7 @@
 <p><img alt="" src="../figures/els.png" /></p>
 <p>Why exception levels? Because an OS needs to implement <em>isolation</em>. A user process should not be able to access other process's data. To achieve such behavior, a kernel always runs each user process at EL0. Operating at this exception level a process can only use it's own virtual memory and can't access any instructions that change ELs, MMUs, etc. </p>
 <p>The kernel itself usually works at EL1. While running at this exception level CPU gets access to the registers that allows configuring MMU as well as some system registers. </p>
-<p><strong>About EL2/3</strong>: we will not deal with EL 2 or EL 3 until project 3 (secure hardware enclaves). Let's briefly describe them.  </p>
+<p><strong>About EL2/3</strong>: </p>
 <p><em>EL2 is for virtual machines.</em> In this case the virtual machine hypervisor runs at EL2 and guest OSes run at EL1. This allows the hypervisor to isolate guest OSes in a similar way how OS isolates user processes.</p>
 <p><em>EL3 is for Arm TrustZone</em>. It is used for transitions from ARM "Secure World" to "Insecure world". This abstraction exist to provide full hardware isolation between the software running in two different "worlds". Application from an "Insecure world" can in no way access or modify information (both instruction and data) that belongs to "secure world", and this restriction is enforced at the hardware level. </p>
 <h3 id="switching-els">Switching ELs</h3>
