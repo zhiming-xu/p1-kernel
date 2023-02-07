@@ -39,19 +39,17 @@ In this article, we use ARM's broad definition of exceptions unless stated other
 
 ![](vectable_mem.png)
 
-*Figure above: the EL1 vector table as in memory. Note that EL2 and EL3 each has a vector table like this*
+*Figure above: the EL1 vector table as in memory. EL2 and EL3 each has a vector table like this.*
 
 **An exception vector** (or handler) is a piece of code the CPU will execute when a specific exception happens. "*These would normally be branch instructions that direct the core to the full exception handler.*" (the ARM64 manual). 
 
 The ARM64 hardware mandates: each exception vector can occupy`0x80` bytes maximum (thus `.align 7` in the asm code). 
 
->  In some other architectures an exception vector could be an address to jump to. Note the subtle difference. 
+**A vector table** is an array of exception vectors. Each exception level (EL) has its own vector table. The above figure shows the vector table for EL1. 
 
-**A vector table** is an array of exception vectors. Each exception level (EL) has its own vector table. 
+**The vector table for EL1**. Provided by our kernel. Purpose: to handle exceptions *taken from* EL0 (user programs) or EL1 (the kernel's own execution). 
 
-**The vector table for EL1**. Provided by our kernel. Purpose: to handle exceptions *taken from* EL0 (user programs) or EL1 (the kernel's own execution) *to* EL1. 
-
-Format: the kernel **define 16 exception handlers**: 4 types [SError, fiq, irq, sync] X CPU 4 execution states [EL1t, EL1h, EL0_64, EL0_32]. 
+Format: the kernel **define 16 exception handlers**: 4 types [sync, irq, fiq, serror] for each of the CPU 4 execution states [EL1t, EL1h, EL0_64, EL0_32]. 
 
 **Four exception types**  (focus the former two) 
 
@@ -72,7 +70,7 @@ Format: the kernel **define 16 exception handlers**: 4 types [SError, fiq, irq, 
 
 > "The t and h suffixes are based on the terminology of *thread* and *handler*, introduced in ARMv7-M." -- ARM
 
-**The vector tables for EL2 or EL3?** The format is the same as EL1, e.g. 16 (=4x4) exception handlers. See the short official document "[AArch64 exception vector table](https://developer.arm.com/documentation/100933/0100/AArch64-exception-vector-table?lang=en)". 
+**The vector tables for EL2 or EL3?** The format is the same as EL1, e.g. 16 (=4x4) exception handlers. Note: EL2 vectors are for exceptions taken from EL2 and EL1; EL3 vectors are for exceptions taken from EL3 and EL2. See the short official document "[AArch64 exception vector table](https://developer.arm.com/documentation/100933/0100/AArch64-exception-vector-table?lang=en)". 
 
 ## Code Walkthrough 
 
@@ -124,9 +122,7 @@ irq_vector_init:
 
 #### A simple handler for unexpected exceptions
 
-In this experiment we are only interested in handling `IRQ` from `EL1h`. Yet, our kernel  defines all 16 handlers for EL1. This is for debugging ease: we want to print out meaningful message in case our kernel triggers some other exceptions due to our programming mistakes. 
-
-> Note again: all these handlers are to be executed at EL1. The exceptions come from either EL0 or EL1. 
+In this experiment we are only interested in handling `IRQ` that occurred at EL1h`. Yet, our kernel  defines all 16 handlers for EL1. This is for debugging ease: we want to print out meaningful message in case our kernel triggers some other exceptions due to our programming mistakes. 
 
 We name all the handlers that are NOT supposed to be trigged  with a `invalid` postfix. We implement these handlers using a [handle_invalid_entry](https://github.com/fxlin/p1-kernel/blob/master/src/exp3/src/entry.S#L3) macro:
 
@@ -166,7 +162,7 @@ el1_irq:
 
 Back to `kernel_entry`. This is the first thing to do in handling an exception: saving the processor state, notably registers x0 - x30, to the stack. To do so, it first subtracts from `sp` the size of total stored registers (#S_FRAME_SIZE) and then fills the stack space. 
 
-According to `kernel_entry`, there is `kernel_exit` to be called as the last thing of an exception handler. `kernel_exit` restores the CPU state by copying back the values of x0 - x30. The order exactly mirrors that of `kernel_entry` otherwise we will see wrong register values. Finally `kernel_exit` executes `eret`, which returns to the normal execution. 
+According to `kernel_entry`, there is `kernel_exit` to be called as the last thing of an exception handler. `kernel_exit` restores the CPU state by copying back the values of x0 - x30. The order exactly mirrors that of `kernel_entry` otherwise we will see wrong register values. Finally `kernel_exit` executes `eret`, which returns to the interrupted execution (still at EL1). 
 
 The following figure shows how the kernel memory look like before & after handling an interrupt. 
 
@@ -323,7 +319,7 @@ If you experience the same thing, you should omit the spurious interrupt.
 
 The CNTPCT_EL0 system register reports the current system count value.
 
-> CNTFRQ_EL0reports the frequency of the system count. However, this register is not populated by hardware. The register is write-able at the highest implemented Exception level and readable at all Exception levels. Firmware, typically running at EL3, populates this register as part of early system initialization. Higher-level software, like an operating system, can then use the register to get the frequency.
+> CNTFRQ_EL0 reports the frequency of the system count. However, this register is not populated by hardware. The register is write-able at the highest implemented Exception level and readable at all Exception levels. Firmware, typically running at EL3, populates this register as part of early system initialization. Higher-level software, like an operating system, can then use the register to get the frequency.
 
 #### Turn on timer interrupt at the CPU core
 
