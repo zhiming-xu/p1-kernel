@@ -60,13 +60,13 @@ This struct has the following members:
 
 * `cpu_context` This is a struct that contains values of all registers that might be different between the tasks.
   * Why don't we save all registers, but only `x19 - x30` and `sp`? (`fp` is `x29` and `pc` is `x30`). A short answer: to cater to the Armv8 calling convention. 
-    * Because task switch happens only when a task calls [cpu_switch_to](https://github.com/fxlin/p1-kernel/blob/master/src/exp4/src/sched.S#L4) function. From the point of view of the task that is being scheduled out (i.e. the "switched-from" task), it just calls `cpu_switch_to` function and it returns after some (potentially long) time. 
+    * Because task switch happens only when a task calls [cpu_switch_to](https://github.com/fxlin/p1-kernel/blob/master/src/exp4a/src/sched.S#L4) function. From the point of view of the task that is being scheduled out (i.e. the "switched-from" task), it just calls `cpu_switch_to` function and it returns after some (potentially long) time. 
     * The "switched from" task is unaware of that another task (i.e. the "switched-to" task) happens to runs during this period.  
     * Accordingly to ARM calling conventions registers `x0 - x18` can be overwritten by the callee (i.e. `cpu_switch_to()` in our case). Hence, the kernel doesn't have to save the contents of `x0 - x18` for the caller (the "switched-from" task). 
 * `state` The state of the currently running task (NOT `PSTATE` -- an orthogonal concept). For a task just doing CPU work but not IO, the task state will always be [TASK_RUNNING](https://github.com/fxlin/p1-kernel/blob/master/src/exp4/include/sched.h#L15). For now, this is the only state supported by our kernel. 
   * Later we add a few additional states. For example, a task waiting for an interrupt should be in a different state, because it doesn't make sense to schedule the task when it is not ready to run yet. 
 * `counter` is used to determine how long the current task has been running. `counter` decreases by 1 each timer tick. When it reaches 0, the kernel will attempt to schedule another task. This supports our simple scheduling algorithm.
-* `priority`  When the kernel schedules a new task, the kernel copies the task's  `priority` value `counter`. In this way, the kernel can regulate the amount of processor time the task gets relative to other tasks.
+* `priority`  When the kernel schedules a new task, the kernel copies the task's  `priority` value to `counter`. In this way, the kernel can regulate the amount of processor time the task gets relative to other tasks.
 * `preempt_count` A flag. A non-zero value means that the current task is executing in a critical code region that cannot be interrupted, e.g. by switching to another task. Any timer tick should be ignored and not triggering rescheduling. 
 
 After the kernel startup, there is only one task running: the one that runs kernel_main(). It is called "init task". Before the scheduler is enabled, we must fill `task_struct` of the init task. This is done in `INIT_TASK`.
