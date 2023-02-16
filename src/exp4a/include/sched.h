@@ -12,6 +12,7 @@
 #define FIRST_TASK task[0]
 #define LAST_TASK task[NR_TASKS-1]
 
+/* a simplified impl. TASK_RUNNING means either RUNNING or READY (as in OS textbook/lectures) */
 #define TASK_RUNNING				0
 
 extern struct task_struct *current;
@@ -50,9 +51,13 @@ extern void schedule(void);
 extern void switch_to(struct task_struct* next);
 extern void cpu_switch_to(struct task_struct* prev, struct task_struct* next);
 
-#define INIT_TASK \
-/*cpu_context*/	{ {0,0,0,0,0,0,0,0,0,0,0,0,0}, \
-/* state etc */	0,0,1, 0 \
+#define INIT_TASK 									\
+{ 													\
+	{0,0,0,0,0,0,0,0,0,0,0,0,0}, 	/*cpu_context*/	\
+	0,	/* state */									\
+	0,	/* counter */								\
+	1,	/* priority */								\
+	0 	/* preempt_count */							\
 }
 
 #endif

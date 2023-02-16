@@ -22,12 +22,12 @@ void _schedule(void)
 
 		for (int i = 0; i < NR_TASKS; i++){
 			p = task[i];
-			if (p && p->state == TASK_RUNNING && p->counter > c) {
+			if (p && p->state == TASK_RUNNING && p->counter > c) { /* NB: p->counter always be non negative */
 				c = p->counter;
 				next = i;
 			}
 		}
-		if (c) {
+		if (c) {	/* found a RUNNING/READY task w/ the most positive counter.  NB: c won't be -1 as counter always nonnegative */
 			break;
 		}
 
