@@ -37,7 +37,7 @@ struct cpu_context {
 struct task_struct {
 	struct cpu_context cpu_context;
 	long state;	
-	long counter; /* countdown for scheduling. higher value means having run less */
+	long counter; /* countdown for scheduling. higher value means having run for less. recharged in schedule(). decremented in timer_tick(). always non negative */
 	long priority;
 	long preempt_count;
 };
