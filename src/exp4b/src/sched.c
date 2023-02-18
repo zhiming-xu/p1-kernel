@@ -74,7 +74,21 @@ void switch_to(struct task_struct * next)
 		return;
 	struct task_struct * prev = current;
 	current = next;
-	cpu_switch_to(prev, next);
+
+	/*	 
+		below is where context switch happens. 
+
+		after cpu_switch_to(), the @prev's cpu_context.pc points to the instruction right after  
+		cpu_switch_to(). this is where the @prev task will resume in the future. 
+		for example, shown as the arrow below: 
+
+			cpu_switch_to(prev, next);
+			80d50:       f9400fe1        ldr     x1, [sp, #24]
+			80d54:       f94017e0        ldr     x0, [sp, #40]
+			80d58:       9400083b        bl      82e44 <cpu_switch_to>
+		==> 80d5c:       14000002        b       80d64 <switch_to+0x58>
+	*/
+	cpu_switch_to(prev, next);  /* will branch to @next->cpu_context.pc ...*/
 }
 
 void schedule_tail(void) {
@@ -85,10 +99,12 @@ void schedule_tail(void) {
 void timer_tick()
 {
 	--current->counter;
-	if (current->counter>0 || current->preempt_count >0) {
+	if (current->counter > 0 || current->preempt_count > 0) 
 		return;
-	}
 	current->counter=0;
+
+	/* Note: we just came from an interrupt handler and CPU just automatically disabled all interrupts. 
+		Now call scheduler with interrupts enabled */
 	enable_irq();
 	_schedule();
 	disable_irq();
